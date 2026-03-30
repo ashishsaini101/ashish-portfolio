@@ -1,8 +1,16 @@
+<div align="center">
+
 # Ashish Saini — Portfolio Website
 
 > Personal portfolio of **Ashish Saini**, Full Stack Developer (PHP · Laravel · Angular · AWS)
 
-🌐 **Live Site:** [ashishsaini.dev]((https://ashishsaini101.github.io/ashish-portfolio))
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-ashishsaini101.github.io-00e5ff?style=for-the-badge&labelColor=050d1a)](https://ashishsaini101.github.io/ashish-portfolio)
+[![HTML](https://img.shields.io/badge/HTML5-Single_File-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
+[![License](https://img.shields.io/badge/License-MIT-64ffda?style=for-the-badge)](#)
+
+![Portfolio Preview](https://ashishsaini101.github.io/ashish-portfolio/preview.png)
+
+</div>
 
 ---
 
@@ -26,79 +34,70 @@
 
 ```
 ashish-portfolio/
-├── index.html          # Main portfolio (single-file, self-contained)
-├── README.md           # This file
-├── .gitignore          # Git ignore rules
-└── LICENSE             # MIT License
+├── index.html      ← Main portfolio (single-file, self-contained)
+├── README.md       ← This file
+├── .gitignore      ← Git ignore rules
+└── LICENSE         ← MIT License
 ```
 
-> **Note:** The entire portfolio is a single `index.html` file — no build tools, no dependencies, no npm install needed. Just open it in a browser.
+> **No build tools. No npm. No dependencies.**
+> Just open `index.html` in any browser — it works instantly.
 
 ---
 
-## 🚀 Deploy Options
+## 🚀 Live Demo
 
-### GitHub Pages (Free — Recommended)
-
-1. Push this repo to GitHub
-2. Go to **Settings → Pages**
-3. Set source to `main` branch, `/ (root)`
-4. Your site will be live at `https://<your-username>.github.io/<repo-name>`
-
-### Netlify (Free)
-
-1. Drag & drop the project folder at [netlify.com/drop](https://app.netlify.com/drop)
-2. Or connect your GitHub repo for auto-deploy on push
-
-### Vercel (Free)
-
-```bash
-npm i -g vercel
-vercel
-```
-
-### Self-hosted / VPS
-
-```bash
-# Just copy index.html to your web root
-scp index.html user@yourserver.com:/var/www/html/
-```
+🔗 **[https://ashishsaini101.github.io/ashish-portfolio](https://ashishsaini101.github.io/ashish-portfolio)**
 
 ---
 
-## 🛠️ Customisation
+## 🛠️ Customisation Guide
 
-All content is in `index.html`. Key sections to update:
+All content lives inside `index.html`. Key areas to update:
 
-| What | Where in file |
-|------|--------------|
-| Name / title | `<h1 class="h-name">` in `#hero` |
-| Bio text | `.h-bio` paragraph |
-| Contact links | `.c-links` section + `href` values |
-| Social links | Footer + contact section |
-| Project details | `.pc` cards in `#projects` |
-| Skills & percentages | `.sk-card` blocks + `width` on `.bar-fill` |
+| What to change | Where in the file |
+|---------------|-------------------|
+| Name & title | `<h1 class="h-name">` in `#hero` |
+| Hero bio text | `.h-bio` paragraph |
+| Contact email / phone | `.c-links` section |
+| Project cards | `.pc` blocks in `#projects` |
+| Skill bars % | `width:XX%` on each `.bar-fill` |
 | Experience bullets | `.exp-list` in `#experience` |
-| Availability badge | `.badge` in `<nav>` |
+| Availability badge | `.badge` text in `<nav>` |
+| Social links | Footer + contact section `href` values |
 
 ---
 
-## 📦 Tech Stack Used
+## 📦 Tech Stack
 
 | Technology | Purpose |
 |------------|---------|
-| HTML5 / CSS3 | Structure & styling |
+| HTML5 / CSS3 | Structure & all styling |
 | Vanilla JavaScript | Animations, cursor, scroll reveals |
-| SVG | Animated cartoon character |
+| Inline SVG | Animated cartoon character |
 | Google Fonts | Syne + Space Mono + Instrument Serif |
-| CSS Animations | All motion effects (no libraries) |
+| CSS Animations | All motion (zero libraries) |
+
+---
+
+## 👨‍💻 About Me
+
+**Ashish Saini** — Full Stack Developer with 3+ years of experience building scalable web applications.
+
+- 🐘 **PHP & Laravel** — primary back-end stack
+- ⚡ **Angular & TypeScript** — dynamic front-ends
+- ☁️ **AWS** — S3, CloudWatch, Secret Manager
+- 🗄️ **MySQL, MongoDB, Elasticsearch** — data at scale
+- 📍 Gurugram, India · Open to product-based companies
 
 ---
 
 ## 📄 License
 
-MIT — feel free to fork and customise for your own portfolio.
+MIT — free to fork and customise for your own portfolio.
 
 ---
 
-*Built with ☕ and precision.*
+<div align="center">
+<sub>Built with ☕ and precision · <a href="mailto:saini.ar96@gmail.com">saini.ar96@gmail.com</a></sub>
+</div>
