@@ -555,7 +555,7 @@ footer{background:var(--navy);border-top:1px solid rgba(0,229,255,.06);padding:1
       <p class="rev d3">Strong ownership mindset. I take projects end-to-end, own production systems, resolve critical issues under pressure, and improve codebases proactively without being directed.</p>
       <div class="rev d4" style="margin-top:1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap">
         <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📍 Gurugram, Haryana</span>
-        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8abb9b1b6b1f6b9aae1ee98bfb5b9b1b4f6bbb7b5">[email&#160;protected]</a></span>
+        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📧 saini.ar96@gmail.com</span>
         <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📱 +91-8816000496</span>
       </div>
     </div>
@@ -689,9 +689,9 @@ footer{background:var(--navy);border-top:1px solid rgba(0,229,255,.06);padding:1
       <button type="submit" class="fsub" id="fsub">Send Message ↗</button>
     </form>
     <div class="c-links rev d4">
-      <a href="/cdn-cgi/l/email-protection#116270787f783f7063282751767c70787d3f727e7c" class="c-link">
+      <a href="mailto:saini.ar96@gmail.com" class="c-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span class="__cf_email__" data-cfemail="5b283a323532753a29626d1b3c363a323775383436">[email&#160;protected]</span>
+        saini.ar96@gmail.com
       </a>
       <a href="tel:+918816000496" class="c-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -710,7 +710,7 @@ footer{background:var(--navy);border-top:1px solid rgba(0,229,255,.06);padding:1
   <div class="ftxt">PHP · Laravel · Angular · AWS</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* CURSOR */
 const c1=document.getElementById('cur'),c2=document.getElementById('cur2');
 let mx=0,my=0,rx=0,ry=0;
@@ -734,4 +734,10 @@ document.querySelectorAll('.stat-c').forEach(c=>co.observe(c));
 function handleSub(e){e.preventDefault();const b=document.getElementById('fsub');b.textContent='Sending…';b.style.opacity='.7';setTimeout(()=>{b.textContent='✓ Message Sent!';b.style.background='var(--accent2)';setTimeout(()=>{b.textContent='Send Message ↗';b.style.background='var(--cyan)';b.style.opacity='1';e.target.reset()},3000)},1500)}
 
 /* SMOOTH SCROLL */
-document.querySelectorAll('a[href^="#"]').f
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})}));
+
+/* PARALLAX */
+window.addEventListener('scroll',()=>{const g=document.querySelector('.hero-glow');if(g)g.style.transform=`translate(-50%,calc(-50% + ${window.scrollY*.12}px))`});
+</script>
+</body>
+</html>
