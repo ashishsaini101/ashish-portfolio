@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashish Saini — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#050d1a;--navy2:#070f1e;--slate:#0b1c2e;--mid:#0e2640;--cyan:#00e5ff;--blue:#2979ff;--accent2:#64ffda;--red:#ff4081;--white:#dff0ff;--muted:#5a7fa0;--mono:'Space Mono',monospace;--sans:'Syne',sans-serif;--serif:'Instrument Serif',serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--white);font-family:var(--sans);overflow-x:hidden;cursor:none}
+#cur,#cur2{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%}
+#cur{width:10px;height:10px;background:var(--cyan);mix-blend-mode:difference}
+#cur2{width:34px;height:34px;border:1.5px solid rgba(0,229,255,.5);transition:transform .22s cubic-bezier(.16,1,.3,1)}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9990}
+nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3.5rem;z-index:1000;background:rgba(5,13,26,.85);backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,229,255,.06)}
+.logo{font-family:var(--mono);font-size:.9rem;color:var(--cyan);letter-spacing:.1em}
+.logo span{color:var(--muted)}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-family:var(--mono);font-size:.62rem;color:var(--muted);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--cyan);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.nav-links a:hover{color:var(--cyan)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.badge{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.58rem;color:var(--accent2);border:1px solid rgba(100,255,218,.25);padding:.3rem .9rem;border-radius:100px;background:rgba(100,255,218,.04);animation:bpulse 3s ease-in-out infinite}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:dblink 1.4s ease-in-out infinite}
+@keyframes bpulse{0%,100%{box-shadow:0 0 0 0 rgba(100,255,218,.1)}50%{box-shadow:0 0 18px 4px rgba(100,255,218,.08)}}
+@keyframes dblink{0%,100%{opacity:1}50%{opacity:.15}}
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 3.5rem 3rem;position:relative;overflow:hidden;gap:2rem}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.032) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 10%,transparent 100%)}
+.hero-glow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(0,229,255,.07) 0%,transparent 65%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:gpulse 7s ease-in-out infinite}
+@keyframes gpulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.hero-left{position:relative;z-index:2}
+.h-tag{font-family:var(--mono);font-size:.62rem;color:var(--cyan);letter-spacing:.22em;text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fup .8s .15s forwards}
+.h-tag::before{content:'';display:block;width:28px;height:1px;background:var(--cyan)}
+h1.h-name{font-family:var(--sans);font-weight:800;font-size:clamp(3.2rem,5.5vw,5.8rem);line-height:.97;letter-spacing:-.03em;margin-bottom:.4rem;opacity:0;animation:fup .8s .3s forwards}
+h1.h-name .cy{color:var(--cyan)}
+.h-italic{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.5vw,2.2rem);color:var(--muted);margin-bottom:1.6rem;opacity:0;animation:fup .8s .45s forwards}
+.h-bio{font-size:.92rem;line-height:1.82;color:var(--muted);max-width:460px;margin-bottom:2.5rem;opacity:0;animation:fup .8s .6s forwards}
+.h-cta{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fup .8s .75s forwards}
+.btn-p{display:inline-flex;align-items:center;gap:.5rem;background:var(--cyan);color:var(--navy);font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;padding:.85rem 1.8rem;border-radius:5px;text-decoration:none;text-transform:uppercase;border:2px solid var(--cyan);box-shadow:0 0 24px rgba(0,229,255,.3);transition:all .3s}
+.btn-p:hover{background:transparent;color:var(--cyan);box-shadow:0 0 40px rgba(0,229,255,.5)}
+.btn-o{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--white);font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;padding:.85rem 1.8rem;border-radius:5px;text-decoration:none;text-transform:uppercase;border:2px solid rgba(255,255,255,.12);transition:all .3s}
+.btn-o:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0;animation:fin 1.2s .5s forwards}
+.stage{position:relative;width:400px;height:520px}
+.ring1,.ring2,.ring3{position:absolute;border-radius:50%;border:1px solid rgba(0,229,255,.1);top:50%;left:50%;transform:translate(-50%,-50%)}
+.ring1{width:300px;height:300px;animation:rp 4s ease-in-out infinite}
+.ring2{width:400px;height:400px;animation:rp 4s 1s ease-in-out infinite}
+.ring3{width:490px;height:490px;animation:rp 4s 2s ease-in-out infinite}
+@keyframes rp{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}50%{opacity:.9;transform:translate(-50%,-50%) scale(1.02)}}
+.char-svg{width:100%;height:100%;filter:drop-shadow(0 30px 80px rgba(0,229,255,.2));animation:cFloat 5s ease-in-out infinite}
+@keyframes cFloat{0%,100%{transform:translateY(0) rotate(-.3deg)}50%{transform:translateY(-20px) rotate(.3deg)}}
+.pill{position:absolute;background:rgba(8,21,37,.95);border:1px solid rgba(0,229,255,.25);border-radius:50px;padding:.42rem .95rem;font-family:var(--mono);font-size:.58rem;color:var(--cyan);white-space:nowrap;backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:.4rem}
+.pill.p1{top:7%;left:-20%;animation:fp1 5s ease-in-out infinite}
+.pill.p2{top:30%;right:-18%;animation:fp2 6s ease-in-out infinite}
+.pill.p3{bottom:30%;left:-22%;animation:fp3 4.5s ease-in-out infinite}
+.pill.p4{bottom:14%;right:-16%;animation:fp4 5.5s ease-in-out infinite}
+.pd{width:6px;height:6px;border-radius:50%;background:var(--accent2)}
+@keyframes fp1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes fp2{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+@keyframes fp3{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fp4{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.shadow-el{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:200px;height:28px;background:radial-gradient(ellipse,rgba(0,229,255,.22) 0%,transparent 70%);border-radius:50%;animation:shAnim 5s ease-in-out infinite}
+@keyframes shAnim{0%,100%{opacity:.6;transform:translateX(-50%) scaleX(1)}50%{opacity:.3;transform:translateX(-50%) scaleX(.75)}}
+.code-card{position:absolute;bottom:1.5rem;right:-1.5rem;background:rgba(7,15,30,.97);border:1px solid rgba(0,229,255,.13);border-radius:12px;padding:1rem 1.2rem;font-family:var(--mono);font-size:.58rem;color:var(--muted);max-width:210px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5);opacity:0;animation:fup 1s 1.2s forwards;z-index:5}
+.cc .cm{color:#3a5570}.cc .ck{color:#82aaff}.cc .cv{color:var(--accent2)}.cc .cs{color:#ff9e64}.cc .cf{color:#c792ea}.cl{line-height:1.8}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.52rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fin 1s 1.6s forwards}
+.sl{width:1px;height:38px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:slA 2s ease-in-out infinite}
+@keyframes slA{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.6);opacity:.4}}
+.marquee-wrap{background:var(--cyan);overflow:hidden;padding:.65rem 0;white-space:nowrap}
+.marquee-inner{display:inline-flex;gap:2.5rem;animation:mq 22s linear infinite}
+.mi{font-family:var(--mono);font-size:.65rem;color:var(--navy);letter-spacing:.15em;text-transform:uppercase;font-weight:700;flex-shrink:0}
+.ms{color:rgba(5,13,26,.35)}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+section{padding:8rem 3.5rem;position:relative}
+.s-label{font-family:var(--mono);font-size:.58rem;color:var(--cyan);letter-spacing:.3em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.s-label::before{content:'//';color:var(--muted)}
+.s-title{font-family:var(--sans);font-weight:800;font-size:clamp(2.4rem,4.5vw,4rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:1rem}
+.s-title em{font-family:var(--serif);font-style:italic;color:var(--cyan);font-weight:400}
+#about{background:var(--navy2)}
+.about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:6rem;align-items:center;max-width:1200px;margin:0 auto}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem}
+.stat-c{background:var(--slate);border:1px solid rgba(0,229,255,.1);border-radius:14px;padding:1.5rem;transition:all .4s;position:relative;overflow:hidden;cursor:default}
+.stat-c::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.06) 0%,transparent 60%);opacity:0;transition:opacity .4s}
+.stat-c:hover{border-color:rgba(0,229,255,.4);transform:translateY(-4px)}
+.stat-c:hover::before{opacity:1}
+.stat-n{font-family:var(--sans);font-weight:800;font-size:2.6rem;color:var(--cyan);line-height:1;margin-bottom:.3rem}
+.stat-l{font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.about-text p{color:var(--muted);line-height:1.85;margin-bottom:1.1rem;font-size:.91rem}
+.about-text p strong{color:var(--white)}
+#skills{background:var(--navy)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1200px;margin:4rem auto 0}
+.sk-card{background:var(--slate);border:1px solid rgba(0,229,255,.07);border-radius:14px;padding:1.8rem;transition:all .45s;position:relative;overflow:hidden;cursor:default}
+.sk-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.sk-card:hover{transform:translateY(-7px);border-color:rgba(0,229,255,.28);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.sk-card:hover::after{transform:scaleX(1)}
+.sk-icon{font-size:1.9rem;margin-bottom:.9rem}
+.sk-name{font-family:var(--sans);font-weight:700;font-size:1.05rem;margin-bottom:.45rem;color:var(--white)}
+.sk-desc{font-family:var(--mono);font-size:.58rem;color:var(--muted);line-height:1.65}
+.bar-wrap{margin-top:1rem}
+.bar-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.54rem;color:var(--muted);margin-bottom:.4rem}
+.bar{height:2.5px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
+.sk-card.revealed .bar-fill{transform:scaleX(1)}
+#projects{background:var(--navy2)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1200px;margin:4rem auto 0}
+.pc{background:var(--slate);border:1px solid rgba(0,229,255,.07);border-radius:18px;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
+.pc:hover{transform:translateY(-12px);border-color:rgba(0,229,255,.3);box-shadow:0 40px 80px rgba(0,0,0,.4),0 0 50px rgba(0,229,255,.06)}
+.pv{height:140px;background:var(--navy);border-bottom:1px solid rgba(0,229,255,.07);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pv::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--slate) 100%)}
+.ph{padding:1.8rem 1.8rem .8rem;border-bottom:1px solid rgba(0,229,255,.06);position:relative}
+.pnum{font-family:var(--mono);font-size:.56rem;color:var(--cyan);letter-spacing:.22em;margin-bottom:.7rem;opacity:.6}
+.ptitle{font-family:var(--sans);font-weight:700;font-size:1.18rem;margin-bottom:.35rem}
+.psub{font-family:var(--mono);font-size:.58rem;color:var(--muted)}
+.pbadge{position:absolute;top:1.2rem;right:1.2rem;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.2);color:var(--cyan);font-family:var(--mono);font-size:.48rem;letter-spacing:.1em;padding:.22rem .6rem;border-radius:4px;text-transform:uppercase}
+.pb{padding:1.4rem 1.8rem 1.8rem;flex:1;display:flex;flex-direction:column}
+.pdesc{color:var(--muted);font-size:.84rem;line-height:1.78;margin-bottom:1.3rem;flex:1}
+.ptags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.3rem}
+.ptag{font-family:var(--mono);font-size:.52rem;color:var(--cyan);letter-spacing:.08em;border:1px solid rgba(0,229,255,.18);padding:.2rem .62rem;border-radius:100px;background:rgba(0,229,255,.04)}
+.plink{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.63rem;color:var(--cyan);text-decoration:none;transition:gap .3s}
+.plink:hover{gap:.85rem}
+#experience{background:var(--navy)}
+.exp-wrap{max-width:850px;margin:4.5rem auto 0;position:relative}
+.exp-line{position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--cyan),transparent)}
+.exp-item{padding-left:3rem;margin-bottom:4rem;position:relative}
+.exp-dot{position:absolute;left:-5px;top:.3rem;width:10px;height:10px;border-radius:50%;background:var(--navy);border:2px solid var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.6)}
+.exp-period{font-family:var(--mono);font-size:.58rem;color:var(--cyan);letter-spacing:.15em;margin-bottom:.5rem}
+.exp-role{font-family:var(--sans);font-weight:700;font-size:1.32rem;margin-bottom:.3rem}
+.exp-company{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:1.2rem}
+.exp-list{list-style:none}
+.exp-list li{font-size:.85rem;color:var(--muted);line-height:1.78;padding-left:1.2rem;position:relative;margin-bottom:.4rem}
+.exp-list li::before{content:'▸';position:absolute;left:0;color:var(--cyan)}
+#contact{background:var(--navy2)}
+.contact-inner{max-width:660px;margin:0 auto;text-align:center}
+.contact-intro{color:var(--muted);font-size:.93rem;line-height:1.85;margin-bottom:3rem}
+.cf2{text-align:left}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
+.ff{margin-bottom:1.2rem}
+.fl{display:block;font-family:var(--mono);font-size:.58rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem}
+.fi,.fta{width:100%;background:var(--slate);border:1px solid rgba(0,229,255,.13);border-radius:9px;padding:.9rem 1.1rem;font-family:var(--mono);font-size:.76rem;color:var(--white);outline:none;transition:border-color .3s,box-shadow .3s;resize:none}
+.fi:focus,.fta:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,229,255,.07)}
+.fi::placeholder,.fta::placeholder{color:var(--muted)}
+.fta{height:118px}
+.fsub{width:100%;background:var(--cyan);color:var(--navy);font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:1rem;border:none;border-radius:9px;cursor:none;transition:all .3s;box-shadow:0 0 30px rgba(0,229,255,.2)}
+.fsub:hover{box-shadow:0 0 50px rgba(0,229,255,.45);transform:translateY(-2px)}
+.c-links{display:flex;justify-content:center;gap:2rem;margin-top:2.8rem;flex-wrap:wrap}
+.c-link{display:flex;align-items:center;gap:.55rem;font-family:var(--mono);font-size:.66rem;color:var(--muted);text-decoration:none;transition:color .3s}
+.c-link:hover{color:var(--cyan)}
+footer{background:var(--navy);border-top:1px solid rgba(0,229,255,.06);padding:1.8rem 3.5rem;display:flex;align-items:center;justify-content:space-between}
+.ftxt{font-family:var(--mono);font-size:.58rem;color:var(--muted)}
+.ftxt span{color:var(--cyan)}
+@keyframes fup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+.rev{opacity:0;transform:translateY(38px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.rev.vis{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+@media(max-width:1000px){#hero{grid-template-columns:1fr;text-align:center}.hero-right{display:none}.about-grid{grid-template-columns:1fr;gap:3rem}.skills-grid{grid-template-columns:repeat(2,1fr)}.proj-grid{grid-template-columns:1fr}nav{padding:1rem 1.5rem}.nav-links{gap:1.5rem}section{padding:5rem 1.5rem}#hero{padding:7rem 1.5rem 3rem}.frow{grid-template-columns:1fr}}
+@media(max-width:600px){.skills-grid{grid-template-columns:1fr}.about-stats{grid-template-columns:1fr 1fr}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur2"></div>
+
+<nav>
+  <div class="logo">AS<span>_</span>dev</div>
+  <div class="nav-links">
+    <a href="#about">About</a><a href="#skills">Skills</a>
+    <a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+  </div>
+  <div class="badge"><div class="dot"></div>Open to Work · 30 days</div>
+</nav>
+
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-left">
+    <div class="h-tag">Full Stack Developer · Gurugram, India 🇮🇳</div>
+    <h1 class="h-name">Ashish<br><span class="cy">Saini.</span></h1>
+    <p class="h-italic">Where clean code meets<br>real-world impact.</p>
+    <p class="h-bio">3+ years shipping production systems — from Laravel microservices powering multinational deployments to real-time Angular dashboards. I build software that scales and lasts.</p>
+    <div class="h-cta"><a href="#projects" class="btn-p">View My Work →</a><a href="#contact" class="btn-o">Hire Me</a></div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stage">
+      <div class="ring1"></div><div class="ring2"></div><div class="ring3"></div>
+      <div class="pill p1"><div class="pd"></div>Laravel Expert</div>
+      <div class="pill p2"><div class="pd" style="background:var(--blue)"></div>AWS Cloud</div>
+      <div class="pill p3"><div class="pd" style="background:var(--red)"></div>3+ Yrs Exp</div>
+      <div class="pill p4"><div class="pd" style="background:var(--accent2)"></div>Available Now</div>
+
+      <!-- ══════════ PREMIUM DEVELOPER CHARACTER ══════════ -->
+      <svg class="char-svg" viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00e5ff" stop-opacity=".25"/><stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/></radialGradient>
+          <radialGradient id="skin" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#f5c99a"/><stop offset="100%" stop-color="#e8a870"/></radialGradient>
+          <linearGradient id="hoodie" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0e2640"/><stop offset="100%" stop-color="#071a2e"/></linearGradient>
+          <linearGradient id="chair" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0f2d47"/><stop offset="100%" stop-color="#061220"/></linearGradient>
+          <linearGradient id="desk" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0b2035"/><stop offset="100%" stop-color="#0d2840"/></linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="sglow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <clipPath id="sc1"><rect x="62" y="88" width="146" height="98" rx="4"/></clipPath>
+          <clipPath id="sc2"><rect x="220" y="93" width="96" height="92" rx="4"/></clipPath>
+        </defs>
+
+        <!-- ground glow -->
+        <ellipse cx="200" cy="508" rx="120" ry="16" fill="url(#gG)" opacity=".7"/>
+
+        <!-- ── DESK ── -->
+        <rect x="28" y="214" width="330" height="14" rx="4" fill="url(#desk)" stroke="#1a3a5f" stroke-width="1"/>
+        <rect x="40" y="226" width="10" height="65" rx="3" fill="#071220"/>
+        <rect x="336" y="226" width="10" height="65" rx="3" fill="#071220"/>
+        <rect x="34" y="289" width="22" height="5" rx="2" fill="#050e1a"/>
+        <rect x="330" y="289" width="22" height="5" rx="2" fill="#050e1a"/>
+
+        <!-- ── MONITOR LEFT ── -->
+        <rect x="56" y="80" width="158" height="136" rx="9" fill="#040b14" stroke="#00e5ff" stroke-width="1.4"/>
+        <rect x="62" y="86" width="146" height="124" rx="6" fill="#020910"/>
+        <!-- title bar -->
+        <rect x="62" y="86" width="146" height="18" rx="6" fill="#040d18"/>
+        <rect x="62" y="98" width="146" height="6" fill="#040d18"/>
+        <circle cx="68" cy="95" r="3" fill="#ff4081" opacity=".85"/>
+        <circle cx="78" cy="95" r="3" fill="#ffd740" opacity=".75"/>
+        <circle cx="88" cy="95" r="3" fill="#64ffda"/>
+        <!-- stand -->
+        <rect x="122" y="214" width="28" height="11" fill="#09192a"/>
+        <rect x="108" y="223" width="56" height="5" rx="2" fill="#08182a"/>
+
+        <!-- CODE on screen 1 -->
+        <g clip-path="url(#sc1)">
+          <!-- scan line -->
+          <rect x="62" y="104" width="146" height="2.5" fill="rgba(0,229,255,.04)" opacity=".8">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,82;0,0" dur="4s" repeatCount="indefinite"/>
+          </rect>
+          <text x="68" y="118" font-family="monospace" font-size="6.5" fill="#3a5570">// crew deployment api</text>
+          <text x="68" y="130" font-family="monospace" font-size="6.5" fill="#c792ea">Route</text>
+          <text x="91" y="130" font-family="monospace" font-size="6.5" fill="#89ddff">::</text>
+          <text x="97" y="130" font-family="monospace" font-size="6.5" fill="#82aaff">post</text>
+          <text x="115" y="130" font-family="monospace" font-size="6.5" fill="#eee">('/deploy',</text>
+          <text x="68" y="142" font-family="monospace" font-size="6.5" fill="#ff9e64">  [CrewController</text>
+          <text x="68" y="154" font-family="monospace" font-size="6.5" fill="#ff9e64">  ::class, 'deploy']);</text>
+          <text x="68" y="166" font-family="monospace" font-size="6.5" fill="#3a5570">// elastic search</text>
+          <text x="68" y="178" font-family="monospace" font-size="6.5" fill="#64ffda">$hits</text>
+          <text x="90" y="178" font-family="monospace" font-size="6.5" fill="#89ddff"> = ES::search($q);</text>
+          <rect x="68" y="170" width="4" height="8" fill="#00e5ff" rx=".8" opacity=".9">
+            <animate attributeName="opacity" values="0.9;0;0.9" dur=".85s" repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <!-- ── MONITOR RIGHT ── -->
+        <rect x="214" y="84" width="108" height="132" rx="8" fill="#040b14" stroke="#2979ff" stroke-width="1.2"/>
+        <rect x="220" y="90" width="96" height="120" rx="5" fill="#020910"/>
+        <rect x="220" y="90" width="96" height="16" rx="5" fill="#040d18"/>
+        <rect x="220" y="100" width="96" height="6" fill="#040d18"/>
+        <circle cx="225" cy="98" r="2.2" fill="#2979ff" opacity=".7"/>
+        <!-- stand -->
+        <rect x="256" y="214" width="20" height="11" fill="#09192a"/>
+        <rect x="244" y="223" width="44" height="5" rx="2" fill="#08182a"/>
+
+        <!-- AWS console on screen 2 -->
+        <g clip-path="url(#sc2)">
+          <text x="226" y="116" font-family="monospace" font-size="5.8" fill="#546d8a">AWS Console</text>
+          <rect x="224" y="120" width="86" height="13" rx="2.5" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.18)" stroke-width=".7"/>
+          <text x="228" y="130" font-family="monospace" font-size="5" fill="#64ffda">S3  ████████ 82%</text>
+          <rect x="224" y="136" width="86" height="13" rx="2.5" fill="rgba(100,255,218,.04)" stroke="rgba(100,255,218,.14)" stroke-width=".7"/>
+          <text x="228" y="146" font-family="monospace" font-size="5" fill="#82aaff">EC2 ███████  64%</text>
+          <rect x="224" y="152" width="86" height="13" rx="2.5" fill="rgba(41,121,255,.04)" stroke="rgba(41,121,255,.14)" stroke-width=".7"/>
+          <text x="228" y="162" font-family="monospace" font-size="5" fill="#ff9e64">RDS ████████ 71%</text>
+          <text x="226" y="177" font-family="monospace" font-size="4.5" fill="#546d8a">CloudWatch: 0 Alarms ✓</text>
+          <text x="226" y="188" font-family="monospace" font-size="4.5" fill="#64ffda">● All systems green</text>
+        </g>
+
+        <!-- ── KEYBOARD ── -->
+        <rect x="90" y="216" width="168" height="17" rx="4" fill="#07172a" stroke="#152c45" stroke-width=".8"/>
+        <g fill="#0b2038" stroke="#152c45" stroke-width=".5">
+          <rect x="94" y="219" width="7" height="5" rx="1"/><rect x="103" y="219" width="7" height="5" rx="1"/>
+          <rect x="112" y="219" width="7" height="5" rx="1"/><rect x="121" y="219" width="7" height="5" rx="1"/>
+          <rect x="130" y="219" width="7" height="5" rx="1"/><rect x="139" y="219" width="7" height="5" rx="1"/>
+          <rect x="148" y="219" width="7" height="5" rx="1"/><rect x="157" y="219" width="7" height="5" rx="1"/>
+          <rect x="166" y="219" width="7" height="5" rx="1"/><rect x="175" y="219" width="7" height="5" rx="1"/>
+          <rect x="184" y="219" width="7" height="5" rx="1"/><rect x="193" y="219" width="7" height="5" rx="1"/>
+          <rect x="202" y="219" width="7" height="5" rx="1"/><rect x="211" y="219" width="14" height="5" rx="1"/>
+          <rect x="118" y="226" width="108" height="5" rx="1"/>
+        </g>
+        <!-- typing glow key -->
+        <rect x="112" y="219" width="7" height="5" rx="1" fill="rgba(0,229,255,.6)" opacity="0">
+          <animate attributeName="opacity" values="0;.9;0;0;0;.7;0;0;.8;0" dur="1.6s" repeatCount="indefinite"/>
+          <animate attributeName="x" values="112;130;148;121;157;103;139;175;148;112" dur="1.6s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- ── MOUSE ── -->
+        <rect x="268" y="217" width="20" height="13" rx="5.5" fill="#07172a" stroke="#152c45" stroke-width=".8"/>
+        <line x1="278" y1="217" x2="278" y2="230" stroke="#152c45" stroke-width=".8"/>
+        <circle cx="278" cy="220.5" r="1.8" fill="rgba(0,229,255,.4)"/>
+
+        <!-- ── COFFEE ── -->
+        <rect x="44" y="196" width="28" height="22" rx="4" fill="#0a1e32" stroke="#1a3a5f" stroke-width="1"/>
+        <path d="M72 201 Q81 201 81 207 Q81 214 72 214" stroke="#152c45" stroke-width="1.4" fill="none"/>
+        <text x="50" y="213" font-family="monospace" font-size="10" fill="#00e5ff">☕</text>
+        <!-- steam anim -->
+        <path d="M50 193 Q52 186 50 180" stroke="#00e5ff" stroke-width="1.1" stroke-linecap="round" fill="none">
+          <animate attributeName="opacity" values=".4;.9;.4" dur="2.2s" repeatCount="indefinite"/>
+          <animate attributeName="d" values="M50 193 Q52 186 50 180;M50 193 Q55 185 51 180;M50 193 Q52 186 50 180" dur="2.2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M57 191 Q59 184 57 178" stroke="#00e5ff" stroke-width="1.1" stroke-linecap="round" fill="none">
+          <animate attributeName="opacity" values=".3;.7;.3" dur="2.8s" repeatCount="indefinite"/>
+        </path>
+
+        <!-- ── CHAIR ── -->
+        <rect x="118" y="296" width="140" height="88" rx="12" fill="url(#chair)" stroke="#152c45" stroke-width="1"/>
+        <rect x="132" y="290" width="112" height="28" rx="10" fill="#0e2840" stroke="#152c45" stroke-width="1"/>
+        <rect x="108" y="360" width="160" height="38" rx="8" fill="url(#chair)" stroke="#152c45" stroke-width="1"/>
+        <rect x="98" y="338" width="15" height="38" rx="4.5" fill="#091828" stroke="#152c45" stroke-width=".8"/>
+        <rect x="263" y="338" width="15" height="38" rx="4.5" fill="#091828" stroke="#152c45" stroke-width=".8"/>
+        <rect x="190" y="396" width="12" height="52" rx="3" fill="#060f1c"/>
+        <ellipse cx="196" cy="451" rx="48" ry="8" fill="#050c18" stroke="#152c45" stroke-width=".7"/>
+        <circle cx="156" cy="458" r="5.5" fill="#040b15" stroke="#00e5ff" stroke-width="1"/>
+        <circle cx="196" cy="461" r="5.5" fill="#040b15" stroke="#00e5ff" stroke-width="1"/>
+        <circle cx="236" cy="458" r="5.5" fill="#040b15" stroke="#00e5ff" stroke-width="1"/>
+
+        <!-- ── HOODIE BODY ── -->
+        <path d="M142 316 C120 323 98 342 94 378 L282 378 C278 342 256 323 234 316 Z" fill="url(#hoodie)" stroke="#152c45" stroke-width="1"/>
+        <!-- zipper -->
+        <rect x="193" y="322" width="3.5" height="50" rx="1" fill="#091828" opacity=".9"/>
+        <!-- hood / collar -->
+        <path d="M142 316 Q165 308 196 310 Q227 308 234 316 Q214 318 196 316 Q178 318 142 316 Z" fill="#0c2238"/>
+        <!-- pocket -->
+        <rect x="162" y="346" width="52" height="20" rx="4.5" fill="#060f1c" stroke="#152c45" stroke-width=".8"/>
+        <text x="170" y="361" font-family="Space Mono,monospace" font-size="8.5" fill="#00e5ff" font-weight="700">&lt;AS/&gt;</text>
+        <!-- seams -->
+        <path d="M142 318 Q150 336 160 350" stroke="#152c45" stroke-width=".8" fill="none"/>
+        <path d="M234 318 Q226 336 216 350" stroke="#152c45" stroke-width=".8" fill="none"/>
+
+        <!-- ── LEFT ARM ── -->
+        <path d="M124 327 Q98 342 86 370 L102 378 Q118 352 142 336 Z" fill="#0e2640" stroke="#152c45" stroke-width=".8"/>
+        <!-- left wrist/hand -->
+        <ellipse cx="97" cy="222" rx="13" ry="9" fill="url(#skin)">
+          <animateTransform attributeName="transform" type="translate" values="0,0;2,-1;0,0;-1,1;0,0" dur="1.8s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- left fingers -->
+        <g fill="url(#skin)">
+          <rect x="86" y="215" width="4.5" height="9" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,2;0,0;0,1;0,0" dur="1.7s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="93" y="213" width="4.5" height="11" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,3;0,0;0,0;0,0" dur="1.3s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="100" y="215" width="4.5" height="9" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,1;0,0;0,3;0,0" dur="1.5s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="107" y="216" width="4.5" height="8" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,0;0,2;0,0" dur="2s" repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <!-- ── RIGHT ARM ── -->
+        <path d="M254 327 Q278 342 290 370 L274 378 Q258 352 234 336 Z" fill="#0e2640" stroke="#152c45" stroke-width=".8"/>
+        <!-- right wrist/hand -->
+        <ellipse cx="279" cy="222" rx="13" ry="9" fill="url(#skin)">
+          <animateTransform attributeName="transform" type="translate" values="0,0;-2,-1;0,0;1,1;0,0" dur="1.6s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- right fingers -->
+        <g fill="url(#skin)">
+          <rect x="266" y="215" width="4.5" height="9" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,1;0,0;0,2;0,0" dur="1.9s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="273" y="213" width="4.5" height="11" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,2;0,0;0,1;0,0" dur="1.4s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="280" y="215" width="4.5" height="9" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,3;0,0;0,0;0,0" dur="1.6s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="287" y="216" width="4.5" height="8" rx="2.2">
+            <animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,0;0,2;0,0" dur="2.1s" repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <!-- ── NECK ── -->
+        <rect x="188" y="303" width="20" height="20" rx="5" fill="url(#skin)"/>
+
+        <!-- ── HEAD ── -->
+        <ellipse cx="198" cy="272" rx="48" ry="50" fill="url(#skin)"/>
+        <!-- face shadow -->
+        <ellipse cx="198" cy="292" rx="34" ry="14" fill="#de9660" opacity=".2"/>
+
+        <!-- ── HAIR ── -->
+        <path d="M150 264 Q153 222 198 213 Q243 222 246 264 Q228 237 198 234 Q168 237 150 264 Z" fill="#18080A"/>
+        <path d="M150 264 Q142 272 147 290 Q152 266 162 262 Z" fill="#18080A"/>
+        <path d="M246 264 Q254 272 249 290 Q246 266 234 262 Z" fill="#18080A"/>
+        <!-- hair highlights -->
+        <path d="M164 230 Q178 223 195 226" stroke="#2a1008" stroke-width="2" fill="none" opacity=".55"/>
+        <path d="M202 225 Q216 221 230 228" stroke="#2a1008" stroke-width="2" fill="none" opacity=".55"/>
+        <!-- tuft -->
+        <path d="M193 213 Q198 199 203 213 Q200 203 198 205 Q196 203 193 213 Z" fill="#18080A"/>
+        <!-- shine -->
+        <ellipse cx="183" cy="224" rx="11" ry="4" fill="#2a1008" opacity=".35" transform="rotate(-14,183,224)"/>
+
+        <!-- ── EYEBROWS ── -->
+        <path d="M163 256 Q173 249 183 253" stroke="#18080A" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+        <path d="M213 253 Q223 249 233 256" stroke="#18080A" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+
+        <!-- ── EYES ── -->
+        <!-- left -->
+        <ellipse cx="173" cy="268" rx="11" ry="12" fill="white"/>
+        <ellipse cx="173" cy="270" rx="7.5" ry="8.5" fill="#18080A">
+          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="173" cy="271" rx="4" ry="4.5" fill="#000">
+          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="176" cy="267" rx="2.8" ry="2.2" fill="white" opacity=".9">
+          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- right -->
+        <ellipse cx="223" cy="268" rx="11" ry="12" fill="white"/>
+        <ellipse cx="223" cy="270" rx="7.5" ry="8.5" fill="#18080A">
+          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="223" cy="271" rx="4" ry="4.5" fill="#000">
+          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="226" cy="267" rx="2.8" ry="2.2" fill="white" opacity=".9">
+          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- blink -->
+        <ellipse cx="173" cy="259" rx="11" ry="0" fill="url(#skin)">
+          <animate attributeName="ry" values="0;0;0;0;0;12;0;0;0;0;0;12;0" dur="7s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="223" cy="259" rx="11" ry="0" fill="url(#skin)">
+          <animate attributeName="ry" values="0;0;0;0;0;12;0;0;0;0;0;12;0" dur="7s" repeatCount="indefinite"/>
+        </ellipse>
+
+        <!-- ── GLASSES ── -->
+        <rect x="158" y="260" width="28" height="20" rx="7" fill="rgba(0,229,255,.04)" stroke="#00e5ff" stroke-width="2" filter="url(#glow)"/>
+        <rect x="194" y="260" width="28" height="20" rx="7" fill="rgba(0,229,255,.04)" stroke="#00e5ff" stroke-width="2" filter="url(#glow)"/>
+        <line x1="186" y1="270" x2="194" y2="270" stroke="#00e5ff" stroke-width="1.8"/>
+        <line x1="158" y1="269" x2="144" y2="271" stroke="#00e5ff" stroke-width="1.8"/>
+        <line x1="222" y1="269" x2="236" y2="271" stroke="#00e5ff" stroke-width="1.8"/>
+        <!-- lens glare -->
+        <path d="M161 264 Q167 262 170 266" stroke="rgba(255,255,255,.4)" stroke-width=".7" fill="none"/>
+        <path d="M197 264 Q203 262 206 266" stroke="rgba(255,255,255,.4)" stroke-width=".7" fill="none"/>
+
+        <!-- ── EARS ── -->
+        <ellipse cx="150" cy="274" rx="8" ry="10" fill="url(#skin)"/>
+        <ellipse cx="246" cy="274" rx="8" ry="10" fill="url(#skin)"/>
+
+        <!-- ── HEADPHONES ── -->
+        <path d="M150 262 Q198 208 246 262" stroke="#00e5ff" stroke-width="4.5" fill="none" filter="url(#glow)"/>
+        <!-- left cup -->
+        <rect x="136" y="258" width="26" height="30" rx="11" fill="#07182a" stroke="#00e5ff" stroke-width="1.8"/>
+        <rect x="140" y="262" width="18" height="22" rx="9" fill="#0c2336"/>
+        <ellipse cx="149" cy="273" rx="5.5" ry="6.5" fill="#060e1c" stroke="#00e5ff" stroke-width=".9" opacity=".8"/>
+        <line x1="143" y1="267" x2="155" y2="267" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
+        <line x1="143" y1="273" x2="155" y2="273" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
+        <line x1="143" y1="279" x2="155" y2="279" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
+        <!-- right cup -->
+        <rect x="238" y="258" width="26" height="30" rx="11" fill="#07182a" stroke="#00e5ff" stroke-width="1.8"/>
+        <rect x="242" y="262" width="18" height="22" rx="9" fill="#0c2336"/>
+        <ellipse cx="251" cy="273" rx="5.5" ry="6.5" fill="#060e1c" stroke="#00e5ff" stroke-width=".9" opacity=".8"/>
+        <line x1="245" y1="267" x2="257" y2="267" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
+        <line x1="245" y1="273" x2="257" y2="273" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
+        <line x1="245" y1="279" x2="257" y2="279" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
+        <!-- LED pulse -->
+        <circle cx="149" cy="259" r="3.2" fill="#00e5ff" filter="url(#glow)">
+          <animate attributeName="opacity" values="1;.15;1" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="3.2;4.5;3.2" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="251" cy="259" r="3.2" fill="#00e5ff" filter="url(#glow)">
+          <animate attributeName="opacity" values="1;.15;1" dur="2s" begin=".6s" repeatCount="indefinite"/>
+          <animate attributeName="r" values="3.2;4.5;3.2" dur="2s" begin=".6s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- ── NOSE ── -->
+        <path d="M194 282 Q198 294 202 282" stroke="#d4956a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+        <!-- ── SMILE ── -->
+        <path d="M178 298 Q198 313 218 298" stroke="#b85a30" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+        <rect x="184" y="298" width="28" height="5" rx="2.5" fill="white" opacity=".45"/>
+
+        <!-- ── SCREEN GLOW ON FACE ── -->
+        <ellipse cx="170" cy="272" rx="12" ry="10" fill="#00e5ff" opacity=".035">
+          <animate attributeName="opacity" values=".035;.07;.035" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="226" cy="272" rx="12" ry="10" fill="#00e5ff" opacity=".035">
+          <animate attributeName="opacity" values=".035;.07;.035" dur="3s" begin=".5s" repeatCount="indefinite"/>
+        </ellipse>
+
+        <!-- ── PARTICLES ── -->
+        <g filter="url(#sglow)">
+          <circle cx="32" cy="188" r="2.5" fill="#00e5ff">
+            <animate attributeName="opacity" values="0;1;0" dur="3.2s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="translate" values="0,0;-6,-18;-10,-34" dur="3.2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="48" cy="245" r="1.6" fill="#64ffda">
+            <animate attributeName="opacity" values="0;1;0" dur="4.1s" begin=".8s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="translate" values="0,0;-4,-22;-7,-42" dur="4.1s" begin=".8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="352" cy="185" r="2.2" fill="#2979ff">
+            <animate attributeName="opacity" values="0;1;0" dur="3.7s" begin=".4s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="translate" values="0,0;6,-14;10,-28" dur="3.7s" begin=".4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="340" cy="260" r="1.8" fill="#00e5ff">
+            <animate attributeName="opacity" values="0;1;0" dur="2.9s" begin="1.2s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="translate" values="0,0;4,-20;8,-38" dur="2.9s" begin="1.2s" repeatCount="indefinite"/>
+          </circle>
+          <!-- star sparkle above head -->
+          <path d="M198 50 L200 42 L202 50 L210 52 L202 54 L200 62 L198 54 L190 52 Z" fill="#00e5ff" opacity=".6">
+            <animate attributeName="opacity" values=".6;1;.4;1;.6" dur="4s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale" values="1;1.3;1;1.2;1" additive="sum" dur="4s" repeatCount="indefinite"/>
+          </path>
+        </g>
+      </svg>
+
+      <div class="shadow-el"></div>
+    </div>
+
+    <div class="code-card cc">
+      <div class="cl"><span class="cm">// ashish.config.js</span></div>
+      <div class="cl"><span class="ck">const</span> <span class="cv">dev</span> = {</div>
+      <div class="cl">&nbsp;&nbsp;<span class="cs">name</span>: <span class="cv">'Ashish Saini'</span>,</div>
+      <div class="cl">&nbsp;&nbsp;<span class="cs">stack</span>: [<span class="cv">'Laravel'</span>, <span class="cv">'AWS'</span>],</div>
+      <div class="cl">&nbsp;&nbsp;<span class="cs">openTo</span>: <span class="cv">'product-co'</span>,</div>
+      <div class="cl">&nbsp;&nbsp;<span class="cs">joinIn</span>: <span class="cf">30</span> <span class="cm">// days</span></div>
+      <div class="cl">};</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><div class="sl"></div>scroll</div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span class="mi">PHP</span><span class="ms">✦</span><span class="mi">Laravel</span><span class="ms">✦</span><span class="mi">Angular</span><span class="ms">✦</span><span class="mi">MySQL</span><span class="ms">✦</span><span class="mi">Elasticsearch</span><span class="ms">✦</span><span class="mi">MongoDB</span><span class="ms">✦</span><span class="mi">AWS</span><span class="ms">✦</span><span class="mi">REST APIs</span><span class="ms">✦</span><span class="mi">Microservices</span><span class="ms">✦</span><span class="mi">CI/CD</span><span class="ms">✦</span>
+    <span class="mi">PHP</span><span class="ms">✦</span><span class="mi">Laravel</span><span class="ms">✦</span><span class="mi">Angular</span><span class="ms">✦</span><span class="mi">MySQL</span><span class="ms">✦</span><span class="mi">Elasticsearch</span><span class="ms">✦</span><span class="mi">MongoDB</span><span class="ms">✦</span><span class="mi">AWS</span><span class="ms">✦</span><span class="mi">REST APIs</span><span class="ms">✦</span><span class="mi">Microservices</span><span class="ms">✦</span><span class="mi">CI/CD</span><span class="ms">✦</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="s-label rev">About Me</div>
+      <h2 class="s-title rev d1">The engineer<br><em>behind the code.</em></h2>
+      <div class="about-stats">
+        <div class="stat-c rev d2"><div class="stat-n" data-count="3">0</div><div class="stat-l">Years Experience</div></div>
+        <div class="stat-c rev d3"><div class="stat-n" data-count="5">0</div><div class="stat-l">Live Modules</div></div>
+        <div class="stat-c rev d4"><div class="stat-n" data-count="10">0</div><div class="stat-l">Tech Stack Size</div></div>
+        <div class="stat-c rev d5"><div class="stat-n">∞</div><div class="stat-l">Lines of Passion</div></div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="rev">I'm a <strong>Full Stack Developer</strong> based in Gurugram, India — obsessed with building systems that are architecturally solid, fast to ship, and easy to maintain.</p>
+      <p class="rev d1">At <strong>K Square Tech Consulting</strong>, I co-architected a microservice Admin Dashboard and led the entire back-end of a multinational crew-deployment platform spanning 5 modules and multiple countries.</p>
+      <p class="rev d2">My sweet spot is where <strong>PHP/Laravel back-end engineering</strong> meets AWS cloud services and dynamic Angular front-ends — with Elasticsearch powering search at scale when millions of records need to move fast.</p>
+      <p class="rev d3">Strong ownership mindset. I take projects end-to-end, own production systems, resolve critical issues under pressure, and improve codebases proactively without being directed.</p>
+      <div class="rev d4" style="margin-top:1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap">
+        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📍 Gurugram, Haryana</span>
+        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8abb9b1b6b1f6b9aae1ee98bfb5b9b1b4f6bbb7b5">[email&#160;protected]</a></span>
+        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📱 +91-8816000496</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="s-label rev">Technical Skills</div>
+    <h2 class="s-title rev d1">What I <em>build with.</em></h2>
+    <div class="skills-grid">
+      <div class="sk-card rev d1"><div class="sk-icon">🐘</div><div class="sk-name">PHP & Laravel</div><div class="sk-desc">MVC, Eloquent ORM, Artisan, Queues, Middleware, API Resources. Primary production back-end.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>90%</span></div><div class="bar"><div class="bar-fill" style="width:90%"></div></div></div></div>
+      <div class="sk-card rev d2"><div class="sk-icon">⚡</div><div class="sk-name">Angular & TypeScript</div><div class="sk-desc">AngularJS / Angular, TypeScript, AG-Grid, jQuery, AJAX — dynamic data-driven dashboards.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>80%</span></div><div class="bar"><div class="bar-fill" style="width:80%"></div></div></div></div>
+      <div class="sk-card rev d3"><div class="sk-icon">🗄️</div><div class="sk-name">MySQL & Databases</div><div class="sk-desc">Query optimisation, indexing, schema design. MongoDB for NoSQL. Elasticsearch for search at scale.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>85%</span></div><div class="bar"><div class="bar-fill" style="width:85%"></div></div></div></div>
+      <div class="sk-card rev d1"><div class="sk-icon">☁️</div><div class="sk-name">AWS Cloud</div><div class="sk-desc">S3, Secret Manager, Parameter Store, CloudWatch. Linux server admin & CI/CD pipelines.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>78%</span></div><div class="bar"><div class="bar-fill" style="width:78%"></div></div></div></div>
+      <div class="sk-card rev d2"><div class="sk-icon">🔌</div><div class="sk-name">REST APIs & Microservices</div><div class="sk-desc">Secure API design, 3rd-party integrations, microservice architecture, JSON responses.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>88%</span></div><div class="bar"><div class="bar-fill" style="width:88%"></div></div></div></div>
+      <div class="sk-card rev d3"><div class="sk-icon">🔧</div><div class="sk-name">DevOps & Git</div><div class="sk-desc">CI/CD with Jenkins, Git/Bitbucket, Jira, Agile/Scrum, code reviews, production monitoring.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>75%</span></div><div class="bar"><div class="bar-fill" style="width:75%"></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="s-label rev">Key Projects</div>
+    <h2 class="s-title rev d1">Things I've <em>shipped.</em></h2>
+    <div class="proj-grid">
+      <div class="pc rev d1">
+        <div class="pv">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <rect x="8" y="8" width="204" height="104" rx="8" fill="#020910" stroke="#00e5ff" stroke-width="1"/>
+            <rect x="8" y="8" width="204" height="22" rx="8" fill="#040d18"/>
+            <rect x="8" y="24" width="204" height="6" fill="#040d18"/>
+            <circle cx="20" cy="19" r="3.5" fill="#ff4081" opacity=".8"/>
+            <circle cx="32" cy="19" r="3.5" fill="#ffd740" opacity=".7"/>
+            <circle cx="44" cy="19" r="3.5" fill="#64ffda"/>
+            <text x="17" y="46" font-family="monospace" font-size="6.5" fill="#3a5570">// crew deployment api</text>
+            <text x="17" y="58" font-family="monospace" font-size="6.5" fill="#c792ea">Route</text>
+            <text x="40" y="58" font-family="monospace" font-size="6.5" fill="#89ddff">::post('/deploy',</text>
+            <text x="17" y="70" font-family="monospace" font-size="6.5" fill="#ff9e64">  [CrewController::class,</text>
+            <text x="17" y="82" font-family="monospace" font-size="6.5" fill="#ff9e64">  'deploy']);</text>
+            <text x="17" y="94" font-family="monospace" font-size="6.5" fill="#64ffda">$hits = ES::search($q);</text>
+            <rect x="17" y="87" width="4" height="8" fill="#00e5ff" rx=".5" opacity=".9"><animate attributeName="opacity" values=".9;0;.9" dur=".8s" repeatCount="indefinite"/></rect>
+          </svg>
+        </div>
+        <div class="ph"><div class="pnum">PROJECT / 01</div><h3 class="ptitle">GET Global — Crew Deployer</h3><div class="psub">Multinational Recruitment & Deployment</div><div class="pbadge">Live</div></div>
+        <div class="pb"><p class="pdesc">5-module platform managing candidate sourcing, interviews, evaluations, salary processing, and on-site deployment across countries — with real-time scheduling and automated assignment.</p><div class="ptags"><span class="ptag">Laravel</span><span class="ptag">Angular</span><span class="ptag">Elasticsearch</span><span class="ptag">MySQL</span><span class="ptag">AWS S3</span></div><a href="#" class="plink">View Case Study →</a></div>
+      </div>
+      <div class="pc rev d2">
+        <div class="pv">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <rect x="8" y="10" width="96" height="100" rx="6" fill="#020910" stroke="#00e5ff" stroke-width="1"/>
+            <rect x="116" y="20" width="96" height="80" rx="6" fill="#020910" stroke="#2979ff" stroke-width="1"/>
+            <text x="16" y="26" font-family="monospace" font-size="5.5" fill="#546d8a">Analytics</text>
+            <rect x="14" y="30" width="80" height="10" rx="2" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.18)" stroke-width=".7"/>
+            <text x="18" y="38" font-family="monospace" font-size="5" fill="#64ffda">Users: 2,847 ↑</text>
+            <rect x="14" y="44" width="80" height="10" rx="2" fill="rgba(41,121,255,.05)" stroke="rgba(41,121,255,.18)" stroke-width=".7"/>
+            <text x="18" y="52" font-family="monospace" font-size="5" fill="#82aaff">Deploys: 341 ✓</text>
+            <rect x="14" y="58" width="80" height="10" rx="2" fill="rgba(100,255,218,.04)" stroke="rgba(100,255,218,.15)" stroke-width=".7"/>
+            <text x="18" y="66" font-family="monospace" font-size="5" fill="#ff9e64">Revenue $92k ↑</text>
+            <path d="M14 88 Q26 72 38 80 Q50 65 62 69 Q74 56 96 50" stroke="#00e5ff" stroke-width="1.4" fill="none"/>
+            <text x="124" y="38" font-family="monospace" font-size="5.5" fill="#546d8a">Microservices</text>
+            <circle cx="140" cy="72" r="18" fill="none" stroke="#00e5ff" stroke-width="1.3" stroke-dasharray="5 3"/>
+            <circle cx="180" cy="62" r="12" fill="none" stroke="#2979ff" stroke-width="1" stroke-dasharray="4 2"/>
+            <line x1="157" y1="69" x2="169" y2="64" stroke="#546d8a" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="ph"><div class="pnum">PROJECT / 02</div><h3 class="ptitle">Microservice Admin Dashboard</h3><div class="psub">Real-Time Analytics & Decision System</div><div class="pbadge">Flagship</div></div>
+        <div class="pb"><p class="pdesc">Co-architected a microservice-based Admin Dashboard with Laravel & Angular for real-time analytics. AG-Grid tables, custom KPI widgets, and CloudWatch integration.</p><div class="ptags"><span class="ptag">Laravel</span><span class="ptag">Angular</span><span class="ptag">AG-Grid</span><span class="ptag">CloudWatch</span><span class="ptag">Microservices</span></div><a href="#" class="plink">View Case Study →</a></div>
+      </div>
+      <div class="pc rev d3">
+        <div class="pv">
+          <svg width="220" height="120" viewBox="0 0 220 120">
+            <rect x="10" y="10" width="200" height="100" rx="6" fill="#020910" stroke="#64ffda" stroke-width="1"/>
+            <text x="20" y="30" font-family="monospace" font-size="6" fill="#64ffda">Interview Scheduler</text>
+            <line x1="10" y1="36" x2="210" y2="36" stroke="#152c45" stroke-width=".7"/>
+            <rect x="18" y="42" width="50" height="16" rx="3" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.2)" stroke-width=".7"/>
+            <text x="22" y="53" font-family="monospace" font-size="5" fill="#00e5ff">10:00 AM ✓</text>
+            <rect x="76" y="42" width="50" height="16" rx="3" fill="rgba(100,255,218,.07)" stroke="rgba(100,255,218,.2)" stroke-width=".7"/>
+            <text x="80" y="53" font-family="monospace" font-size="5" fill="#64ffda">11:30 AM ●</text>
+            <rect x="134" y="42" width="58" height="16" rx="3" fill="rgba(41,121,255,.05)" stroke="rgba(41,121,255,.15)" stroke-width=".7"/>
+            <text x="138" y="53" font-family="monospace" font-size="5" fill="#82aaff">2:00 PM ◌</text>
+            <rect x="18" y="66" width="180" height="36" rx="4" fill="rgba(0,229,255,.03)" stroke="#152c45" stroke-width=".7"/>
+            <text x="26" y="80" font-family="monospace" font-size="5" fill="#546d8a">Candidate: Rahul S. · Score: 88/100</text>
+            <text x="26" y="92" font-family="monospace" font-size="5" fill="#64ffda">✓ Recommended · Auto-notified</text>
+          </svg>
+        </div>
+        <div class="ph"><div class="pnum">PROJECT / 03</div><h3 class="ptitle">Technical Interview Platform</h3><div class="psub">Real-Time Scheduling & Evaluation</div><div class="pbadge">Core</div></div>
+        <div class="pb"><p class="pdesc">Back-end services for a technical interview system with real-time scheduling, dynamic interviewer assignment, structured evaluation workflows and automated scoring pipelines.</p><div class="ptags"><span class="ptag">PHP</span><span class="ptag">Laravel</span><span class="ptag">MongoDB</span><span class="ptag">REST API</span><span class="ptag">MySQL</span></div><a href="#" class="plink">View Case Study →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="s-label rev">Experience</div>
+    <h2 class="s-title rev d1">Where I've <em>worked.</em></h2>
+    <div class="exp-wrap">
+      <div class="exp-line"></div>
+      <div class="exp-item rev d1">
+        <div class="exp-dot"></div>
+        <div class="exp-period">JAN 2023 — PRESENT</div>
+        <div class="exp-role">Full Stack Developer (PHP & Angular)</div>
+        <div class="exp-company">K Square Tech Consulting · Gurugram, India</div>
+        <ul class="exp-list">
+          <li>Co-architected microservice-based Admin Dashboard with Laravel & Angular for real-time analytics, improving decision-making speed across departments</li>
+          <li>Led full back-end development for Crew Data Management — managing salaries, applications, and site-deployment records for hundreds of crew members</li>
+          <li>Built Technical Interview Platform back-end with real-time scheduling, interviewer assignment, and structured evaluation workflows</li>
+          <li>Integrated Elasticsearch for advanced candidate search across large datasets — dramatically reducing recruiter search time</li>
+          <li>Automated candidate deployment processes, cutting processing time and reducing human error in crew assignment workflows</li>
+          <li>Configured and managed AWS S3, Secret Manager, Parameter Store, and CloudWatch for production monitoring</li>
+          <li>Deployed and managed applications on Linux servers; maintained CI/CD pipelines via Jenkins</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <div class="s-label rev" style="justify-content:center">Contact</div>
+    <h2 class="s-title rev d1" style="text-align:center">Let's build<br><em>something great.</em></h2>
+    <p class="contact-intro rev d2">Open to full-time opportunities at product-based companies. Available to join within 30 days. Comfortable with hybrid or on-site in Gurugram / Delhi NCR.</p>
+    <form class="cf2 rev d3" onsubmit="handleSub(event)">
+      <div class="frow">
+        <div class="ff"><label class="fl">Name</label><input class="fi" type="text" placeholder="Your name" required></div>
+        <div class="ff"><label class="fl">Email</label><input class="fi" type="email" placeholder="your@email.com" required></div>
+      </div>
+      <div class="ff"><label class="fl">Subject</label><input class="fi" type="text" placeholder="Job opportunity / collaboration"></div>
+      <div class="ff"><label class="fl">Message</label><textarea class="fta" placeholder="Tell me about the role…"></textarea></div>
+      <button type="submit" class="fsub" id="fsub">Send Message ↗</button>
+    </form>
+    <div class="c-links rev d4">
+      <a href="/cdn-cgi/l/email-protection#116270787f783f7063282751767c70787d3f727e7c" class="c-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span class="__cf_email__" data-cfemail="5b283a323532753a29626d1b3c363a323775383436">[email&#160;protected]</span>
+      </a>
+      <a href="tel:+918816000496" class="c-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91-8816000496
+      </a>
+      <a href="https://linkedin.com" class="c-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ftxt">© 2025 <span>Ashish Saini</span> · Crafted with ☕ & precision</div>
+  <div class="ftxt">PHP · Laravel · Angular · AWS</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* CURSOR */
+const c1=document.getElementById('cur'),c2=document.getElementById('cur2');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c1.style.transform=`translate(${mx-5}px,${my-5}px)`});
+(function raf(){rx+=(mx-rx-17)*.14;ry+=(my-ry-17)*.14;c2.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(raf)})();
+document.querySelectorAll('a,button,.sk-card,.pc,.stat-c').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c1.style.transform+=' scale(2.2)';c2.style.borderColor='var(--cyan)';c2.style.opacity='1'});
+  el.addEventListener('mouseleave',()=>{c2.style.opacity='.5'});
+});
+
+/* SCROLL REVEAL */
+const ro=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');if(el.target.classList.contains('sk-card'))setTimeout(()=>el.target.classList.add('revealed'),250)}})},{threshold:.1});
+document.querySelectorAll('.rev').forEach(r=>ro.observe(r));
+
+/* COUNTERS */
+function animC(el,t,d=1800){let s=0;const f=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/d,1);el.textContent=Math.floor(p*t)+'+';if(p<1)requestAnimationFrame(f);else el.textContent=t+'+'};requestAnimationFrame(f)}
+const co=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){const n=el.target.querySelector('[data-count]');if(n&&!n.dataset.a){n.dataset.a=1;animC(n,+n.dataset.count)}}})},{threshold:.5});
+document.querySelectorAll('.stat-c').forEach(c=>co.observe(c));
+
+/* FORM */
+function handleSub(e){e.preventDefault();const b=document.getElementById('fsub');b.textContent='Sending…';b.style.opacity='.7';setTimeout(()=>{b.textContent='✓ Message Sent!';b.style.background='var(--accent2)';setTimeout(()=>{b.textContent='Send Message ↗';b.style.background='var(--cyan)';b.style.opacity='1';e.target.reset()},3000)},1500)}
+
+/* SMOOTH SCROLL */
+document.querySelectorAll('a[href^="#"]').f
