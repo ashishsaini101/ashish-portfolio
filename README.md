@@ -2,7 +2,7 @@
 
 > Personal portfolio of **Ashish Saini**, Full Stack Developer (PHP · Laravel · Angular · AWS)
 
-🌐 **Live Site:** [ashishsaini.dev](https://ashishsaini.dev) *(update with your actual domain)*
+🌐 **Live Site:** [ashishsaini.dev]([https://ashishsaini.dev](https://ashishsaini101.github.io/ashish-portfolio)) *(update with your actual domain)*
 
 ---
 
