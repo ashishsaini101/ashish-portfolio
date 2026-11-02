@@ -1,97 +1,54 @@
 <div align="center">
 
-# Ashish Saini — Portfolio
+# Hi, I'm Ashish Saini 👋
 
-> Full Stack Engineer · Node.js · Next.js · React · Laravel · Integrations · AI Agents
+**Full Stack Engineer · Production Support Engineer · Gurugram, India**
 
-[![Live Site](https://img.shields.io/badge/Live_Site-ashishsaini101.github.io-0d9488?style=for-the-badge&labelColor=101315)](https://ashishsaini101.github.io/ashish-portfolio/)
-[![HTML](https://img.shields.io/badge/HTML5-Single_File-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
-[![License](https://img.shields.io/badge/License-MIT-6366f1?style=for-the-badge)](LICENSE)
+Node.js · Next.js · React · Laravel — travel & payment integrations — AI agents on Claude and ChatGPT
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-ashishsaini101.github.io-0d9488?style=for-the-badge&logo=googlechrome&logoColor=white)](https://ashishsaini101.github.io/ashish-portfolio/)
+[![Email](https://img.shields.io/badge/Email-saini.ar96@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:saini.ar96@gmail.com)
 
 </div>
 
 ---
 
-## Live
+### What I build
 
-**https://ashishsaini101.github.io/ashish-portfolio/**
+- ✈️ **Travel booking platform** — worldwide flights, hotels, rail and cabs; designed, built and deployed end-to-end
+- 💳 **Payment integrations** — PayGlocal: order lifecycle, webhook verification, idempotent status updates, refunds
+- 🛢️ **9-module recruitment & crew-deployment platform** — oil & gas clients across Saudi Arabia, Oman and Aramco; 500+ crew
+- 🔎 **Search** — Elasticsearch + RChilli resume parsing (−60% recruiter search time), Google APIs, SerpAPI
+- 🤖 **AI agents** — Claude & ChatGPT with tool use, Claude Code Skills, sub-agents and MCP
 
----
+### Strengths
 
-## Features
+`Production engineering` · `Database design` · `Integration handling` · `Debugging & RCA` · `Async processing (Queues, Cron, ActiveMQ)` · `System design` · `CI/CD`
 
-- **Light / Dark / System themes** — persisted per visitor, follows the OS setting in System mode
-- **Scroll-driven background morph** — soft tints change section by section
-- **Preloader, smooth scrolling and text reveals** — GSAP + ScrollTrigger + Lenis
-- **12 core strengths with animated concept diagrams** — microservices, queues, database relations, CI/CD pipeline, observability and more, each in its own colour with 3D tilt on hover
-- **Areas of expertise as doors** — scroll through five domains, open a door to see the detailed scope
-- **3D WebGL globe** (three.js) — worldwide flight routes for the travel booking platform case study
-- **Live system architecture diagram** — draws on scroll, then animates request flow between services
-- **Stacked project cards**, experience timeline with an animated year counter
-- **Brand-coloured tech logos** — Simple Icons via CDN
-- **Interactive CLI** — type `help`, `whoami`, `stack`, `projects`, `experience`, `contact`
-- Fully responsive; respects `prefers-reduced-motion`
+### Tech stack
 
----
+![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-149ECA?style=flat-square&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=flat-square&logo=laravel&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-005571?style=flat-square&logo=elasticsearch&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white)
+![Hostinger](https://img.shields.io/badge/Hostinger-673DE6?style=flat-square&logo=hostinger&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+![Claude](https://img.shields.io/badge/Claude-D97757?style=flat-square&logo=claude&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-10A37F?style=flat-square&logo=openai&logoColor=white)
 
-## Project structure
+### Currently
 
-```
-ashish-portfolio/
-├── index.html        ← the whole site (HTML, CSS and JS in one file)
-├── assets/
-│   ├── ashish.jpg         ← hero photo
-│   └── ashish-casual.jpg  ← contact avatar
-├── README.md
-├── LICENSE
-└── .gitignore
-```
-
-No build step. Open `index.html` in a browser, or serve the folder with any static server.
-Libraries load from CDNs (GSAP, ScrollTrigger, Lenis, three.js, Simple Icons, Google Fonts); without them the content still renders, only the animations are skipped.
-
----
-
-## Editing content
-
-All content is data at the top of the `<script>` block in `index.html`:
-
-| What | Constant |
-|------|----------|
-| Rotating hero roles | `ROLES` |
-| Areas of expertise (doors) | `DOORS` |
-| Core strengths | `STRENGTHS` |
-| Selected work | `PROJECTS` |
-| Experience & education | `JOURNEY` |
-| Technical skills | `SKILLS` |
-| Logo strip | `LOGOS1`, `LOGOS2` |
-
-Colours live in the CSS tokens at the top of the `<style>` block (`:root` for light, `[data-theme="dark"]` for dark).
-
----
-
-## Deployment
-
-Hosted on **GitHub Pages** from the `main` branch (root). Every push to `main` redeploys the site.
-
----
-
-## About
-
-**Ashish Saini** — Full Stack Developer & Production Support Engineer, Gurugram, India.
-
-- Travel booking platform — worldwide flights, hotels, rail and cabs, built and deployed end-to-end
-- PayGlocal payment gateway, Google APIs and SerpAPI integrations
-- 9-module recruitment and crew-deployment platform for oil & gas clients (Laravel, Angular, Elasticsearch)
-- AI agents with Claude and ChatGPT — tool use, Skills, sub-agents, MCP
-- Open to full-time roles at product-based companies
-
----
-
-## License
-
-MIT
+- 💼 Full Stack Developer & Production Support Engineer at **K Square Tech Consulting**
+- 🎯 Open to full-time roles at product-based companies · Gurugram / Delhi NCR · 30-day notice
 
 <div align="center">
-<sub><a href="mailto:saini.ar96@gmail.com">saini.ar96@gmail.com</a></sub>
+<sub>🎓 MCA, Kurukshetra University · BCA, Govt. College Chhachhrauli</sub>
 </div>
