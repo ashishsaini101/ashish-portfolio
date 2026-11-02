@@ -1,103 +1,97 @@
 <div align="center">
 
-# Ashish Saini — Portfolio Website
+# Ashish Saini — Portfolio
 
-> Personal portfolio of **Ashish Saini**, Full Stack Developer (PHP · Laravel · Angular · AWS)
+> Full Stack Engineer · Node.js · Next.js · React · Laravel · Integrations · AI Agents
 
-[![Live Site](https://img.shields.io/badge/🌐_Live_Site-ashishsaini101.github.io-00e5ff?style=for-the-badge&labelColor=050d1a)](https://ashishsaini101.github.io/ashish-portfolio)
+[![Live Site](https://img.shields.io/badge/Live_Site-ashishsaini101.github.io-0d9488?style=for-the-badge&labelColor=101315)](https://ashishsaini101.github.io/ashish-portfolio/)
 [![HTML](https://img.shields.io/badge/HTML5-Single_File-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
-[![License](https://img.shields.io/badge/License-MIT-64ffda?style=for-the-badge)](#)
-
-![Portfolio Preview](https://ashishsaini101.github.io/ashish-portfolio/preview.png)
+[![License](https://img.shields.io/badge/License-MIT-6366f1?style=for-the-badge)](LICENSE)
 
 </div>
 
 ---
 
-## ✨ Features
+## Live
 
-- 🧑‍💻 Animated SVG cartoon character (dual-monitor desk setup, typing fingers, eye tracking, blinking)
-- 🎨 Dark navy theme with electric cyan/teal accents
-- ⚡ Scroll-reveal animations on all sections
-- 🖱️ Custom animated cursor with trailing ring
-- 📊 Animated skill progress bars
-- 🔢 Counter animations on stats
-- 📱 Fully responsive (mobile, tablet, desktop)
-- 🏷️ Floating availability badge
-- 💻 Decorative code snippet overlay
-- 🌊 Infinite marquee tech-stack strip
-- 📬 Contact form with feedback state
+**https://ashishsaini101.github.io/ashish-portfolio/**
 
 ---
 
-## 📁 Project Structure
+## Features
+
+- **Light / Dark / System themes** — persisted per visitor, follows the OS setting in System mode
+- **Scroll-driven background morph** — soft tints change section by section
+- **Preloader, smooth scrolling and text reveals** — GSAP + ScrollTrigger + Lenis
+- **12 core strengths with animated concept diagrams** — microservices, queues, database relations, CI/CD pipeline, observability and more, each in its own colour with 3D tilt on hover
+- **Areas of expertise as doors** — scroll through five domains, open a door to see the detailed scope
+- **3D WebGL globe** (three.js) — worldwide flight routes for the travel booking platform case study
+- **Live system architecture diagram** — draws on scroll, then animates request flow between services
+- **Stacked project cards**, experience timeline with an animated year counter
+- **Brand-coloured tech logos** — Simple Icons via CDN
+- **Interactive CLI** — type `help`, `whoami`, `stack`, `projects`, `experience`, `contact`
+- Fully responsive; respects `prefers-reduced-motion`
+
+---
+
+## Project structure
 
 ```
 ashish-portfolio/
-├── index.html      ← Main portfolio (single-file, self-contained)
-├── README.md       ← This file
-├── .gitignore      ← Git ignore rules
-└── LICENSE         ← MIT License
+├── index.html        ← the whole site (HTML, CSS and JS in one file)
+├── assets/
+│   ├── ashish.jpg         ← hero photo
+│   └── ashish-casual.jpg  ← contact avatar
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
-> **No build tools. No npm. No dependencies.**
-> Just open `index.html` in any browser — it works instantly.
+No build step. Open `index.html` in a browser, or serve the folder with any static server.
+Libraries load from CDNs (GSAP, ScrollTrigger, Lenis, three.js, Simple Icons, Google Fonts); without them the content still renders, only the animations are skipped.
 
 ---
 
-## 🚀 Live Demo
+## Editing content
 
-🔗 **[https://ashishsaini101.github.io/ashish-portfolio](https://ashishsaini101.github.io/ashish-portfolio)**
+All content is data at the top of the `<script>` block in `index.html`:
 
----
+| What | Constant |
+|------|----------|
+| Rotating hero roles | `ROLES` |
+| Areas of expertise (doors) | `DOORS` |
+| Core strengths | `STRENGTHS` |
+| Selected work | `PROJECTS` |
+| Experience & education | `JOURNEY` |
+| Technical skills | `SKILLS` |
+| Logo strip | `LOGOS1`, `LOGOS2` |
 
-## 🛠️ Customisation Guide
-
-All content lives inside `index.html`. Key areas to update:
-
-| What to change | Where in the file |
-|---------------|-------------------|
-| Name & title | `<h1 class="h-name">` in `#hero` |
-| Hero bio text | `.h-bio` paragraph |
-| Contact email / phone | `.c-links` section |
-| Project cards | `.pc` blocks in `#projects` |
-| Skill bars % | `width:XX%` on each `.bar-fill` |
-| Experience bullets | `.exp-list` in `#experience` |
-| Availability badge | `.badge` text in `<nav>` |
-| Social links | Footer + contact section `href` values |
+Colours live in the CSS tokens at the top of the `<style>` block (`:root` for light, `[data-theme="dark"]` for dark).
 
 ---
 
-## 📦 Tech Stack
+## Deployment
 
-| Technology | Purpose |
-|------------|---------|
-| HTML5 / CSS3 | Structure & all styling |
-| Vanilla JavaScript | Animations, cursor, scroll reveals |
-| Inline SVG | Animated cartoon character |
-| Google Fonts | Syne + Space Mono + Instrument Serif |
-| CSS Animations | All motion (zero libraries) |
+Hosted on **GitHub Pages** from the `main` branch (root). Every push to `main` redeploys the site.
 
 ---
 
-## 👨‍💻 About Me
+## About
 
-**Ashish Saini** — Full Stack Developer with 3+ years of experience building scalable web applications.
+**Ashish Saini** — Full Stack Developer & Production Support Engineer, Gurugram, India.
 
-- 🐘 **PHP & Laravel** — primary back-end stack
-- ⚡ **Angular & TypeScript** — dynamic front-ends
-- ☁️ **AWS** — S3, CloudWatch, Secret Manager
-- 🗄️ **MySQL, MongoDB, Elasticsearch** — data at scale
-- 📍 Gurugram, India · Open to product-based companies
-
----
-
-## 📄 License
-
-MIT — free to fork and customise for your own portfolio.
+- Travel booking platform — worldwide flights, hotels, rail and cabs, built and deployed end-to-end
+- PayGlocal payment gateway, Google APIs and SerpAPI integrations
+- 9-module recruitment and crew-deployment platform for oil & gas clients (Laravel, Angular, Elasticsearch)
+- AI agents with Claude and ChatGPT — tool use, Skills, sub-agents, MCP
+- Open to full-time roles at product-based companies
 
 ---
+
+## License
+
+MIT
 
 <div align="center">
-<sub>Built with ☕ and precision · <a href="mailto:saini.ar96@gmail.com">saini.ar96@gmail.com</a></sub>
+<sub><a href="mailto:saini.ar96@gmail.com">saini.ar96@gmail.com</a></sub>
 </div>
