@@ -1,743 +1,1282 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ashish Saini — Full Stack Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ashish Saini — Full Stack Engineer</title>
+<meta name="description" content="Ashish Saini — Full Stack Engineer (Node.js, Next.js, React, Laravel). Built and deployed a travel booking platform (flights, hotels, rail, cabs), PayGlocal, Google API and SerpAPI integrations, and AI agents on Claude and ChatGPT. Gurugram, India.">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#050d1a;--navy2:#070f1e;--slate:#0b1c2e;--mid:#0e2640;--cyan:#00e5ff;--blue:#2979ff;--accent2:#64ffda;--red:#ff4081;--white:#dff0ff;--muted:#5a7fa0;--mono:'Space Mono',monospace;--sans:'Syne',sans-serif;--serif:'Instrument Serif',serif}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--navy);color:var(--white);font-family:var(--sans);overflow-x:hidden;cursor:none}
-#cur,#cur2{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;border-radius:50%}
-#cur{width:10px;height:10px;background:var(--cyan);mix-blend-mode:difference}
-#cur2{width:34px;height:34px;border:1.5px solid rgba(0,229,255,.5);transition:transform .22s cubic-bezier(.16,1,.3,1)}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9990}
-nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3.5rem;z-index:1000;background:rgba(5,13,26,.85);backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,229,255,.06)}
-.logo{font-family:var(--mono);font-size:.9rem;color:var(--cyan);letter-spacing:.1em}
-.logo span{color:var(--muted)}
-.nav-links{display:flex;gap:2.5rem}
-.nav-links a{font-family:var(--mono);font-size:.62rem;color:var(--muted);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:color .3s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--cyan);transform:scaleX(0);transition:transform .3s;transform-origin:left}
-.nav-links a:hover{color:var(--cyan)}
-.nav-links a:hover::after{transform:scaleX(1)}
-.badge{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.58rem;color:var(--accent2);border:1px solid rgba(100,255,218,.25);padding:.3rem .9rem;border-radius:100px;background:rgba(100,255,218,.04);animation:bpulse 3s ease-in-out infinite}
-.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:dblink 1.4s ease-in-out infinite}
-@keyframes bpulse{0%,100%{box-shadow:0 0 0 0 rgba(100,255,218,.1)}50%{box-shadow:0 0 18px 4px rgba(100,255,218,.08)}}
-@keyframes dblink{0%,100%{opacity:1}50%{opacity:.15}}
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 3.5rem 3rem;position:relative;overflow:hidden;gap:2rem}
-.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.032) 1px,transparent 1px);background-size:55px 55px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 10%,transparent 100%)}
-.hero-glow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(0,229,255,.07) 0%,transparent 65%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:gpulse 7s ease-in-out infinite}
-@keyframes gpulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
-.hero-left{position:relative;z-index:2}
-.h-tag{font-family:var(--mono);font-size:.62rem;color:var(--cyan);letter-spacing:.22em;text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fup .8s .15s forwards}
-.h-tag::before{content:'';display:block;width:28px;height:1px;background:var(--cyan)}
-h1.h-name{font-family:var(--sans);font-weight:800;font-size:clamp(3.2rem,5.5vw,5.8rem);line-height:.97;letter-spacing:-.03em;margin-bottom:.4rem;opacity:0;animation:fup .8s .3s forwards}
-h1.h-name .cy{color:var(--cyan)}
-.h-italic{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.5vw,2.2rem);color:var(--muted);margin-bottom:1.6rem;opacity:0;animation:fup .8s .45s forwards}
-.h-bio{font-size:.92rem;line-height:1.82;color:var(--muted);max-width:460px;margin-bottom:2.5rem;opacity:0;animation:fup .8s .6s forwards}
-.h-cta{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fup .8s .75s forwards}
-.btn-p{display:inline-flex;align-items:center;gap:.5rem;background:var(--cyan);color:var(--navy);font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;padding:.85rem 1.8rem;border-radius:5px;text-decoration:none;text-transform:uppercase;border:2px solid var(--cyan);box-shadow:0 0 24px rgba(0,229,255,.3);transition:all .3s}
-.btn-p:hover{background:transparent;color:var(--cyan);box-shadow:0 0 40px rgba(0,229,255,.5)}
-.btn-o{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--white);font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;padding:.85rem 1.8rem;border-radius:5px;text-decoration:none;text-transform:uppercase;border:2px solid rgba(255,255,255,.12);transition:all .3s}
-.btn-o:hover{border-color:var(--cyan);color:var(--cyan)}
-.hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0;animation:fin 1.2s .5s forwards}
-.stage{position:relative;width:400px;height:520px}
-.ring1,.ring2,.ring3{position:absolute;border-radius:50%;border:1px solid rgba(0,229,255,.1);top:50%;left:50%;transform:translate(-50%,-50%)}
-.ring1{width:300px;height:300px;animation:rp 4s ease-in-out infinite}
-.ring2{width:400px;height:400px;animation:rp 4s 1s ease-in-out infinite}
-.ring3{width:490px;height:490px;animation:rp 4s 2s ease-in-out infinite}
-@keyframes rp{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}50%{opacity:.9;transform:translate(-50%,-50%) scale(1.02)}}
-.char-svg{width:100%;height:100%;filter:drop-shadow(0 30px 80px rgba(0,229,255,.2));animation:cFloat 5s ease-in-out infinite}
-@keyframes cFloat{0%,100%{transform:translateY(0) rotate(-.3deg)}50%{transform:translateY(-20px) rotate(.3deg)}}
-.pill{position:absolute;background:rgba(8,21,37,.95);border:1px solid rgba(0,229,255,.25);border-radius:50px;padding:.42rem .95rem;font-family:var(--mono);font-size:.58rem;color:var(--cyan);white-space:nowrap;backdrop-filter:blur(12px);box-shadow:0 4px 24px rgba(0,0,0,.3);display:flex;align-items:center;gap:.4rem}
-.pill.p1{top:7%;left:-20%;animation:fp1 5s ease-in-out infinite}
-.pill.p2{top:30%;right:-18%;animation:fp2 6s ease-in-out infinite}
-.pill.p3{bottom:30%;left:-22%;animation:fp3 4.5s ease-in-out infinite}
-.pill.p4{bottom:14%;right:-16%;animation:fp4 5.5s ease-in-out infinite}
-.pd{width:6px;height:6px;border-radius:50%;background:var(--accent2)}
-@keyframes fp1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes fp2{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
-@keyframes fp3{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes fp4{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
-.shadow-el{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:200px;height:28px;background:radial-gradient(ellipse,rgba(0,229,255,.22) 0%,transparent 70%);border-radius:50%;animation:shAnim 5s ease-in-out infinite}
-@keyframes shAnim{0%,100%{opacity:.6;transform:translateX(-50%) scaleX(1)}50%{opacity:.3;transform:translateX(-50%) scaleX(.75)}}
-.code-card{position:absolute;bottom:1.5rem;right:-1.5rem;background:rgba(7,15,30,.97);border:1px solid rgba(0,229,255,.13);border-radius:12px;padding:1rem 1.2rem;font-family:var(--mono);font-size:.58rem;color:var(--muted);max-width:210px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.5);opacity:0;animation:fup 1s 1.2s forwards;z-index:5}
-.cc .cm{color:#3a5570}.cc .ck{color:#82aaff}.cc .cv{color:var(--accent2)}.cc .cs{color:#ff9e64}.cc .cf{color:#c792ea}.cl{line-height:1.8}
-.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.52rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fin 1s 1.6s forwards}
-.sl{width:1px;height:38px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:slA 2s ease-in-out infinite}
-@keyframes slA{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.6);opacity:.4}}
-.marquee-wrap{background:var(--cyan);overflow:hidden;padding:.65rem 0;white-space:nowrap}
-.marquee-inner{display:inline-flex;gap:2.5rem;animation:mq 22s linear infinite}
-.mi{font-family:var(--mono);font-size:.65rem;color:var(--navy);letter-spacing:.15em;text-transform:uppercase;font-weight:700;flex-shrink:0}
-.ms{color:rgba(5,13,26,.35)}
-@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-section{padding:8rem 3.5rem;position:relative}
-.s-label{font-family:var(--mono);font-size:.58rem;color:var(--cyan);letter-spacing:.3em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
-.s-label::before{content:'//';color:var(--muted)}
-.s-title{font-family:var(--sans);font-weight:800;font-size:clamp(2.4rem,4.5vw,4rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:1rem}
-.s-title em{font-family:var(--serif);font-style:italic;color:var(--cyan);font-weight:400}
-#about{background:var(--navy2)}
-.about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:6rem;align-items:center;max-width:1200px;margin:0 auto}
-.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem}
-.stat-c{background:var(--slate);border:1px solid rgba(0,229,255,.1);border-radius:14px;padding:1.5rem;transition:all .4s;position:relative;overflow:hidden;cursor:default}
-.stat-c::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.06) 0%,transparent 60%);opacity:0;transition:opacity .4s}
-.stat-c:hover{border-color:rgba(0,229,255,.4);transform:translateY(-4px)}
-.stat-c:hover::before{opacity:1}
-.stat-n{font-family:var(--sans);font-weight:800;font-size:2.6rem;color:var(--cyan);line-height:1;margin-bottom:.3rem}
-.stat-l{font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.about-text p{color:var(--muted);line-height:1.85;margin-bottom:1.1rem;font-size:.91rem}
-.about-text p strong{color:var(--white)}
-#skills{background:var(--navy)}
-.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1200px;margin:4rem auto 0}
-.sk-card{background:var(--slate);border:1px solid rgba(0,229,255,.07);border-radius:14px;padding:1.8rem;transition:all .45s;position:relative;overflow:hidden;cursor:default}
-.sk-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .5s}
-.sk-card:hover{transform:translateY(-7px);border-color:rgba(0,229,255,.28);box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.sk-card:hover::after{transform:scaleX(1)}
-.sk-icon{font-size:1.9rem;margin-bottom:.9rem}
-.sk-name{font-family:var(--sans);font-weight:700;font-size:1.05rem;margin-bottom:.45rem;color:var(--white)}
-.sk-desc{font-family:var(--mono);font-size:.58rem;color:var(--muted);line-height:1.65}
-.bar-wrap{margin-top:1rem}
-.bar-labels{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.54rem;color:var(--muted);margin-bottom:.4rem}
-.bar{height:2.5px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
-.bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
-.sk-card.revealed .bar-fill{transform:scaleX(1)}
-#projects{background:var(--navy2)}
-.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1200px;margin:4rem auto 0}
-.pc{background:var(--slate);border:1px solid rgba(0,229,255,.07);border-radius:18px;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column}
-.pc:hover{transform:translateY(-12px);border-color:rgba(0,229,255,.3);box-shadow:0 40px 80px rgba(0,0,0,.4),0 0 50px rgba(0,229,255,.06)}
-.pv{height:140px;background:var(--navy);border-bottom:1px solid rgba(0,229,255,.07);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.pv::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--slate) 100%)}
-.ph{padding:1.8rem 1.8rem .8rem;border-bottom:1px solid rgba(0,229,255,.06);position:relative}
-.pnum{font-family:var(--mono);font-size:.56rem;color:var(--cyan);letter-spacing:.22em;margin-bottom:.7rem;opacity:.6}
-.ptitle{font-family:var(--sans);font-weight:700;font-size:1.18rem;margin-bottom:.35rem}
-.psub{font-family:var(--mono);font-size:.58rem;color:var(--muted)}
-.pbadge{position:absolute;top:1.2rem;right:1.2rem;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.2);color:var(--cyan);font-family:var(--mono);font-size:.48rem;letter-spacing:.1em;padding:.22rem .6rem;border-radius:4px;text-transform:uppercase}
-.pb{padding:1.4rem 1.8rem 1.8rem;flex:1;display:flex;flex-direction:column}
-.pdesc{color:var(--muted);font-size:.84rem;line-height:1.78;margin-bottom:1.3rem;flex:1}
-.ptags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.3rem}
-.ptag{font-family:var(--mono);font-size:.52rem;color:var(--cyan);letter-spacing:.08em;border:1px solid rgba(0,229,255,.18);padding:.2rem .62rem;border-radius:100px;background:rgba(0,229,255,.04)}
-.plink{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--mono);font-size:.63rem;color:var(--cyan);text-decoration:none;transition:gap .3s}
-.plink:hover{gap:.85rem}
-#experience{background:var(--navy)}
-.exp-wrap{max-width:850px;margin:4.5rem auto 0;position:relative}
-.exp-line{position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--cyan),transparent)}
-.exp-item{padding-left:3rem;margin-bottom:4rem;position:relative}
-.exp-dot{position:absolute;left:-5px;top:.3rem;width:10px;height:10px;border-radius:50%;background:var(--navy);border:2px solid var(--cyan);box-shadow:0 0 12px rgba(0,229,255,.6)}
-.exp-period{font-family:var(--mono);font-size:.58rem;color:var(--cyan);letter-spacing:.15em;margin-bottom:.5rem}
-.exp-role{font-family:var(--sans);font-weight:700;font-size:1.32rem;margin-bottom:.3rem}
-.exp-company{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:1.2rem}
-.exp-list{list-style:none}
-.exp-list li{font-size:.85rem;color:var(--muted);line-height:1.78;padding-left:1.2rem;position:relative;margin-bottom:.4rem}
-.exp-list li::before{content:'▸';position:absolute;left:0;color:var(--cyan)}
-#contact{background:var(--navy2)}
-.contact-inner{max-width:660px;margin:0 auto;text-align:center}
-.contact-intro{color:var(--muted);font-size:.93rem;line-height:1.85;margin-bottom:3rem}
-.cf2{text-align:left}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
-.ff{margin-bottom:1.2rem}
-.fl{display:block;font-family:var(--mono);font-size:.58rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5rem}
-.fi,.fta{width:100%;background:var(--slate);border:1px solid rgba(0,229,255,.13);border-radius:9px;padding:.9rem 1.1rem;font-family:var(--mono);font-size:.76rem;color:var(--white);outline:none;transition:border-color .3s,box-shadow .3s;resize:none}
-.fi:focus,.fta:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,229,255,.07)}
-.fi::placeholder,.fta::placeholder{color:var(--muted)}
-.fta{height:118px}
-.fsub{width:100%;background:var(--cyan);color:var(--navy);font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:1rem;border:none;border-radius:9px;cursor:none;transition:all .3s;box-shadow:0 0 30px rgba(0,229,255,.2)}
-.fsub:hover{box-shadow:0 0 50px rgba(0,229,255,.45);transform:translateY(-2px)}
-.c-links{display:flex;justify-content:center;gap:2rem;margin-top:2.8rem;flex-wrap:wrap}
-.c-link{display:flex;align-items:center;gap:.55rem;font-family:var(--mono);font-size:.66rem;color:var(--muted);text-decoration:none;transition:color .3s}
-.c-link:hover{color:var(--cyan)}
-footer{background:var(--navy);border-top:1px solid rgba(0,229,255,.06);padding:1.8rem 3.5rem;display:flex;align-items:center;justify-content:space-between}
-.ftxt{font-family:var(--mono);font-size:.58rem;color:var(--muted)}
-.ftxt span{color:var(--cyan)}
-@keyframes fup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-@keyframes fin{from{opacity:0}to{opacity:1}}
-.rev{opacity:0;transform:translateY(38px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.rev.vis{opacity:1;transform:none}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
-@media(max-width:1000px){#hero{grid-template-columns:1fr;text-align:center}.hero-right{display:none}.about-grid{grid-template-columns:1fr;gap:3rem}.skills-grid{grid-template-columns:repeat(2,1fr)}.proj-grid{grid-template-columns:1fr}nav{padding:1rem 1.5rem}.nav-links{gap:1.5rem}section{padding:5rem 1.5rem}#hero{padding:7rem 1.5rem 3rem}.frow{grid-template-columns:1fr}}
-@media(max-width:600px){.skills-grid{grid-template-columns:1fr}.about-stats{grid-template-columns:1fr 1fr}.nav-links{display:none}}
+/* ================= DESIGN TOKENS ================= */
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --surface-2:#f0eee8;
+  --fg:#1d2124; --fg-2:#596066; --fg-3:#8d9399;
+  --line:rgba(29,33,36,.1); --line-2:rgba(29,33,36,.18);
+  --fill-1:rgba(29,33,36,.06); --fill-2:rgba(29,33,36,.14);
+  --accent:#0d9488; --accent-2:#6366f1; --accent-soft:#d5f2ee; --on-accent:#ffffff;
+  --warn:#ef4444;
+  --t-paper:#f7f6f2; --t-mint:#edf4f1; --t-sky:#eef2f8; --t-sand:#f6f1ea; --t-lilac:#f2f0f7;
+  --c-mint:#e2eee9; --c-sky:#e3e9f4; --c-sand:#f1e8dc; --c-lilac:#e9e5f3; --c-surface:#ffffff;
+  --shadow:0 30px 60px -32px rgba(29,33,36,.22);
+  --blob-1:rgba(13,148,136,.18); --blob-2:rgba(99,102,241,.16);
+}
+:root[data-theme="dark"]{
+  --bg:#101315; --surface:#161a1d; --surface-2:#1c2125;
+  --fg:#e8eae6; --fg-2:#a4aaae; --fg-3:#6f767b;
+  --line:rgba(232,234,230,.1); --line-2:rgba(232,234,230,.18);
+  --fill-1:rgba(232,234,230,.07); --fill-2:rgba(232,234,230,.16);
+  --accent:#2dd4bf; --accent-2:#818cf8; --accent-soft:rgba(45,212,191,.14); --on-accent:#06201d;
+  --warn:#f87171;
+  --t-paper:#101315; --t-mint:#0f1817; --t-sky:#11151d; --t-sand:#17140f; --t-lilac:#141219;
+  --c-mint:#142220; --c-sky:#151b26; --c-sand:#201b14; --c-lilac:#1b1824; --c-surface:#161a1d;
+  --shadow:0 30px 60px -32px rgba(0,0,0,.7);
+  --blob-1:rgba(45,212,191,.14); --blob-2:rgba(129,140,248,.14);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101315; --surface:#161a1d; --surface-2:#1c2125;
+    --fg:#e8eae6; --fg-2:#a4aaae; --fg-3:#6f767b;
+    --line:rgba(232,234,230,.1); --line-2:rgba(232,234,230,.18);
+    --fill-1:rgba(232,234,230,.07); --fill-2:rgba(232,234,230,.16);
+    --accent:#2dd4bf; --accent-2:#818cf8; --accent-soft:rgba(45,212,191,.14); --on-accent:#06201d;
+    --warn:#f87171;
+    --t-paper:#101315; --t-mint:#0f1817; --t-sky:#11151d; --t-sand:#17140f; --t-lilac:#141219;
+    --c-mint:#142220; --c-sky:#151b26; --c-sand:#201b14; --c-lilac:#1b1824; --c-surface:#161a1d;
+    --shadow:0 30px 60px -32px rgba(0,0,0,.7);
+    --blob-1:rgba(45,212,191,.14); --blob-2:rgba(129,140,248,.14);
+  }
+}
+:root{
+  --sans:"Inter Tight",system-ui,sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.76,0,.24,1);
+}
+
+/* ================= BASE ================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{font-family:var(--sans);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;transition:color .5s}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--accent);color:var(--on-accent)}
+.wrap{width:min(1320px,100% - 32px);margin-inline:auto}
+@media (min-width:900px){.wrap{width:min(1320px,100% - 96px)}}
+em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--accent)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.ln > span{display:inline-block;will-change:transform}
+.ic{display:inline-block;width:16px;height:16px;flex:none;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+.grain{position:fixed;inset:-50%;z-index:200;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 8s steps(10) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}25%{transform:translate(-5%,4%)}50%{transform:translate(4%,-6%)}75%{transform:translate(-3%,7%)}}
+
+/* ================= PRELOADER ================= */
+.loader{position:fixed;inset:0;z-index:300;background:var(--bg);color:var(--fg);display:flex;flex-direction:column;justify-content:space-between;padding:28px}
+.loader .row{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.loader .count{font-size:clamp(80px,16vw,220px);font-weight:300;letter-spacing:-.06em;line-height:.8;font-variant-numeric:tabular-nums}
+.loader .bar{position:absolute;left:28px;right:28px;bottom:20px;height:1px;background:var(--line)}
+.loader .bar i{display:block;height:100%;width:0;background:var(--accent)}
+html:not(.has-gsap) .loader{display:none}
+
+/* ================= CURSOR ================= */
+.cursor{position:fixed;left:0;top:0;z-index:250;pointer-events:none;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--accent);opacity:.9;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),opacity .3s}
+.cursor span{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--on-accent);opacity:0;transition:opacity .2s}
+.cursor.hover{width:38px;height:38px;margin:-19px 0 0 -19px;opacity:.25}
+.cursor.label{width:78px;height:78px;margin:-39px 0 0 -39px;opacity:1}
+.cursor.label span{opacity:1}
+@media (hover:none){.cursor{display:none}}
+
+/* ================= NAV ================= */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:60;pointer-events:none}
+.nav .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;height:58px;padding:0 10px 0 22px;border-radius:999px;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border:1px solid var(--line);pointer-events:auto;transition:background .5s,border-color .5s}
+.brand{font-weight:600;font-size:15px;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.brand .c{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:12px;transition:transform .6s var(--ease)}
+.brand:hover .c{transform:rotate(360deg)}
+.nav ul{display:flex;gap:4px;list-style:none;font-size:14px;font-weight:500}
+.nav ul a{display:block;padding:8px 12px;border-radius:999px;color:var(--fg-2);transition:color .3s,background .3s}
+.nav ul a:hover{color:var(--fg);background:var(--fill-1)}
+.nav-r{display:flex;align-items:center;gap:8px}
+.theme-switch{display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--fill-1);border:1px solid var(--line)}
+.theme-switch button{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:var(--fg-3);transition:background .3s,color .3s}
+.theme-switch button svg{width:16px;height:16px}
+.theme-switch button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.menu-btn{display:none;padding:8px 14px;border-radius:999px;background:var(--fill-1);font-size:14px;font-weight:500}
+@media (max-width:1080px){.nav ul{display:none}.menu-btn{display:block}}
+.sheet{position:fixed;inset:0;z-index:70;background:var(--bg);padding:110px 24px 30px;display:flex;flex-direction:column;justify-content:space-between;transform:translateY(-100%);transition:transform .8s var(--ease)}
+.sheet.open{transform:none}
+.sheet a{display:block;font-size:40px;font-weight:500;letter-spacing:-.03em;padding:6px 0;border-bottom:1px solid var(--line)}
+.sheet .close{position:absolute;top:30px;right:24px;font-size:15px}
+
+/* ================= BUTTONS ================= */
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:999px;font-weight:600;font-size:15px;overflow:hidden;isolation:isolate;border:1px solid var(--line-2);color:var(--fg);transition:color .4s,border-color .4s}
+.btn::before{content:"";position:absolute;left:-10%;right:-10%;top:100%;height:220%;border-radius:50%;background:var(--accent);z-index:-1;transition:top .6s var(--ease)}
+.btn:hover::before{top:-60%}
+.btn:hover{color:var(--on-accent);border-color:var(--accent)}
+.btn.solid{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+/* ================= HERO ================= */
+.hero{position:relative;min-height:100svh;overflow:hidden;padding:140px 0 40px;display:flex;flex-direction:column;justify-content:space-between}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;will-change:transform}
+.blob.b1{width:46vw;aspect-ratio:1;right:-8vw;top:-6vw;background:var(--blob-1);animation:float1 18s ease-in-out infinite}
+.blob.b2{width:38vw;aspect-ratio:1;left:-10vw;bottom:-14vw;background:var(--blob-2);animation:float2 22s ease-in-out infinite}
+@keyframes float1{50%{transform:translate(-6vw,6vw) scale(1.08)}}
+@keyframes float2{50%{transform:translate(8vw,-4vw) scale(.92)}}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:end}
+.hero h1{font-size:clamp(54px,9.2vw,148px);font-weight:500;letter-spacing:-.055em;line-height:.92}
+.hero h1 .soft{color:var(--fg-3)}
+.sticker-row{position:relative;height:clamp(70px,9vw,128px);margin-top:16px}
+.sticker{position:absolute;left:0;top:0;display:inline-flex;align-items:center;padding:.12em .42em;border-radius:.24em;background:var(--surface);color:var(--fg);font-size:clamp(30px,5.2vw,80px);font-weight:600;letter-spacing:-.045em;transform:rotate(-3deg);transform-origin:left center;box-shadow:var(--shadow);border:1px solid var(--line);white-space:nowrap;overflow:hidden;line-height:1.2}
+.sticker .word{display:inline-block;padding-bottom:.04em}
+.sticker .tape{position:absolute;left:50%;top:-.1em;width:1.3em;height:.3em;background:var(--accent-soft);transform:translateX(-50%) rotate(4deg)}
+.sticker .cbar{display:inline-block;width:.06em;height:.8em;margin-left:.08em;background:var(--accent);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-side{position:relative;display:flex;flex-direction:column;justify-content:flex-end}
+.photo{position:relative;aspect-ratio:4/5;width:100%;max-width:400px;margin-left:auto;border-radius:22px;overflow:hidden;background:var(--surface-2);box-shadow:var(--shadow)}
+.photo img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;object-position:50% 14%;transform:scale(1.75);transform-origin:52% 24%;filter:saturate(.85);transition:filter .8s}
+.photo:hover img{filter:saturate(1.05)}
+.photo .tag{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(6px);font-size:12px;font-weight:600;color:var(--fg)}
+.dot{width:7px;height:7px;border-radius:50%;background:#3cbf7a;box-shadow:0 0 0 0 rgba(60,191,122,.5);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(60,191,122,0)}100%{box-shadow:0 0 0 0 rgba(60,191,122,0)}}
+.hero-foot{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);align-items:start}
+.hero-foot p{max-width:560px;font-size:17px;line-height:1.6;color:var(--fg-2)}
+.hero-foot p b{color:var(--fg);font-weight:600}
+.hero-meta{display:flex;justify-content:space-between;gap:20px;color:var(--fg-3)}
+.hero-meta b{display:block;color:var(--fg);font-weight:600;font-size:15px;margin-top:6px;text-transform:none;letter-spacing:0;font-family:var(--sans)}
+.scroll-cue{display:inline-flex;align-items:center;gap:10px;margin-top:22px;font-weight:600;font-size:14px}
+.scroll-cue i{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-style:normal;animation:bob 2.2s var(--ease) infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
+@media (max-width:860px){
+  .hero{padding-top:110px}
+  .hero-grid,.hero-foot{grid-template-columns:1fr;gap:28px}
+  .photo{max-width:none;margin:0;aspect-ratio:1/1}
+  .hero-meta{flex-wrap:wrap}
+}
+
+/* ================= SECTION HEAD ================= */
+.sec{padding:clamp(100px,13vw,170px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:60px}
+.sec-head h2{font-size:clamp(46px,7vw,112px);font-weight:500;letter-spacing:-.055em;line-height:.92}
+.sec-head p{max-width:360px;color:var(--fg-2);line-height:1.6}
+.eyebrow{color:var(--accent);margin-bottom:18px;display:block}
+
+/* ================= STATEMENT ================= */
+.statement .wrap{display:grid;grid-template-columns:220px 1fr;gap:40px}
+.statement .label{color:var(--fg-3)}
+.statement p{font-size:clamp(28px,3.8vw,56px);line-height:1.14;letter-spacing:-.035em;font-weight:400}
+html.has-gsap .statement p .w{opacity:.16}
+.statement .cta-row{margin-top:44px;display:flex;gap:12px;flex-wrap:wrap}
+@media (max-width:860px){.statement .wrap{grid-template-columns:1fr;gap:18px}}
+
+/* ================= STRENGTHS ================= */
+.best-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.bcard{--k:var(--accent);--k2:var(--accent-2);position:relative;padding:20px 22px 26px;border-radius:20px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;transform-style:preserve-3d;transition:transform .5s var(--ease),border-color .4s,box-shadow .5s;overflow:hidden}
+.bcard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--k) 16%,transparent),transparent 45%);opacity:0;transition:opacity .4s}
+.bcard:hover::after{opacity:1}
+.bcard:hover{border-color:var(--k);box-shadow:0 30px 60px -28px color-mix(in srgb,var(--k) 55%,transparent)}
+.bcard .art{height:118px;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--k) 16%,var(--surface)),color-mix(in srgb,var(--k2) 12%,var(--surface)));display:grid;place-items:center;overflow:hidden;border:1px solid color-mix(in srgb,var(--k) 22%,transparent)}
+.bcard .art svg{width:100%;height:100%;transition:transform .6s var(--ease)}
+.bcard:hover .art svg{transform:scale(1.07)}
+.bcard:hover .art *{animation-duration:1.1s!important}
+.bcard .n{display:flex;justify-content:space-between;color:var(--k);margin-top:18px}
+.bcard .proof{color:var(--k)!important}
+.bcard h3{font-size:clamp(20px,1.6vw,24px);font-weight:600;letter-spacing:-.025em;line-height:1.15;margin-top:8px}
+.bcard p{margin-top:10px;color:var(--fg-2);line-height:1.6;font-size:14px}
+.bcard .proof{margin-top:auto;padding-top:14px;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--accent)}
+@media (max-width:1200px){.best-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:900px){.best-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.best-grid{grid-template-columns:1fr}}
+
+/* illustration primitives */
+.il-s{fill:none;stroke:var(--fg-3);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.il-l{fill:none;stroke:var(--line-2);stroke-width:1.2}
+.il-a{fill:none;stroke:var(--k,var(--accent));stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.il-b{fill:none;stroke:var(--k2,var(--accent-2));stroke-width:1.7;stroke-linecap:round}
+.il-f{fill:var(--surface);stroke:color-mix(in srgb,var(--k,var(--accent)) 45%,var(--line-2));stroke-width:1.3}
+.il-af{fill:var(--k,var(--accent))}
+.il-bf{fill:var(--k2,var(--accent-2))}
+.il-sf{fill:color-mix(in srgb,var(--k,var(--accent)) 22%,transparent)}
+.il-g{fill:var(--fill-2)}
+.il-t{fill:var(--fg-2);font:500 9px var(--mono);letter-spacing:.06em}
+.a-pulse{stroke-dasharray:120 420;animation:pulseRun 2.6s linear infinite}
+@keyframes pulseRun{from{stroke-dashoffset:540}to{stroke-dashoffset:0}}
+.a-flow{stroke-dasharray:4 5;animation:flow 1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-18}}
+.a-float{animation:fl 3.2s ease-in-out infinite}
+@keyframes fl{50%{transform:translateX(8px)}}
+.a-draw{stroke-dasharray:260;animation:draw 3.2s var(--ease) infinite}
+@keyframes draw{0%{stroke-dashoffset:260}55%,100%{stroke-dashoffset:0}}
+.a-check{stroke-dasharray:40;animation:check 2.6s var(--ease) infinite}
+@keyframes check{0%,30%{stroke-dashoffset:40}60%,100%{stroke-dashoffset:0}}
+.a-bug{animation:bug 3.2s steps(1) infinite}
+@keyframes bug{0%,45%{fill:var(--warn);opacity:.4}46%,100%{fill:#22c55e;opacity:.35}}
+.a-scan{animation:scan 3.2s var(--ease) infinite}
+@keyframes scan{0%{transform:translateY(-26px)}45%{transform:translateY(4px)}100%{transform:translateY(-26px)}}
+.a-move{animation:mv 2.8s linear infinite}
+@keyframes mv{from{transform:translateX(0);opacity:0}10%{opacity:1}85%{opacity:1}to{transform:translateX(150px);opacity:0}}
+.a-spin{transform-box:fill-box;transform-origin:center;animation:sp 1.6s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.a-grow{transform-box:fill-box;transform-origin:left;animation:gr 2.8s var(--ease) infinite}
+@keyframes gr{0%{transform:scaleX(.1)}50%,100%{transform:scaleX(1)}}
+.a-node{transform-box:fill-box;transform-origin:center;animation:nd 2.4s ease-in-out infinite}
+@keyframes nd{50%{transform:scale(1.25)}}
+.a-fade{animation:fd 2.4s ease-in-out infinite}
+@keyframes fd{0%,100%{opacity:.15}50%{opacity:1}}
+.a-stage{animation:stg 4s steps(1) infinite}
+@keyframes stg{0%{fill:var(--surface)}100%{fill:var(--accent)}}
+
+/* ================= DOORS ================= */
+.doors{position:relative;height:720vh}
+.doors .stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;align-items:center;padding-top:100px}
+.doors-head{text-align:center;padding:0 16px}
+.doors-head h2{font-size:clamp(38px,6vw,96px);font-weight:500;letter-spacing:-.05em;line-height:1}
+.doors-sub{margin-top:14px;color:var(--fg-3);display:flex;gap:16px;justify-content:center;align-items:center}
+.pips{display:flex;gap:6px}
+.pips i{width:18px;height:2px;background:var(--line-2);transition:background .4s,width .4s}
+.pips i.on{background:var(--accent);width:32px}
+.door-area{position:relative;flex:1;width:min(1180px,100% - 32px);margin:4vh 0 7vh}
+.feature{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;transition:opacity .6s var(--ease),transform .9s var(--ease)}
+.feature .door{justify-self:end;height:100%;max-height:560px;width:auto;aspect-ratio:.53}
+.feature .info{max-width:450px}
+.info .num{color:var(--accent)}
+.info h3{font-size:clamp(32px,3.6vw,52px);font-weight:500;letter-spacing:-.04em;line-height:1;margin-top:10px}
+.info .tag{color:var(--fg-2);margin-top:10px;font-size:15px}
+.info ul{list-style:none;margin-top:24px;border-top:1px solid var(--line)}
+.info li{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--fg)}
+.info li span{font-family:var(--mono);font-size:11px;color:var(--fg-3);padding-top:4px}
+.info .open-hint{margin-top:20px;color:var(--fg-3)}
+.info-in{transition:opacity .35s,transform .45s var(--ease)}
+.info-in.swap{opacity:0;transform:translateY(16px)}
+.row5{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,2.2vw,30px);align-items:end;opacity:0;pointer-events:none}
+.row5 .door{width:100%;max-width:200px;justify-self:center;aspect-ratio:.53;opacity:0;transform:translateY(60px);transition:opacity .8s var(--ease),transform 1s var(--ease)}
+.row5.on{opacity:1;pointer-events:auto}
+.row5.on .door{opacity:1;transform:none}
+.row5.on .door:nth-child(2){transition-delay:.07s}.row5.on .door:nth-child(3){transition-delay:.14s}.row5.on .door:nth-child(4){transition-delay:.21s}.row5.on .door:nth-child(5){transition-delay:.28s}
+.cap{position:absolute;left:0;right:0;top:calc(100% + 14px);text-align:center;font-family:var(--mono);font-size:11px;color:var(--fg-3);white-space:nowrap}
+.cap b{display:block;font-family:var(--sans);color:var(--fg);font-weight:500;font-size:14px;margin-bottom:2px}
+.door{--c:#6f8fbf;position:relative;display:block;perspective:1400px;cursor:pointer}
+.door .frame{position:absolute;inset:0;border-radius:999px 999px 8px 8px;background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow)}
+.door .inside{position:absolute;inset:10px;border-radius:999px 999px 4px 4px;overflow:hidden;background:radial-gradient(ellipse at 50% 85%,#fffaf0,color-mix(in srgb,var(--c) 55%,#fff) 35%,color-mix(in srgb,var(--c) 70%,#000) 85%)}
+.door .leaf{position:absolute;inset:10px;border-radius:999px 999px 4px 4px;transform-origin:left center;transition:transform 1s var(--ease);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 82%,#000) 0%,var(--c) 34%,color-mix(in srgb,var(--c) 82%,#fff) 55%,var(--c) 74%,color-mix(in srgb,var(--c) 85%,#000) 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset -10px 0 24px rgba(0,0,0,.12)}
+.door .leaf::before,.door .leaf::after{content:"";position:absolute;left:15%;right:15%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.08)}
+.door .leaf::before{top:9%;height:44%;border-radius:999px 999px 3px 3px}
+.door .leaf::after{top:58%;height:34%;border-radius:3px}
+.door .plate{position:absolute;left:50%;top:27%;z-index:1;transform:translateX(-50%);padding:.45em .8em;border-radius:3px;background:linear-gradient(180deg,#f3e3b6,#c9a965);color:#3a2c0c;font-family:var(--mono);font-size:clamp(8px,.9vw,11px);font-weight:500;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.door .knob{position:absolute;right:11%;top:55%;width:clamp(7px,1vw,12px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6da,#c9a965 60%,#7d6227);box-shadow:0 2px 4px rgba(0,0,0,.25)}
+.door .spill{position:absolute;left:5%;right:5%;top:100%;height:70px;background:radial-gradient(ellipse at 50% 0,color-mix(in srgb,var(--c) 45%,transparent),transparent 70%);opacity:0;transition:opacity .6s;pointer-events:none}
+.door:hover .leaf{transform:rotateY(-24deg)}
+.door:hover .spill,.door.open .spill{opacity:1}
+.door.open .leaf{transform:rotateY(-100deg)}
+@media (max-width:760px){
+  .doors .stage{padding-top:92px}
+  .feature{display:flex;flex-direction:column;justify-content:flex-start;gap:22px}
+  .feature .door{height:min(30svh,250px);flex:none}
+  .info{width:100%}
+  .info h3{font-size:30px}
+  .info ul{margin-top:14px}
+  .info li{padding:8px 0;font-size:14px}
+  .info .open-hint{display:none}
+  .row5{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,minmax(0,1fr));column-gap:10px;row-gap:60px;padding-bottom:30px}
+  .row5 .door{grid-column:span 2;height:76%;width:auto;max-width:none;align-self:start}
+  .row5 .door:nth-child(4){grid-column:2/span 2}
+  .cap b{font-size:12px}
+}
+
+/* ================= ROOM ================= */
+.portal{position:fixed;z-index:85;pointer-events:none;display:none}
+.room{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s .5s}
+.room.open{opacity:1;visibility:visible;transition:opacity .5s}
+.room-inner{padding:130px 0 160px}
+.room .crumb{color:var(--fg-3)}
+.room h2{font-size:clamp(56px,11vw,176px);font-weight:500;letter-spacing:-.06em;line-height:.9;margin-top:18px}
+.room-top{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+.room .intro{font-size:19px;line-height:1.6;color:var(--fg-2);max-width:560px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.chips span{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:999px;border:1px solid var(--line-2);font-size:13px;color:var(--fg-2);background:var(--surface)}
+.chips span .ic{width:14px;height:14px;color:var(--fg)}
+.room-list{margin-top:70px}
+.ritem{display:grid;grid-template-columns:70px 1fr 1fr;gap:32px;padding:42px 0;border-top:1px solid var(--line)}
+.ritem .n{color:var(--fg-3)}
+.ritem h3{font-size:clamp(26px,2.8vw,40px);font-weight:500;letter-spacing:-.035em;line-height:1.08}
+.ritem .sub{margin-top:8px;font-family:var(--serif);font-style:italic;color:var(--accent);font-size:20px}
+.ritem p{margin-top:16px;color:var(--fg-2);line-height:1.7;font-size:16px;max-width:520px}
+.ritem .chips{margin-top:20px}
+.viz{border-radius:18px;background:var(--surface-2);border:1px solid var(--line);min-height:280px;display:grid;place-items:center;padding:28px;overflow:hidden}
+.room .next{margin-top:70px;display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:30px;border-top:1px solid var(--line);flex-wrap:wrap}
+.room .next button{font-size:clamp(28px,4vw,54px);font-weight:500;letter-spacing:-.04em;text-align:left}
+.back{position:fixed;left:24px;bottom:24px;z-index:95;display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:600;font-size:14px;opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .4s,transform .5s var(--ease)}
+.back.on{opacity:1;transform:none;pointer-events:auto}
+@media (max-width:860px){.room-top,.ritem{grid-template-columns:1fr;gap:18px}.ritem{padding:32px 0}}
+
+/* ================= MINI VISUALS ================= */
+.v-phone{width:150px;aspect-ratio:9/19;border-radius:26px;border:1px solid var(--line-2);background:var(--surface);padding:16px 12px;display:flex;flex-direction:column;gap:9px;box-shadow:var(--shadow)}
+.v-phone i{display:block;height:7px;border-radius:4px;background:var(--fill-2)}
+.v-phone i.a{background:var(--accent);width:40%}
+.v-phone .blk{flex:1;border-radius:10px;background:var(--fill-1);display:flex;align-items:flex-end;gap:4px;padding:8px}
+.v-phone .blk b{flex:1;background:var(--accent);opacity:.55;border-radius:2px}
+.v-dash{width:100%;max-width:360px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.v-dash .k{padding:12px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.v-dash .k b{display:block;font-size:20px;font-weight:500;letter-spacing:-.03em}
+.v-dash .k small{font-family:var(--mono);font-size:10px;color:var(--fg-3)}
+.v-dash .ch{grid-column:1/-1;height:120px;border-radius:10px;background:var(--surface);border:1px solid var(--line);display:flex;align-items:flex-end;gap:6px;padding:12px}
+.v-dash .ch b{flex:1;background:var(--fill-2);border-radius:2px}
+.v-dash .ch b.a{background:var(--accent)}
+.v-term{width:100%;max-width:380px;font-family:var(--mono);font-size:12px;line-height:1.85;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.v-term .c{color:var(--fg-3)}.v-term .ok{color:var(--accent)}
+.v-pay{width:100%;max-width:300px;border-radius:14px;background:var(--surface);color:var(--fg);padding:18px;font-size:13px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.v-pay .top{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px dashed var(--line-2)}
+.v-pay .amt{font-size:30px;font-weight:600;letter-spacing:-.04em;margin:14px 0 6px}
+.v-pay ol{list-style:none;display:grid;gap:7px;font-family:var(--mono);font-size:11px;color:var(--fg-2);margin-top:10px}
+.v-pay ol li::before{content:"✓ ";color:var(--accent)}
+.v-flow{display:flex;flex-direction:column;align-items:center;font-size:13px}
+.v-flow .nd{padding:11px 18px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface)}
+.v-flow .nd.a{border-color:var(--accent);color:var(--accent)}
+.v-flow i{width:1px;height:30px;background:repeating-linear-gradient(var(--fg-3) 0 4px,transparent 4px 8px);background-size:1px 16px;animation:dash 1s linear infinite}
+@keyframes dash{to{background-position:0 16px}}
+.v-hub{position:relative;width:240px;height:240px;display:grid;place-items:center}
+.v-hub::before{content:"";position:absolute;inset:22px;border-radius:50%;border:1px dashed var(--line-2);animation:sp 30s linear infinite}
+.v-hub b{width:86px;height:86px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--on-accent);font-size:12px;font-weight:600;text-align:center}
+.v-hub span{position:absolute;left:50%;top:50%;font-family:var(--mono);font-size:10.5px;padding:5px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line-2);transform:translate(-50%,-50%) rotate(var(--a)) translateY(-98px) rotate(calc(-1*var(--a)))}
+.v-chat{width:100%;max-width:340px;display:grid;gap:8px;font-size:13px}
+.v-chat .m{padding:10px 13px;border-radius:14px;line-height:1.5;max-width:86%}
+.v-chat .u{justify-self:end;background:var(--accent);color:var(--on-accent);border-bottom-right-radius:4px}
+.v-chat .a{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.v-chat .t{justify-self:start;font-family:var(--mono);font-size:11px;color:var(--fg-3);padding:5px 10px;border:1px dashed var(--line-2);border-radius:8px}
+.v-search{width:100%;max-width:380px;font-size:12.5px}
+.v-search .q{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:10px;border:1px solid var(--accent);background:var(--surface);margin-bottom:10px}
+.v-search .q span{font-size:10px;color:var(--fg-3)}
+.v-search .r{display:grid;grid-template-columns:1fr 70px 34px;gap:10px;align-items:center;padding:8px 2px;border-bottom:1px solid var(--line)}
+.v-search .r i{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--accent) calc(var(--s)*100%),var(--fill-2) 0)}
+.v-search .r em{font-family:var(--mono);font-style:normal;font-size:10.5px;color:var(--fg-3);text-align:right}
+.v-travel{width:100%;max-width:340px;border-radius:16px;background:var(--surface);color:var(--fg);padding:14px;font-size:13px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.v-travel .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;border-radius:10px;background:var(--surface-2);font-weight:600;font-size:11.5px;text-align:center}
+.v-travel .tabs span{padding:7px 0;border-radius:7px;color:var(--fg-2)}
+.v-travel .tabs span.on{background:var(--accent);color:var(--on-accent)}
+.v-travel .route{display:flex;justify-content:space-between;align-items:center;margin:16px 4px 6px}
+.v-travel .route b{font-size:26px;letter-spacing:-.04em;font-weight:600}
+.v-travel .route small{display:block;font-family:var(--mono);font-size:9.5px;color:var(--fg-3);font-weight:400}
+.v-travel .route i{flex:1;margin:0 10px;height:1px;background:repeating-linear-gradient(90deg,var(--fg-3) 0 4px,transparent 4px 8px);position:relative;font-style:normal}
+.v-travel .route i::after{content:"✈";position:absolute;left:50%;top:-9px;transform:translateX(-50%);font-size:13px;color:var(--accent);animation:fly 3s var(--ease) infinite}
+@keyframes fly{0%{left:5%}100%{left:95%}}
+.v-travel .rows{display:grid;gap:6px;margin-top:12px}
+.v-travel .rows div{display:flex;justify-content:space-between;padding:9px 10px;border-radius:8px;background:var(--surface-2);font-size:12px}
+.v-travel .rows div.ok{outline:1px solid var(--accent)}
+
+/* ================= LOGO MARQUEE ================= */
+.logos{padding:70px 0;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.logos .label{text-align:center;color:var(--fg-3);margin-bottom:26px}
+.lrow{display:flex;width:max-content;gap:12px;animation:lscroll 60s linear infinite}
+.lrow.rev{animation-direction:reverse;margin-top:12px}
+.logos:hover .lrow{animation-play-state:paused}
+@keyframes lscroll{to{transform:translateX(-50%)}}
+.logo{--b:var(--fg);display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--b) 9%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--b) 28%,var(--line));font-weight:500;font-size:15px;color:var(--fg);white-space:nowrap;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
+.logo .ic{width:22px;height:22px;color:var(--b)}
+.logo:hover{transform:translateY(-4px) scale(1.04);border-color:var(--b);box-shadow:0 16px 30px -14px color-mix(in srgb,var(--b) 70%,transparent)}
+.logo .mk{display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--b);font-family:var(--mono);font-size:11px;font-weight:600;color:#fff}
+.chips span{border-color:color-mix(in srgb,var(--b,var(--fg-3)) 30%,var(--line-2))}
+.chips span .ic{color:var(--b,var(--fg))!important}
+.srow .icons span{transition:transform .3s var(--ease),border-color .3s,box-shadow .3s;background:color-mix(in srgb,var(--b,var(--fg)) 8%,var(--surface))!important;border-color:color-mix(in srgb,var(--b,var(--fg)) 25%,var(--line))!important}
+.srow .icons span .ic{color:var(--b,var(--fg))}
+.srow .icons span:hover{transform:translateY(-3px) rotate(-6deg);border-color:var(--b)!important;box-shadow:0 10px 20px -10px var(--b)}
+
+/* ================= SYSTEMS ================= */
+.sys-top{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center}
+.systems h2{font-size:clamp(44px,6vw,96px);font-weight:500;letter-spacing:-.055em;line-height:.92}
+.systems p{color:var(--fg-2);line-height:1.65;font-size:17px;max-width:520px;margin-top:24px}
+.sys-rows{margin-top:30px;border-top:1px solid var(--line);max-width:520px}
+.sys-rows div{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.sys-rows b{font-weight:500}
+.sys-rows span{color:var(--fg-3);font-size:11px}
+.globe-box{position:relative;aspect-ratio:1;width:100%;max-width:600px;justify-self:end;cursor:grab;touch-action:pan-y}
+.globe-box:active{cursor:grabbing}
+.globe-box::before{content:"";position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,var(--blob-1),transparent 65%);filter:blur(24px)}
+#globe{position:absolute;inset:0}
+#globe canvas{display:block;width:100%!important;height:100%!important}
+.globe-hint{position:absolute;left:0;right:0;bottom:2%;text-align:center;color:var(--fg-3);font-size:10.5px}
+.arch-head{display:flex;justify-content:space-between;gap:16px;margin-top:100px;padding-bottom:16px;border-bottom:1px solid var(--line);color:var(--fg-3)}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:8px;animation:fd 1.6s infinite}
+.arch-wrap{margin-top:34px;overflow-x:auto;scrollbar-width:none}
+.arch-wrap::-webkit-scrollbar{display:none}
+#arch{display:block;width:100%;min-width:820px;height:auto}
+#arch .edge{fill:none;stroke:var(--line-2);stroke-width:1.3}
+#arch .edge.wh{stroke-dasharray:4 5}
+#arch .node rect{fill:color-mix(in srgb,var(--nc) 10%,var(--surface));stroke:color-mix(in srgb,var(--nc) 55%,transparent);stroke-width:1.4;transition:fill .3s}
+#arch .node:hover rect{fill:color-mix(in srgb,var(--nc) 22%,var(--surface))}
+#arch .node .dot{fill:var(--nc)}
+#arch .pk{fill:var(--pc,var(--accent))}
+#arch .node .t1{fill:var(--fg);font:500 14px var(--sans)}
+#arch .node .t2{fill:var(--fg-3);font:400 10px var(--mono);letter-spacing:.04em}
+#arch .node .tag{fill:var(--accent-2);font:500 9px var(--mono);letter-spacing:.08em}
+#arch .pk{opacity:0;transition:opacity .8s}
+#arch.live .pk{opacity:1}
+@media (max-width:860px){.sys-top{grid-template-columns:1fr;gap:30px}.globe-box{justify-self:center;max-width:440px}.arch-head{margin-top:70px}}
+
+/* ================= WORK ================= */
+.scard{position:sticky;top:calc(96px + var(--i) * 16px);margin-bottom:34px;min-height:min(74svh,600px);border-radius:26px;padding:clamp(24px,3.6vw,50px);display:grid;grid-template-columns:1fr 1fr;gap:44px;background:var(--cbg);color:var(--fg);border:1px solid var(--line);box-shadow:var(--shadow);transform-origin:50% 0;will-change:transform}
+.scard .meta{display:flex;justify-content:space-between;color:var(--fg-3)}
+.scard .meta .lbl{color:var(--accent)}
+.scard .left{display:flex;flex-direction:column}
+.scard h3{font-size:clamp(34px,4.2vw,64px);font-weight:500;letter-spacing:-.05em;line-height:.98;margin-top:auto}
+.scard .sub{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:22px;color:var(--fg-2)}
+.scard p{margin-top:16px;line-height:1.65;color:var(--fg-2);max-width:470px}
+.scard .chips{margin-top:22px}
+.scard .shot{border-radius:18px;background:color-mix(in srgb,var(--surface) 55%,transparent);border:1px solid var(--line);display:grid;place-items:center;padding:24px;overflow:hidden}
+@media (max-width:860px){.scard{grid-template-columns:1fr;min-height:0;gap:24px}.scard h3{margin-top:22px}.scard .shot{min-height:250px}}
+
+/* ================= JOURNEY ================= */
+.journey .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px}
+.yr-sticky{position:sticky;top:120px}
+.journey h2{font-size:clamp(44px,6vw,96px);font-weight:500;letter-spacing:-.055em;line-height:.92;margin-top:18px}
+.year{font-size:clamp(110px,16vw,250px);font-weight:500;letter-spacing:-.07em;line-height:.85;margin-top:30px;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,var(--fg),var(--fg-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.year-note{color:var(--fg-3);margin-top:12px}
+.tl{padding:34px 0 56px;border-top:1px solid var(--line);opacity:.35;transition:opacity .6s}
+.tl.active{opacity:1}
+.tl .when{color:var(--accent)}
+.tl h3{font-size:clamp(24px,2.6vw,38px);font-weight:500;letter-spacing:-.035em;margin-top:10px}
+.tl .org{color:var(--fg-2);margin-top:6px;font-family:var(--serif);font-style:italic;font-size:19px}
+.tl ul{list-style:none;margin-top:18px;display:grid;gap:11px}
+.tl li{display:flex;gap:12px;line-height:1.6;color:var(--fg-2)}
+.tl li::before{content:"";flex:none;width:6px;height:6px;margin-top:.62em;border-radius:50%;background:var(--accent)}
+@media (max-width:860px){.journey .wrap{grid-template-columns:1fr;gap:30px}.yr-sticky{position:relative;top:0}.tl{opacity:1}}
+
+/* ================= SKILLS ================= */
+.srow{position:relative;display:grid;grid-template-columns:50px 1.1fr 1.3fr 180px 60px;gap:22px;align-items:center;padding:24px 14px;border-top:1px solid var(--line);border-radius:14px;transition:background .4s}
+.srow:last-child{border-bottom:1px solid var(--line)}
+.srow:hover{background:var(--surface)}
+.srow .n{color:var(--fg-3)}
+.srow h4{font-size:clamp(20px,2.2vw,30px);font-weight:500;letter-spacing:-.03em;line-height:1.1}
+.srow h4 small{display:inline-block;margin-left:10px;vertical-align:middle;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.srow p{color:var(--fg-2);line-height:1.55;font-size:14.5px}
+.srow .icons{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.srow .icons span{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--fg)}
+.srow .icons .ic{width:17px;height:17px}
+.srow .pct{text-align:right;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+.srow .bar{grid-column:2/-1;height:3px;border-radius:3px;background:var(--fill-1);overflow:hidden;margin-top:-8px}
+.srow .bar i{display:block;height:100%;width:var(--p);background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:left;transform:scaleX(0);transition:transform 1.4s var(--ease)}
+.srow.in .bar i{transform:scaleX(1)}
+@media (max-width:900px){.srow{grid-template-columns:1fr auto;gap:10px}.srow .n{display:none}.srow p,.srow .icons{grid-column:1/-1;justify-content:flex-start}.srow .bar{grid-column:1/-1;margin-top:0}}
+
+/* ================= TERMINAL ================= */
+.term-win{border-radius:18px;border:1px solid var(--line-2);background:#121619;overflow:hidden;box-shadow:var(--shadow);color:#d9dcd8}
+.term-bar{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.term-bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+.term-bar i:nth-child(2){background:#febc2e}.term-bar i:nth-child(3){background:#28c840}
+.term-bar span{flex:1;text-align:center;color:#7d8488;font-size:11px;margin-right:50px}
+.term-body{height:400px;overflow-y:auto;padding:18px 20px 6px;font-family:var(--mono);font-size:13px;line-height:1.75;white-space:pre-wrap;overscroll-behavior:contain}
+.term-body .p{color:#74c4b8}
+.term-body .k{color:#f1f2ef;font-weight:500}
+.term-body .m{color:#7d8488}
+.term-body .ok{color:#7fd69b}
+.term-in{display:flex;gap:10px;align-items:center;padding:6px 20px 18px;font-family:var(--mono);font-size:13px}
+.term-in .p{color:#74c4b8;white-space:nowrap}
+.term-in input{flex:1;min-width:0;background:none;border:0;outline:0;color:#f1f2ef;font:inherit;caret-color:#74c4b8}
+.term-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.term-chips button{font-family:var(--mono);font-size:12px;padding:8px 14px;border-radius:999px;border:1px solid var(--line-2);color:var(--fg-2);background:var(--surface);transition:border-color .3s,color .3s}
+.term-chips button:hover{border-color:var(--accent);color:var(--accent)}
+@media (max-width:620px){.term-body{height:340px;font-size:12px}.term-in .p{display:none}}
+
+/* ================= CONTACT ================= */
+.contact{padding-bottom:30px}
+.contact .me{display:flex;align-items:center;gap:16px}
+.contact .me img{width:68px;height:68px;border-radius:50%;object-fit:cover;object-position:50% 28%;border:2px solid var(--surface);box-shadow:var(--shadow)}
+.contact h2{font-size:clamp(50px,10vw,168px);font-weight:500;letter-spacing:-.06em;line-height:.92;margin-top:28px}
+.contact-line{position:relative;margin:80px 0 50px;height:1px;background:var(--line)}
+.big-btn{position:absolute;right:8%;top:50%;transform:translateY(-50%);width:clamp(120px,13vw,180px);aspect-ratio:1;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-weight:600;font-size:16px;text-align:center;line-height:1.2;box-shadow:var(--shadow)}
+.pills{display:flex;gap:12px;flex-wrap:wrap}
+.foot{margin-top:110px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;color:var(--fg-3)}
+.foot b{display:block;color:var(--fg);font-weight:500;font-size:15px;margin-top:8px;text-transform:none;letter-spacing:0;font-family:var(--sans)}
+.foot .socials{display:flex;gap:22px;flex-wrap:wrap;margin-top:8px}
+.foot .socials a{color:var(--fg);font-size:15px;font-weight:500;text-transform:none;letter-spacing:0;font-family:var(--sans)}
+.foot .socials a:hover{color:var(--accent)}
+@media (max-width:760px){.big-btn{right:0}.contact-line{margin:100px 0 70px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
-<div id="cur"></div><div id="cur2"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span></span></div>
 
-<nav>
-  <div class="logo">AS<span>_</span>dev</div>
-  <div class="nav-links">
-    <a href="#about">About</a><a href="#skills">Skills</a>
-    <a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
-  </div>
-  <div class="badge"><div class="dot"></div>Open to Work · 30 days</div>
-</nav>
-
-<section id="hero">
-  <div class="grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-left">
-    <div class="h-tag">Full Stack Developer · Gurugram, India 🇮🇳</div>
-    <h1 class="h-name">Ashish<br><span class="cy">Saini.</span></h1>
-    <p class="h-italic">Where clean code meets<br>real-world impact.</p>
-    <p class="h-bio">3+ years shipping production systems — from Laravel microservices powering multinational deployments to real-time Angular dashboards. I build software that scales and lasts.</p>
-    <div class="h-cta"><a href="#projects" class="btn-p">View My Work →</a><a href="#contact" class="btn-o">Hire Me</a></div>
-  </div>
-
-  <div class="hero-right">
-    <div class="stage">
-      <div class="ring1"></div><div class="ring2"></div><div class="ring3"></div>
-      <div class="pill p1"><div class="pd"></div>Laravel Expert</div>
-      <div class="pill p2"><div class="pd" style="background:var(--blue)"></div>AWS Cloud</div>
-      <div class="pill p3"><div class="pd" style="background:var(--red)"></div>3+ Yrs Exp</div>
-      <div class="pill p4"><div class="pd" style="background:var(--accent2)"></div>Available Now</div>
-
-      <!-- ══════════ PREMIUM DEVELOPER CHARACTER ══════════ -->
-      <svg class="char-svg" viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="gG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00e5ff" stop-opacity=".25"/><stop offset="100%" stop-color="#00e5ff" stop-opacity="0"/></radialGradient>
-          <radialGradient id="skin" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#f5c99a"/><stop offset="100%" stop-color="#e8a870"/></radialGradient>
-          <linearGradient id="hoodie" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0e2640"/><stop offset="100%" stop-color="#071a2e"/></linearGradient>
-          <linearGradient id="chair" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0f2d47"/><stop offset="100%" stop-color="#061220"/></linearGradient>
-          <linearGradient id="desk" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0b2035"/><stop offset="100%" stop-color="#0d2840"/></linearGradient>
-          <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <filter id="sglow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <clipPath id="sc1"><rect x="62" y="88" width="146" height="98" rx="4"/></clipPath>
-          <clipPath id="sc2"><rect x="220" y="93" width="96" height="92" rx="4"/></clipPath>
-        </defs>
-
-        <!-- ground glow -->
-        <ellipse cx="200" cy="508" rx="120" ry="16" fill="url(#gG)" opacity=".7"/>
-
-        <!-- ── DESK ── -->
-        <rect x="28" y="214" width="330" height="14" rx="4" fill="url(#desk)" stroke="#1a3a5f" stroke-width="1"/>
-        <rect x="40" y="226" width="10" height="65" rx="3" fill="#071220"/>
-        <rect x="336" y="226" width="10" height="65" rx="3" fill="#071220"/>
-        <rect x="34" y="289" width="22" height="5" rx="2" fill="#050e1a"/>
-        <rect x="330" y="289" width="22" height="5" rx="2" fill="#050e1a"/>
-
-        <!-- ── MONITOR LEFT ── -->
-        <rect x="56" y="80" width="158" height="136" rx="9" fill="#040b14" stroke="#00e5ff" stroke-width="1.4"/>
-        <rect x="62" y="86" width="146" height="124" rx="6" fill="#020910"/>
-        <!-- title bar -->
-        <rect x="62" y="86" width="146" height="18" rx="6" fill="#040d18"/>
-        <rect x="62" y="98" width="146" height="6" fill="#040d18"/>
-        <circle cx="68" cy="95" r="3" fill="#ff4081" opacity=".85"/>
-        <circle cx="78" cy="95" r="3" fill="#ffd740" opacity=".75"/>
-        <circle cx="88" cy="95" r="3" fill="#64ffda"/>
-        <!-- stand -->
-        <rect x="122" y="214" width="28" height="11" fill="#09192a"/>
-        <rect x="108" y="223" width="56" height="5" rx="2" fill="#08182a"/>
-
-        <!-- CODE on screen 1 -->
-        <g clip-path="url(#sc1)">
-          <!-- scan line -->
-          <rect x="62" y="104" width="146" height="2.5" fill="rgba(0,229,255,.04)" opacity=".8">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,82;0,0" dur="4s" repeatCount="indefinite"/>
-          </rect>
-          <text x="68" y="118" font-family="monospace" font-size="6.5" fill="#3a5570">// crew deployment api</text>
-          <text x="68" y="130" font-family="monospace" font-size="6.5" fill="#c792ea">Route</text>
-          <text x="91" y="130" font-family="monospace" font-size="6.5" fill="#89ddff">::</text>
-          <text x="97" y="130" font-family="monospace" font-size="6.5" fill="#82aaff">post</text>
-          <text x="115" y="130" font-family="monospace" font-size="6.5" fill="#eee">('/deploy',</text>
-          <text x="68" y="142" font-family="monospace" font-size="6.5" fill="#ff9e64">  [CrewController</text>
-          <text x="68" y="154" font-family="monospace" font-size="6.5" fill="#ff9e64">  ::class, 'deploy']);</text>
-          <text x="68" y="166" font-family="monospace" font-size="6.5" fill="#3a5570">// elastic search</text>
-          <text x="68" y="178" font-family="monospace" font-size="6.5" fill="#64ffda">$hits</text>
-          <text x="90" y="178" font-family="monospace" font-size="6.5" fill="#89ddff"> = ES::search($q);</text>
-          <rect x="68" y="170" width="4" height="8" fill="#00e5ff" rx=".8" opacity=".9">
-            <animate attributeName="opacity" values="0.9;0;0.9" dur=".85s" repeatCount="indefinite"/>
-          </rect>
-        </g>
-
-        <!-- ── MONITOR RIGHT ── -->
-        <rect x="214" y="84" width="108" height="132" rx="8" fill="#040b14" stroke="#2979ff" stroke-width="1.2"/>
-        <rect x="220" y="90" width="96" height="120" rx="5" fill="#020910"/>
-        <rect x="220" y="90" width="96" height="16" rx="5" fill="#040d18"/>
-        <rect x="220" y="100" width="96" height="6" fill="#040d18"/>
-        <circle cx="225" cy="98" r="2.2" fill="#2979ff" opacity=".7"/>
-        <!-- stand -->
-        <rect x="256" y="214" width="20" height="11" fill="#09192a"/>
-        <rect x="244" y="223" width="44" height="5" rx="2" fill="#08182a"/>
-
-        <!-- AWS console on screen 2 -->
-        <g clip-path="url(#sc2)">
-          <text x="226" y="116" font-family="monospace" font-size="5.8" fill="#546d8a">AWS Console</text>
-          <rect x="224" y="120" width="86" height="13" rx="2.5" fill="rgba(0,229,255,.06)" stroke="rgba(0,229,255,.18)" stroke-width=".7"/>
-          <text x="228" y="130" font-family="monospace" font-size="5" fill="#64ffda">S3  ████████ 82%</text>
-          <rect x="224" y="136" width="86" height="13" rx="2.5" fill="rgba(100,255,218,.04)" stroke="rgba(100,255,218,.14)" stroke-width=".7"/>
-          <text x="228" y="146" font-family="monospace" font-size="5" fill="#82aaff">EC2 ███████  64%</text>
-          <rect x="224" y="152" width="86" height="13" rx="2.5" fill="rgba(41,121,255,.04)" stroke="rgba(41,121,255,.14)" stroke-width=".7"/>
-          <text x="228" y="162" font-family="monospace" font-size="5" fill="#ff9e64">RDS ████████ 71%</text>
-          <text x="226" y="177" font-family="monospace" font-size="4.5" fill="#546d8a">CloudWatch: 0 Alarms ✓</text>
-          <text x="226" y="188" font-family="monospace" font-size="4.5" fill="#64ffda">● All systems green</text>
-        </g>
-
-        <!-- ── KEYBOARD ── -->
-        <rect x="90" y="216" width="168" height="17" rx="4" fill="#07172a" stroke="#152c45" stroke-width=".8"/>
-        <g fill="#0b2038" stroke="#152c45" stroke-width=".5">
-          <rect x="94" y="219" width="7" height="5" rx="1"/><rect x="103" y="219" width="7" height="5" rx="1"/>
-          <rect x="112" y="219" width="7" height="5" rx="1"/><rect x="121" y="219" width="7" height="5" rx="1"/>
-          <rect x="130" y="219" width="7" height="5" rx="1"/><rect x="139" y="219" width="7" height="5" rx="1"/>
-          <rect x="148" y="219" width="7" height="5" rx="1"/><rect x="157" y="219" width="7" height="5" rx="1"/>
-          <rect x="166" y="219" width="7" height="5" rx="1"/><rect x="175" y="219" width="7" height="5" rx="1"/>
-          <rect x="184" y="219" width="7" height="5" rx="1"/><rect x="193" y="219" width="7" height="5" rx="1"/>
-          <rect x="202" y="219" width="7" height="5" rx="1"/><rect x="211" y="219" width="14" height="5" rx="1"/>
-          <rect x="118" y="226" width="108" height="5" rx="1"/>
-        </g>
-        <!-- typing glow key -->
-        <rect x="112" y="219" width="7" height="5" rx="1" fill="rgba(0,229,255,.6)" opacity="0">
-          <animate attributeName="opacity" values="0;.9;0;0;0;.7;0;0;.8;0" dur="1.6s" repeatCount="indefinite"/>
-          <animate attributeName="x" values="112;130;148;121;157;103;139;175;148;112" dur="1.6s" repeatCount="indefinite"/>
-        </rect>
-
-        <!-- ── MOUSE ── -->
-        <rect x="268" y="217" width="20" height="13" rx="5.5" fill="#07172a" stroke="#152c45" stroke-width=".8"/>
-        <line x1="278" y1="217" x2="278" y2="230" stroke="#152c45" stroke-width=".8"/>
-        <circle cx="278" cy="220.5" r="1.8" fill="rgba(0,229,255,.4)"/>
-
-        <!-- ── COFFEE ── -->
-        <rect x="44" y="196" width="28" height="22" rx="4" fill="#0a1e32" stroke="#1a3a5f" stroke-width="1"/>
-        <path d="M72 201 Q81 201 81 207 Q81 214 72 214" stroke="#152c45" stroke-width="1.4" fill="none"/>
-        <text x="50" y="213" font-family="monospace" font-size="10" fill="#00e5ff">☕</text>
-        <!-- steam anim -->
-        <path d="M50 193 Q52 186 50 180" stroke="#00e5ff" stroke-width="1.1" stroke-linecap="round" fill="none">
-          <animate attributeName="opacity" values=".4;.9;.4" dur="2.2s" repeatCount="indefinite"/>
-          <animate attributeName="d" values="M50 193 Q52 186 50 180;M50 193 Q55 185 51 180;M50 193 Q52 186 50 180" dur="2.2s" repeatCount="indefinite"/>
-        </path>
-        <path d="M57 191 Q59 184 57 178" stroke="#00e5ff" stroke-width="1.1" stroke-linecap="round" fill="none">
-          <animate attributeName="opacity" values=".3;.7;.3" dur="2.8s" repeatCount="indefinite"/>
-        </path>
-
-        <!-- ── CHAIR ── -->
-        <rect x="118" y="296" width="140" height="88" rx="12" fill="url(#chair)" stroke="#152c45" stroke-width="1"/>
-        <rect x="132" y="290" width="112" height="28" rx="10" fill="#0e2840" stroke="#152c45" stroke-width="1"/>
-        <rect x="108" y="360" width="160" height="38" rx="8" fill="url(#chair)" stroke="#152c45" stroke-width="1"/>
-        <rect x="98" y="338" width="15" height="38" rx="4.5" fill="#091828" stroke="#152c45" stroke-width=".8"/>
-        <rect x="263" y="338" width="15" height="38" rx="4.5" fill="#091828" stroke="#152c45" stroke-width=".8"/>
-        <rect x="190" y="396" width="12" height="52" rx="3" fill="#060f1c"/>
-        <ellipse cx="196" cy="451" rx="48" ry="8" fill="#050c18" stroke="#152c45" stroke-width=".7"/>
-        <circle cx="156" cy="458" r="5.5" fill="#040b15" stroke="#00e5ff" stroke-width="1"/>
-        <circle cx="196" cy="461" r="5.5" fill="#040b15" stroke="#00e5ff" stroke-width="1"/>
-        <circle cx="236" cy="458" r="5.5" fill="#040b15" stroke="#00e5ff" stroke-width="1"/>
-
-        <!-- ── HOODIE BODY ── -->
-        <path d="M142 316 C120 323 98 342 94 378 L282 378 C278 342 256 323 234 316 Z" fill="url(#hoodie)" stroke="#152c45" stroke-width="1"/>
-        <!-- zipper -->
-        <rect x="193" y="322" width="3.5" height="50" rx="1" fill="#091828" opacity=".9"/>
-        <!-- hood / collar -->
-        <path d="M142 316 Q165 308 196 310 Q227 308 234 316 Q214 318 196 316 Q178 318 142 316 Z" fill="#0c2238"/>
-        <!-- pocket -->
-        <rect x="162" y="346" width="52" height="20" rx="4.5" fill="#060f1c" stroke="#152c45" stroke-width=".8"/>
-        <text x="170" y="361" font-family="Space Mono,monospace" font-size="8.5" fill="#00e5ff" font-weight="700">&lt;AS/&gt;</text>
-        <!-- seams -->
-        <path d="M142 318 Q150 336 160 350" stroke="#152c45" stroke-width=".8" fill="none"/>
-        <path d="M234 318 Q226 336 216 350" stroke="#152c45" stroke-width=".8" fill="none"/>
-
-        <!-- ── LEFT ARM ── -->
-        <path d="M124 327 Q98 342 86 370 L102 378 Q118 352 142 336 Z" fill="#0e2640" stroke="#152c45" stroke-width=".8"/>
-        <!-- left wrist/hand -->
-        <ellipse cx="97" cy="222" rx="13" ry="9" fill="url(#skin)">
-          <animateTransform attributeName="transform" type="translate" values="0,0;2,-1;0,0;-1,1;0,0" dur="1.8s" repeatCount="indefinite"/>
-        </ellipse>
-        <!-- left fingers -->
-        <g fill="url(#skin)">
-          <rect x="86" y="215" width="4.5" height="9" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,2;0,0;0,1;0,0" dur="1.7s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="93" y="213" width="4.5" height="11" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,3;0,0;0,0;0,0" dur="1.3s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="100" y="215" width="4.5" height="9" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,1;0,0;0,3;0,0" dur="1.5s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="107" y="216" width="4.5" height="8" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,0;0,2;0,0" dur="2s" repeatCount="indefinite"/>
-          </rect>
-        </g>
-
-        <!-- ── RIGHT ARM ── -->
-        <path d="M254 327 Q278 342 290 370 L274 378 Q258 352 234 336 Z" fill="#0e2640" stroke="#152c45" stroke-width=".8"/>
-        <!-- right wrist/hand -->
-        <ellipse cx="279" cy="222" rx="13" ry="9" fill="url(#skin)">
-          <animateTransform attributeName="transform" type="translate" values="0,0;-2,-1;0,0;1,1;0,0" dur="1.6s" repeatCount="indefinite"/>
-        </ellipse>
-        <!-- right fingers -->
-        <g fill="url(#skin)">
-          <rect x="266" y="215" width="4.5" height="9" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,1;0,0;0,2;0,0" dur="1.9s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="273" y="213" width="4.5" height="11" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,2;0,0;0,1;0,0" dur="1.4s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="280" y="215" width="4.5" height="9" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,3;0,0;0,0;0,0" dur="1.6s" repeatCount="indefinite"/>
-          </rect>
-          <rect x="287" y="216" width="4.5" height="8" rx="2.2">
-            <animateTransform attributeName="transform" type="translate" values="0,0;0,0;0,0;0,2;0,0" dur="2.1s" repeatCount="indefinite"/>
-          </rect>
-        </g>
-
-        <!-- ── NECK ── -->
-        <rect x="188" y="303" width="20" height="20" rx="5" fill="url(#skin)"/>
-
-        <!-- ── HEAD ── -->
-        <ellipse cx="198" cy="272" rx="48" ry="50" fill="url(#skin)"/>
-        <!-- face shadow -->
-        <ellipse cx="198" cy="292" rx="34" ry="14" fill="#de9660" opacity=".2"/>
-
-        <!-- ── HAIR ── -->
-        <path d="M150 264 Q153 222 198 213 Q243 222 246 264 Q228 237 198 234 Q168 237 150 264 Z" fill="#18080A"/>
-        <path d="M150 264 Q142 272 147 290 Q152 266 162 262 Z" fill="#18080A"/>
-        <path d="M246 264 Q254 272 249 290 Q246 266 234 262 Z" fill="#18080A"/>
-        <!-- hair highlights -->
-        <path d="M164 230 Q178 223 195 226" stroke="#2a1008" stroke-width="2" fill="none" opacity=".55"/>
-        <path d="M202 225 Q216 221 230 228" stroke="#2a1008" stroke-width="2" fill="none" opacity=".55"/>
-        <!-- tuft -->
-        <path d="M193 213 Q198 199 203 213 Q200 203 198 205 Q196 203 193 213 Z" fill="#18080A"/>
-        <!-- shine -->
-        <ellipse cx="183" cy="224" rx="11" ry="4" fill="#2a1008" opacity=".35" transform="rotate(-14,183,224)"/>
-
-        <!-- ── EYEBROWS ── -->
-        <path d="M163 256 Q173 249 183 253" stroke="#18080A" stroke-width="3.2" stroke-linecap="round" fill="none"/>
-        <path d="M213 253 Q223 249 233 256" stroke="#18080A" stroke-width="3.2" stroke-linecap="round" fill="none"/>
-
-        <!-- ── EYES ── -->
-        <!-- left -->
-        <ellipse cx="173" cy="268" rx="11" ry="12" fill="white"/>
-        <ellipse cx="173" cy="270" rx="7.5" ry="8.5" fill="#18080A">
-          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="173" cy="271" rx="4" ry="4.5" fill="#000">
-          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="176" cy="267" rx="2.8" ry="2.2" fill="white" opacity=".9">
-          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <!-- right -->
-        <ellipse cx="223" cy="268" rx="11" ry="12" fill="white"/>
-        <ellipse cx="223" cy="270" rx="7.5" ry="8.5" fill="#18080A">
-          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="223" cy="271" rx="4" ry="4.5" fill="#000">
-          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="226" cy="267" rx="2.8" ry="2.2" fill="white" opacity=".9">
-          <animateTransform attributeName="transform" type="translate" values="0,0;2.5,0;1.5,-1;-1,0;0,1.5;0,0" dur="5.5s" repeatCount="indefinite"/>
-        </ellipse>
-        <!-- blink -->
-        <ellipse cx="173" cy="259" rx="11" ry="0" fill="url(#skin)">
-          <animate attributeName="ry" values="0;0;0;0;0;12;0;0;0;0;0;12;0" dur="7s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="223" cy="259" rx="11" ry="0" fill="url(#skin)">
-          <animate attributeName="ry" values="0;0;0;0;0;12;0;0;0;0;0;12;0" dur="7s" repeatCount="indefinite"/>
-        </ellipse>
-
-        <!-- ── GLASSES ── -->
-        <rect x="158" y="260" width="28" height="20" rx="7" fill="rgba(0,229,255,.04)" stroke="#00e5ff" stroke-width="2" filter="url(#glow)"/>
-        <rect x="194" y="260" width="28" height="20" rx="7" fill="rgba(0,229,255,.04)" stroke="#00e5ff" stroke-width="2" filter="url(#glow)"/>
-        <line x1="186" y1="270" x2="194" y2="270" stroke="#00e5ff" stroke-width="1.8"/>
-        <line x1="158" y1="269" x2="144" y2="271" stroke="#00e5ff" stroke-width="1.8"/>
-        <line x1="222" y1="269" x2="236" y2="271" stroke="#00e5ff" stroke-width="1.8"/>
-        <!-- lens glare -->
-        <path d="M161 264 Q167 262 170 266" stroke="rgba(255,255,255,.4)" stroke-width=".7" fill="none"/>
-        <path d="M197 264 Q203 262 206 266" stroke="rgba(255,255,255,.4)" stroke-width=".7" fill="none"/>
-
-        <!-- ── EARS ── -->
-        <ellipse cx="150" cy="274" rx="8" ry="10" fill="url(#skin)"/>
-        <ellipse cx="246" cy="274" rx="8" ry="10" fill="url(#skin)"/>
-
-        <!-- ── HEADPHONES ── -->
-        <path d="M150 262 Q198 208 246 262" stroke="#00e5ff" stroke-width="4.5" fill="none" filter="url(#glow)"/>
-        <!-- left cup -->
-        <rect x="136" y="258" width="26" height="30" rx="11" fill="#07182a" stroke="#00e5ff" stroke-width="1.8"/>
-        <rect x="140" y="262" width="18" height="22" rx="9" fill="#0c2336"/>
-        <ellipse cx="149" cy="273" rx="5.5" ry="6.5" fill="#060e1c" stroke="#00e5ff" stroke-width=".9" opacity=".8"/>
-        <line x1="143" y1="267" x2="155" y2="267" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
-        <line x1="143" y1="273" x2="155" y2="273" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
-        <line x1="143" y1="279" x2="155" y2="279" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
-        <!-- right cup -->
-        <rect x="238" y="258" width="26" height="30" rx="11" fill="#07182a" stroke="#00e5ff" stroke-width="1.8"/>
-        <rect x="242" y="262" width="18" height="22" rx="9" fill="#0c2336"/>
-        <ellipse cx="251" cy="273" rx="5.5" ry="6.5" fill="#060e1c" stroke="#00e5ff" stroke-width=".9" opacity=".8"/>
-        <line x1="245" y1="267" x2="257" y2="267" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
-        <line x1="245" y1="273" x2="257" y2="273" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
-        <line x1="245" y1="279" x2="257" y2="279" stroke="#00e5ff" stroke-width=".6" opacity=".4"/>
-        <!-- LED pulse -->
-        <circle cx="149" cy="259" r="3.2" fill="#00e5ff" filter="url(#glow)">
-          <animate attributeName="opacity" values="1;.15;1" dur="2s" repeatCount="indefinite"/>
-          <animate attributeName="r" values="3.2;4.5;3.2" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="251" cy="259" r="3.2" fill="#00e5ff" filter="url(#glow)">
-          <animate attributeName="opacity" values="1;.15;1" dur="2s" begin=".6s" repeatCount="indefinite"/>
-          <animate attributeName="r" values="3.2;4.5;3.2" dur="2s" begin=".6s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- ── NOSE ── -->
-        <path d="M194 282 Q198 294 202 282" stroke="#d4956a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-        <!-- ── SMILE ── -->
-        <path d="M178 298 Q198 313 218 298" stroke="#b85a30" stroke-width="2.4" stroke-linecap="round" fill="none"/>
-        <rect x="184" y="298" width="28" height="5" rx="2.5" fill="white" opacity=".45"/>
-
-        <!-- ── SCREEN GLOW ON FACE ── -->
-        <ellipse cx="170" cy="272" rx="12" ry="10" fill="#00e5ff" opacity=".035">
-          <animate attributeName="opacity" values=".035;.07;.035" dur="3s" repeatCount="indefinite"/>
-        </ellipse>
-        <ellipse cx="226" cy="272" rx="12" ry="10" fill="#00e5ff" opacity=".035">
-          <animate attributeName="opacity" values=".035;.07;.035" dur="3s" begin=".5s" repeatCount="indefinite"/>
-        </ellipse>
-
-        <!-- ── PARTICLES ── -->
-        <g filter="url(#sglow)">
-          <circle cx="32" cy="188" r="2.5" fill="#00e5ff">
-            <animate attributeName="opacity" values="0;1;0" dur="3.2s" repeatCount="indefinite"/>
-            <animateTransform attributeName="transform" type="translate" values="0,0;-6,-18;-10,-34" dur="3.2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="48" cy="245" r="1.6" fill="#64ffda">
-            <animate attributeName="opacity" values="0;1;0" dur="4.1s" begin=".8s" repeatCount="indefinite"/>
-            <animateTransform attributeName="transform" type="translate" values="0,0;-4,-22;-7,-42" dur="4.1s" begin=".8s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="352" cy="185" r="2.2" fill="#2979ff">
-            <animate attributeName="opacity" values="0;1;0" dur="3.7s" begin=".4s" repeatCount="indefinite"/>
-            <animateTransform attributeName="transform" type="translate" values="0,0;6,-14;10,-28" dur="3.7s" begin=".4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="340" cy="260" r="1.8" fill="#00e5ff">
-            <animate attributeName="opacity" values="0;1;0" dur="2.9s" begin="1.2s" repeatCount="indefinite"/>
-            <animateTransform attributeName="transform" type="translate" values="0,0;4,-20;8,-38" dur="2.9s" begin="1.2s" repeatCount="indefinite"/>
-          </circle>
-          <!-- star sparkle above head -->
-          <path d="M198 50 L200 42 L202 50 L210 52 L202 54 L200 62 L198 54 L190 52 Z" fill="#00e5ff" opacity=".6">
-            <animate attributeName="opacity" values=".6;1;.4;1;.6" dur="4s" repeatCount="indefinite"/>
-            <animateTransform attributeName="transform" type="scale" values="1;1.3;1;1.2;1" additive="sum" dur="4s" repeatCount="indefinite"/>
-          </path>
-        </g>
-      </svg>
-
-      <div class="shadow-el"></div>
-    </div>
-
-    <div class="code-card cc">
-      <div class="cl"><span class="cm">// ashish.config.js</span></div>
-      <div class="cl"><span class="ck">const</span> <span class="cv">dev</span> = {</div>
-      <div class="cl">&nbsp;&nbsp;<span class="cs">name</span>: <span class="cv">'Ashish Saini'</span>,</div>
-      <div class="cl">&nbsp;&nbsp;<span class="cs">stack</span>: [<span class="cv">'Laravel'</span>, <span class="cv">'AWS'</span>],</div>
-      <div class="cl">&nbsp;&nbsp;<span class="cs">openTo</span>: <span class="cv">'product-co'</span>,</div>
-      <div class="cl">&nbsp;&nbsp;<span class="cs">joinIn</span>: <span class="cf">30</span> <span class="cm">// days</span></div>
-      <div class="cl">};</div>
-    </div>
-  </div>
-
-  <div class="scroll-hint"><div class="sl"></div>scroll</div>
-</section>
-
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span class="mi">PHP</span><span class="ms">✦</span><span class="mi">Laravel</span><span class="ms">✦</span><span class="mi">Angular</span><span class="ms">✦</span><span class="mi">MySQL</span><span class="ms">✦</span><span class="mi">Elasticsearch</span><span class="ms">✦</span><span class="mi">MongoDB</span><span class="ms">✦</span><span class="mi">AWS</span><span class="ms">✦</span><span class="mi">REST APIs</span><span class="ms">✦</span><span class="mi">Microservices</span><span class="ms">✦</span><span class="mi">CI/CD</span><span class="ms">✦</span>
-    <span class="mi">PHP</span><span class="ms">✦</span><span class="mi">Laravel</span><span class="ms">✦</span><span class="mi">Angular</span><span class="ms">✦</span><span class="mi">MySQL</span><span class="ms">✦</span><span class="mi">Elasticsearch</span><span class="ms">✦</span><span class="mi">MongoDB</span><span class="ms">✦</span><span class="mi">AWS</span><span class="ms">✦</span><span class="mi">REST APIs</span><span class="ms">✦</span><span class="mi">Microservices</span><span class="ms">✦</span><span class="mi">CI/CD</span><span class="ms">✦</span>
-  </div>
+<!-- ============ PRELOADER ============ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="row mono"><span>Ashish Saini</span><span>Portfolio ©2026</span></div>
+  <div class="row"><span class="mono" style="color:var(--fg-3)">Full Stack · Integrations · Production</span><span class="count" id="count">0</span></div>
+  <div class="bar"><i id="loadbar"></i></div>
 </div>
 
-<section id="about">
-  <div class="about-grid">
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="wrap">
+    <a href="#home" class="brand"><span class="c">AS</span>Ashish Saini</a>
+    <ul>
+      <li><a href="#best">Strengths</a></li>
+      <li><a href="#doors">Expertise</a></li>
+      <li><a href="#systems">Systems</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#journey">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-r">
+      <div class="theme-switch" role="group" aria-label="Colour theme">
+        <button data-mode="light" aria-label="Light mode" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+        <button data-mode="dark" aria-label="Dark mode" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button data-mode="system" aria-label="System mode" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></button>
+      </div>
+      <button class="menu-btn" id="menuBtn">Menu</button>
+    </div>
+  </div>
+</nav>
+<div class="sheet" id="sheet">
+  <button class="close" id="menuClose">Close</button>
+  <div>
+    <a href="#best">Strengths</a><a href="#doors">Expertise</a><a href="#systems">Systems</a><a href="#work">Work</a><a href="#journey">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+  </div>
+  <div class="mono" style="color:var(--fg-3)">saini.ar96@gmail.com</div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="home" data-bg="paper">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="wrap hero-grid">
     <div>
-      <div class="s-label rev">About Me</div>
-      <h2 class="s-title rev d1">The engineer<br><em>behind the code.</em></h2>
-      <div class="about-stats">
-        <div class="stat-c rev d2"><div class="stat-n" data-count="3">0</div><div class="stat-l">Years Experience</div></div>
-        <div class="stat-c rev d3"><div class="stat-n" data-count="5">0</div><div class="stat-l">Live Modules</div></div>
-        <div class="stat-c rev d4"><div class="stat-n" data-count="10">0</div><div class="stat-l">Tech Stack Size</div></div>
-        <div class="stat-c rev d5"><div class="stat-n">∞</div><div class="stat-l">Lines of Passion</div></div>
+      <h1>
+        <span class="ln"><span>Hi, I'm Ashish.</span></span>
+        <span class="ln"><span class="soft">I am a</span></span>
+      </h1>
+      <div class="sticker-row">
+        <div class="sticker" id="sticker"><span class="tape"></span><span class="word" id="role">Full Stack Engineer</span><span class="cbar"></span></div>
       </div>
     </div>
-    <div class="about-text">
-      <p class="rev">I'm a <strong>Full Stack Developer</strong> based in Gurugram, India — obsessed with building systems that are architecturally solid, fast to ship, and easy to maintain.</p>
-      <p class="rev d1">At <strong>K Square Tech Consulting</strong>, I co-architected a microservice Admin Dashboard and led the entire back-end of a multinational crew-deployment platform spanning 5 modules and multiple countries.</p>
-      <p class="rev d2">My sweet spot is where <strong>PHP/Laravel back-end engineering</strong> meets AWS cloud services and dynamic Angular front-ends — with Elasticsearch powering search at scale when millions of records need to move fast.</p>
-      <p class="rev d3">Strong ownership mindset. I take projects end-to-end, own production systems, resolve critical issues under pressure, and improve codebases proactively without being directed.</p>
-      <div class="rev d4" style="margin-top:1.5rem;display:flex;gap:1.2rem;flex-wrap:wrap">
-        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📍 Gurugram, Haryana</span>
-        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📧 saini.ar96@gmail.com</span>
-        <span style="font-family:var(--mono);font-size:.6rem;color:var(--muted)">📱 +91-8816000496</span>
+    <div class="hero-side">
+      <div class="photo">
+        <img src="assets/ashish.jpg" alt="Ashish Saini" id="heroImg">
+        <div class="tag"><span class="dot"></span>Open to work · 30 days</div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap hero-foot">
+    <div>
+      <p>Full Stack Engineer with 3+ years designing, building and operating production systems — <b>Node.js, Next.js, React and Laravel</b> services, transactional database design and third-party integrations across <b>travel supply (flights, hotels, rail, cabs), PayGlocal, Google APIs and SerpAPI</b> — augmented with <b>AI agents on Claude and ChatGPT</b>.</p>
+      <a href="#best" class="scroll-cue"><i>↓</i>Scroll to explore</a>
+    </div>
+    <div class="hero-meta mono">
+      <div>Based in<b>Gurugram, India</b></div>
+      <div>Experience<b>3+ years</b></div>
+      <div>Role<b>Full Stack · Production</b></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STATEMENT ============ -->
+<section class="statement sec" data-bg="paper">
+  <div class="wrap">
+    <div class="label mono" data-scramble>( Profile )</div>
+    <div>
+      <p id="statement">End-to-end ownership — from <em>data modelling</em> and API contracts to deployment, observability and production support. Systems that confirm bookings, reconcile payments, synchronise data across services and remain <em>debuggable under load</em>.</p>
+      <div class="cta-row">
+        <a href="#work" class="btn solid magnetic">Selected work ↗</a>
+        <a href="#contact" class="btn magnetic">Get in touch</a>
       </div>
     </div>
   </div>
 </section>
 
-<section id="skills">
-  <div style="max-width:1200px;margin:0 auto">
-    <div class="s-label rev">Technical Skills</div>
-    <h2 class="s-title rev d1">What I <em>build with.</em></h2>
-    <div class="skills-grid">
-      <div class="sk-card rev d1"><div class="sk-icon">🐘</div><div class="sk-name">PHP & Laravel</div><div class="sk-desc">MVC, Eloquent ORM, Artisan, Queues, Middleware, API Resources. Primary production back-end.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>90%</span></div><div class="bar"><div class="bar-fill" style="width:90%"></div></div></div></div>
-      <div class="sk-card rev d2"><div class="sk-icon">⚡</div><div class="sk-name">Angular & TypeScript</div><div class="sk-desc">AngularJS / Angular, TypeScript, AG-Grid, jQuery, AJAX — dynamic data-driven dashboards.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>80%</span></div><div class="bar"><div class="bar-fill" style="width:80%"></div></div></div></div>
-      <div class="sk-card rev d3"><div class="sk-icon">🗄️</div><div class="sk-name">MySQL & Databases</div><div class="sk-desc">Query optimisation, indexing, schema design. MongoDB for NoSQL. Elasticsearch for search at scale.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>85%</span></div><div class="bar"><div class="bar-fill" style="width:85%"></div></div></div></div>
-      <div class="sk-card rev d1"><div class="sk-icon">☁️</div><div class="sk-name">AWS Cloud</div><div class="sk-desc">S3, Secret Manager, Parameter Store, CloudWatch. Linux server admin & CI/CD pipelines.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>78%</span></div><div class="bar"><div class="bar-fill" style="width:78%"></div></div></div></div>
-      <div class="sk-card rev d2"><div class="sk-icon">🔌</div><div class="sk-name">REST APIs & Microservices</div><div class="sk-desc">Secure API design, 3rd-party integrations, microservice architecture, JSON responses.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>88%</span></div><div class="bar"><div class="bar-fill" style="width:88%"></div></div></div></div>
-      <div class="sk-card rev d3"><div class="sk-icon">🔧</div><div class="sk-name">DevOps & Git</div><div class="sk-desc">CI/CD with Jenkins, Git/Bitbucket, Jira, Agile/Scrum, code reviews, production monitoring.</div><div class="bar-wrap"><div class="bar-labels"><span>Proficiency</span><span>75%</span></div><div class="bar"><div class="bar-fill" style="width:75%"></div></div></div></div>
+<!-- ============ STRENGTHS ============ -->
+<section class="best sec" id="best" data-bg="mint">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="ln"><span>Core</span></span><span class="ln"><span><em>strengths</em></span></span></h2>
+      <p data-reveal>Twelve engineering capabilities, each demonstrated in production environments.</p>
     </div>
+    <div class="best-grid" id="bestGrid"></div>
   </div>
 </section>
 
-<section id="projects">
-  <div style="max-width:1200px;margin:0 auto">
-    <div class="s-label rev">Key Projects</div>
-    <h2 class="s-title rev d1">Things I've <em>shipped.</em></h2>
-    <div class="proj-grid">
-      <div class="pc rev d1">
-        <div class="pv">
-          <svg width="220" height="120" viewBox="0 0 220 120">
-            <rect x="8" y="8" width="204" height="104" rx="8" fill="#020910" stroke="#00e5ff" stroke-width="1"/>
-            <rect x="8" y="8" width="204" height="22" rx="8" fill="#040d18"/>
-            <rect x="8" y="24" width="204" height="6" fill="#040d18"/>
-            <circle cx="20" cy="19" r="3.5" fill="#ff4081" opacity=".8"/>
-            <circle cx="32" cy="19" r="3.5" fill="#ffd740" opacity=".7"/>
-            <circle cx="44" cy="19" r="3.5" fill="#64ffda"/>
-            <text x="17" y="46" font-family="monospace" font-size="6.5" fill="#3a5570">// crew deployment api</text>
-            <text x="17" y="58" font-family="monospace" font-size="6.5" fill="#c792ea">Route</text>
-            <text x="40" y="58" font-family="monospace" font-size="6.5" fill="#89ddff">::post('/deploy',</text>
-            <text x="17" y="70" font-family="monospace" font-size="6.5" fill="#ff9e64">  [CrewController::class,</text>
-            <text x="17" y="82" font-family="monospace" font-size="6.5" fill="#ff9e64">  'deploy']);</text>
-            <text x="17" y="94" font-family="monospace" font-size="6.5" fill="#64ffda">$hits = ES::search($q);</text>
-            <rect x="17" y="87" width="4" height="8" fill="#00e5ff" rx=".5" opacity=".9"><animate attributeName="opacity" values=".9;0;.9" dur=".8s" repeatCount="indefinite"/></rect>
-          </svg>
+<!-- ============ DOORS ============ -->
+<section class="doors" id="doors" data-bg="sky">
+  <div class="stage">
+    <div class="doors-head">
+      <h2>Areas of <em>expertise</em></h2>
+      <div class="doors-sub mono"><span id="doorsSub">01 / 05</span><span class="pips" id="pips"></span></div>
+    </div>
+    <div class="door-area">
+      <div class="feature" id="feature">
+        <button class="door" id="featureDoor" data-cursor="Open" aria-label="Open door">
+          <div class="frame"></div><div class="inside"></div>
+          <div class="leaf"><span class="plate" id="featurePlate"></span><span class="knob"></span></div>
+          <div class="spill"></div>
+        </button>
+        <div class="info"><div class="info-in" id="infoIn"></div></div>
+      </div>
+      <div class="row5" id="row5"></div>
+    </div>
+  </div>
+</section>
+<div class="portal" id="portal"></div>
+<div class="room" id="room" role="dialog" aria-modal="true" aria-label="Details"></div>
+<button class="back" id="back">← Back to overview</button>
+
+<!-- ============ TECH LOGOS ============ -->
+<section class="logos" data-bg="paper" aria-label="Technologies">
+  <div class="label mono" data-scramble>( Technologies in production )</div>
+  <div class="lrow" id="logos1"></div>
+  <div class="lrow rev" id="logos2"></div>
+</section>
+
+<!-- ============ SYSTEMS ============ -->
+<section class="systems sec" id="systems" data-bg="lilac">
+  <div class="wrap">
+    <div class="sys-top">
+      <div>
+        <span class="mono eyebrow" data-scramble>( Case study — Travel platform )</span>
+        <h2><span class="ln"><span>Worldwide travel</span></span><span class="ln"><span><em>infrastructure.</em></span></span></h2>
+        <p data-reveal>Designed, built and deployed end-to-end: a booking platform for travel agencies that orchestrates flight, hotel, rail and cab suppliers, PayGlocal payments and Google / SerpAPI search behind a single integration layer.</p>
+        <div class="sys-rows" data-reveal>
+          <div><b>Flights</b><span class="mono">International · domestic</span></div>
+          <div><b>Hotels</b><span class="mono">Search · hold · confirm</span></div>
+          <div><b>Rail</b><span class="mono">Availability · booking</span></div>
+          <div><b>Cabs</b><span class="mono">Transfers · local</span></div>
+          <div><b>Payments</b><span class="mono">PayGlocal · webhooks</span></div>
+          <div><b>Search</b><span class="mono">Google APIs · SerpAPI</span></div>
         </div>
-        <div class="ph"><div class="pnum">PROJECT / 01</div><h3 class="ptitle">GET Global — Crew Deployer</h3><div class="psub">Multinational Recruitment & Deployment</div><div class="pbadge">Live</div></div>
-        <div class="pb"><p class="pdesc">5-module platform managing candidate sourcing, interviews, evaluations, salary processing, and on-site deployment across countries — with real-time scheduling and automated assignment.</p><div class="ptags"><span class="ptag">Laravel</span><span class="ptag">Angular</span><span class="ptag">Elasticsearch</span><span class="ptag">MySQL</span><span class="ptag">AWS S3</span></div><a href="#" class="plink">View Case Study →</a></div>
       </div>
-      <div class="pc rev d2">
-        <div class="pv">
-          <svg width="220" height="120" viewBox="0 0 220 120">
-            <rect x="8" y="10" width="96" height="100" rx="6" fill="#020910" stroke="#00e5ff" stroke-width="1"/>
-            <rect x="116" y="20" width="96" height="80" rx="6" fill="#020910" stroke="#2979ff" stroke-width="1"/>
-            <text x="16" y="26" font-family="monospace" font-size="5.5" fill="#546d8a">Analytics</text>
-            <rect x="14" y="30" width="80" height="10" rx="2" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.18)" stroke-width=".7"/>
-            <text x="18" y="38" font-family="monospace" font-size="5" fill="#64ffda">Users: 2,847 ↑</text>
-            <rect x="14" y="44" width="80" height="10" rx="2" fill="rgba(41,121,255,.05)" stroke="rgba(41,121,255,.18)" stroke-width=".7"/>
-            <text x="18" y="52" font-family="monospace" font-size="5" fill="#82aaff">Deploys: 341 ✓</text>
-            <rect x="14" y="58" width="80" height="10" rx="2" fill="rgba(100,255,218,.04)" stroke="rgba(100,255,218,.15)" stroke-width=".7"/>
-            <text x="18" y="66" font-family="monospace" font-size="5" fill="#ff9e64">Revenue $92k ↑</text>
-            <path d="M14 88 Q26 72 38 80 Q50 65 62 69 Q74 56 96 50" stroke="#00e5ff" stroke-width="1.4" fill="none"/>
-            <text x="124" y="38" font-family="monospace" font-size="5.5" fill="#546d8a">Microservices</text>
-            <circle cx="140" cy="72" r="18" fill="none" stroke="#00e5ff" stroke-width="1.3" stroke-dasharray="5 3"/>
-            <circle cx="180" cy="62" r="12" fill="none" stroke="#2979ff" stroke-width="1" stroke-dasharray="4 2"/>
-            <line x1="157" y1="69" x2="169" y2="64" stroke="#546d8a" stroke-width="1"/>
-          </svg>
-        </div>
-        <div class="ph"><div class="pnum">PROJECT / 02</div><h3 class="ptitle">Microservice Admin Dashboard</h3><div class="psub">Real-Time Analytics & Decision System</div><div class="pbadge">Flagship</div></div>
-        <div class="pb"><p class="pdesc">Co-architected a microservice-based Admin Dashboard with Laravel & Angular for real-time analytics. AG-Grid tables, custom KPI widgets, and CloudWatch integration.</p><div class="ptags"><span class="ptag">Laravel</span><span class="ptag">Angular</span><span class="ptag">AG-Grid</span><span class="ptag">CloudWatch</span><span class="ptag">Microservices</span></div><a href="#" class="plink">View Case Study →</a></div>
+      <div class="globe-box" data-cursor="Drag"><div id="globe"></div><div class="globe-hint mono">WebGL · drag to rotate</div></div>
+    </div>
+    <div class="arch-head mono"><span data-scramble>( System architecture )</span><span><i class="live-dot"></i>Request flow · live</span></div>
+    <div class="arch-wrap"><svg id="arch" viewBox="0 0 960 480" role="img" aria-label="Travel platform architecture: Next.js client, Node.js API gateway, booking orchestrator, payment service, queue workers, data layer and external suppliers"></svg></div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section class="work sec" id="work" data-bg="paper">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="ln"><span>Selected</span></span><span class="ln"><span><em>work</em></span></span></h2>
+      <p data-reveal>Production systems across travel, payments, recruitment and oil &amp; gas operations.</p>
+    </div>
+    <div id="stack"></div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY ============ -->
+<section class="journey sec" id="journey" data-bg="sand">
+  <div class="wrap">
+    <div><div class="yr-sticky">
+      <div class="mono" style="color:var(--fg-3)" data-scramble>( Experience )</div>
+      <h2><span class="ln"><span>Experience &amp;</span></span><span class="ln"><span><em>education.</em></span></span></h2>
+      <div class="year" id="year">2026</div>
+      <div class="year-note mono" id="yearNote">// current scope</div>
+    </div></div>
+    <div id="timeline"></div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="skills sec" id="skills" data-bg="mint">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="ln"><span>Technical</span></span><span class="ln"><span><em>skills</em></span></span></h2>
+      <p data-reveal>Languages, frameworks, data stores, infrastructure and tooling.</p>
+    </div>
+    <div id="skillList"></div>
+  </div>
+</section>
+
+<!-- ============ TERMINAL ============ -->
+<section class="term-sec sec" id="cli" data-bg="paper">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2><span class="ln"><span>Interactive</span></span><span class="ln"><span><em>CLI</em></span></span></h2>
+      <p data-reveal>Query the profile from the command line. Type <span class="mono" style="color:var(--accent)">help</span> or use the shortcuts.</p>
+    </div>
+    <div class="term-win" data-reveal>
+      <div class="term-bar"><i></i><i></i><i></i><span class="mono">ashish@portfolio: ~ — zsh</span></div>
+      <div class="term-body" id="termBody"></div>
+      <div class="term-in"><span class="p">ashish@portfolio ~ %</span><input id="termIn" autocomplete="off" spellcheck="false" aria-label="Terminal input"></div>
+    </div>
+    <div class="term-chips" id="termChips"></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact sec" id="contact" data-bg="sky">
+  <div class="wrap">
+    <div class="me" data-reveal>
+      <img src="assets/ashish-casual.jpg" alt="Ashish Saini" onerror="this.remove()">
+      <div><div style="font-weight:600">Ashish Saini</div><div class="mono" style="color:var(--fg-3);margin-top:6px;display:flex;align-items:center;gap:8px"><span class="dot"></span>Available · Gurugram / Delhi NCR</div></div>
+    </div>
+    <h2><span class="ln"><span>Open to full-time</span></span><span class="ln"><span>engineering <em>roles.</em></span></span></h2>
+    <div class="contact-line"><a href="mailto:saini.ar96@gmail.com?subject=Interview%20request" class="big-btn magnetic" data-cursor="Email">Get in<br>touch</a></div>
+    <div class="pills">
+      <a class="btn magnetic" href="mailto:saini.ar96@gmail.com">saini.ar96@gmail.com</a>
+      <a class="btn magnetic" href="tel:+918816000496">+91 88160 00496</a>
+    </div>
+    <div class="foot mono">
+      <div style="display:flex;gap:44px;flex-wrap:wrap">
+        <div>Version<b>2026 © Edition</b></div>
+        <div>Local time<b id="clock">--:-- IST</b></div>
       </div>
-      <div class="pc rev d3">
-        <div class="pv">
-          <svg width="220" height="120" viewBox="0 0 220 120">
-            <rect x="10" y="10" width="200" height="100" rx="6" fill="#020910" stroke="#64ffda" stroke-width="1"/>
-            <text x="20" y="30" font-family="monospace" font-size="6" fill="#64ffda">Interview Scheduler</text>
-            <line x1="10" y1="36" x2="210" y2="36" stroke="#152c45" stroke-width=".7"/>
-            <rect x="18" y="42" width="50" height="16" rx="3" fill="rgba(0,229,255,.07)" stroke="rgba(0,229,255,.2)" stroke-width=".7"/>
-            <text x="22" y="53" font-family="monospace" font-size="5" fill="#00e5ff">10:00 AM ✓</text>
-            <rect x="76" y="42" width="50" height="16" rx="3" fill="rgba(100,255,218,.07)" stroke="rgba(100,255,218,.2)" stroke-width=".7"/>
-            <text x="80" y="53" font-family="monospace" font-size="5" fill="#64ffda">11:30 AM ●</text>
-            <rect x="134" y="42" width="58" height="16" rx="3" fill="rgba(41,121,255,.05)" stroke="rgba(41,121,255,.15)" stroke-width=".7"/>
-            <text x="138" y="53" font-family="monospace" font-size="5" fill="#82aaff">2:00 PM ◌</text>
-            <rect x="18" y="66" width="180" height="36" rx="4" fill="rgba(0,229,255,.03)" stroke="#152c45" stroke-width=".7"/>
-            <text x="26" y="80" font-family="monospace" font-size="5" fill="#546d8a">Candidate: Rahul S. · Score: 88/100</text>
-            <text x="26" y="92" font-family="monospace" font-size="5" fill="#64ffda">✓ Recommended · Auto-notified</text>
-          </svg>
-        </div>
-        <div class="ph"><div class="pnum">PROJECT / 03</div><h3 class="ptitle">Technical Interview Platform</h3><div class="psub">Real-Time Scheduling & Evaluation</div><div class="pbadge">Core</div></div>
-        <div class="pb"><p class="pdesc">Back-end services for a technical interview system with real-time scheduling, dynamic interviewer assignment, structured evaluation workflows and automated scoring pipelines.</p><div class="ptags"><span class="ptag">PHP</span><span class="ptag">Laravel</span><span class="ptag">MongoDB</span><span class="ptag">REST API</span><span class="ptag">MySQL</span></div><a href="#" class="plink">View Case Study →</a></div>
-      </div>
+      <div>Socials<div class="socials"><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:saini.ar96@gmail.com">Email</a><a href="#home">Back to top ↑</a></div></div>
     </div>
   </div>
 </section>
 
-<section id="experience">
-  <div style="max-width:1200px;margin:0 auto">
-    <div class="s-label rev">Experience</div>
-    <h2 class="s-title rev d1">Where I've <em>worked.</em></h2>
-    <div class="exp-wrap">
-      <div class="exp-line"></div>
-      <div class="exp-item rev d1">
-        <div class="exp-dot"></div>
-        <div class="exp-period">JAN 2023 — PRESENT</div>
-        <div class="exp-role">Full Stack Developer (PHP & Angular)</div>
-        <div class="exp-company">K Square Tech Consulting · Gurugram, India</div>
-        <ul class="exp-list">
-          <li>Co-architected microservice-based Admin Dashboard with Laravel & Angular for real-time analytics, improving decision-making speed across departments</li>
-          <li>Led full back-end development for Crew Data Management — managing salaries, applications, and site-deployment records for hundreds of crew members</li>
-          <li>Built Technical Interview Platform back-end with real-time scheduling, interviewer assignment, and structured evaluation workflows</li>
-          <li>Integrated Elasticsearch for advanced candidate search across large datasets — dramatically reducing recruiter search time</li>
-          <li>Automated candidate deployment processes, cutting processing time and reducing human error in crew assignment workflows</li>
-          <li>Configured and managed AWS S3, Secret Manager, Parameter Store, and CloudWatch for production monitoring</li>
-          <li>Deployed and managed applications on Linux servers; maintained CI/CD pipelines via Jenkins</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="contact-inner">
-    <div class="s-label rev" style="justify-content:center">Contact</div>
-    <h2 class="s-title rev d1" style="text-align:center">Let's build<br><em>something great.</em></h2>
-    <p class="contact-intro rev d2">Open to full-time opportunities at product-based companies. Available to join within 30 days. Comfortable with hybrid or on-site in Gurugram / Delhi NCR.</p>
-    <form class="cf2 rev d3" onsubmit="handleSub(event)">
-      <div class="frow">
-        <div class="ff"><label class="fl">Name</label><input class="fi" type="text" placeholder="Your name" required></div>
-        <div class="ff"><label class="fl">Email</label><input class="fi" type="email" placeholder="your@email.com" required></div>
-      </div>
-      <div class="ff"><label class="fl">Subject</label><input class="fi" type="text" placeholder="Job opportunity / collaboration"></div>
-      <div class="ff"><label class="fl">Message</label><textarea class="fta" placeholder="Tell me about the role…"></textarea></div>
-      <button type="submit" class="fsub" id="fsub">Send Message ↗</button>
-    </form>
-    <div class="c-links rev d4">
-      <a href="mailto:saini.ar96@gmail.com" class="c-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        saini.ar96@gmail.com
-      </a>
-      <a href="tel:+918816000496" class="c-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        +91-8816000496
-      </a>
-      <a href="https://linkedin.com" class="c-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-        LinkedIn
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="ftxt">© 2025 <span>Ashish Saini</span> · Crafted with ☕ & precision</div>
-  <div class="ftxt">PHP · Laravel · Angular · AWS</div>
-</footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* CURSOR */
-const c1=document.getElementById('cur'),c2=document.getElementById('cur2');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c1.style.transform=`translate(${mx-5}px,${my-5}px)`});
-(function raf(){rx+=(mx-rx-17)*.14;ry+=(my-ry-17)*.14;c2.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(raf)})();
-document.querySelectorAll('a,button,.sk-card,.pc,.stat-c').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{c1.style.transform+=' scale(2.2)';c2.style.borderColor='var(--cyan)';c2.style.opacity='1'});
-  el.addEventListener('mouseleave',()=>{c2.style.opacity='.5'});
+/* ================= DATA ================= */
+const ROLES = ["Full Stack Engineer","Production Support Engineer","Integration Engineer","Backend Engineer","Next.js Developer","AI Agent Developer"];
+
+const DOORS = [
+  { name:"Backend & APIs", short:"Backend", color:"#3b82f6", tag:"Node.js · Laravel · REST · Microservices · Async processing",
+    points:["RESTful APIs and microservices in Node.js and Laravel","Relational and document data modelling — MySQL, MongoDB","Queues, Jobs and Cron for asynchronous workloads","Bi-directional data synchronisation across databases and Elasticsearch","Message-driven integration with ActiveMQ"],
+    intro:"Service-layer engineering for transactional systems — travel bookings, payments and a 9-module recruitment and crew-deployment platform — designed for correctness, idempotency and operability in production.",
+    skills:["Node.js","Express","PHP","Laravel","REST","Microservices","Queues & Jobs","Cron","ActiveMQ","MySQL","MongoDB","Elasticsearch"],
+    items:[
+      {title:"GET Global Group — Crew Deployment Platform",sub:"9 modules · oil & gas · Saudi Arabia, Oman, Aramco",text:"Laravel REST APIs for a multinational recruitment and crew-deployment platform managing 500+ crew members. Bi-directional synchronisation across multiple databases and Elasticsearch via Queues, Jobs and Cron, executing every 4–5 minutes.",stack:["Laravel","MySQL","Elasticsearch","Queues","Cron"],viz:"phone"},
+      {title:"Technical Interview Module",sub:"Scheduling, assignment and evaluation services",text:"Back-end services for real-time interview scheduling, dynamic interviewer assignment, structured evaluation workflows and automated scoring pipelines.",stack:["PHP","Laravel","MongoDB","REST"],viz:"term"}
+    ]},
+  { name:"Frontend", short:"Frontend", color:"#6366f1", tag:"React · Next.js · Angular · TypeScript",
+    points:["Next.js App Router, Server Components and Server Actions","React component architecture and state management","Angular + TypeScript enterprise frontends","AG-Grid for high-volume, data-dense views","Booking, checkout and integration-status interfaces"],
+    intro:"Frontend engineering for transactional and data-dense applications — Next.js and React for customer-facing products, Angular with AG-Grid for operational consoles.",
+    skills:["React","Next.js","TypeScript","JavaScript","Angular","AG-Grid","RxJS","AJAX","Bootstrap","Tailwind","HTML5","CSS3"],
+    items:[
+      {title:"Next.js & React Applications",sub:"Server-rendered, form-driven product UIs",text:"Booking and payment flows built on the Next.js App Router — Server Components, Server Actions, validated forms and streaming UI — backed by Node.js services.",stack:["Next.js","React","TypeScript","Node.js"],viz:"phone"},
+      {title:"Six Angular Operational Frontends",sub:"Recruiter Panel · Tracker · QHMS · Client Rota · Crew Order",text:"Developed and maintained six Angular applications with AG-Grid and AJAX, supporting large datasets, crew lifecycle tracking and recruitment workflows; co-architected the microservice admin dashboard with KPI widgets and CloudWatch integration.",stack:["Angular","TypeScript","AG-Grid","Laravel"],viz:"dash"}
+    ]},
+  { name:"Integrations", short:"Integrations", color:"#10b981", tag:"Travel supply · PayGlocal · Google APIs · SerpAPI · ERP",
+    points:["Flight (worldwide), hotel, rail and cab booking integrations","PayGlocal payment gateway — order, callback, webhook, refund","Google APIs, SerpAPI and search APIs","ERP, ActiveMQ and RChilli resume-parsing integrations","Integration architecture: retries, idempotency, reconciliation, status UI"],
+    intro:"Third-party integration engineering end-to-end — API contracts, authentication, webhooks, retry and idempotency strategy, reconciliation, and the operator-facing status and error UI.",
+    skills:["Flight APIs","Hotel APIs","Rail & Cab APIs","PayGlocal","Webhooks","Google APIs","SerpAPI","ERP","ActiveMQ","RChilli","OAuth","Idempotency"],
+    items:[
+      {title:"Travel Booking Platform",sub:"Flights worldwide · hotels · rail · cabs",text:"Designed, built and deployed an end-to-end booking platform for travel agencies: search, fare and availability, booking, PayGlocal payment and confirmation across flight, hotel, rail and cab suppliers — with Google APIs and SerpAPI behind a unified integration layer.",stack:["Node.js","Next.js","MongoDB","PayGlocal","Google APIs","SerpAPI"],viz:"travel"},
+      {title:"PayGlocal Payment Integration",sub:"Order → callback → webhook → reconciliation",text:"Order creation, redirect and callback handling, webhook signature verification, idempotent status transitions, refunds and an admin trace console for every transaction.",stack:["Node.js","Laravel","Webhooks","MySQL"],viz:"pay"},
+      {title:"Enterprise & Data Integrations",sub:"ERP · ActiveMQ · RChilli · Elasticsearch",text:"ERP integrations, ActiveMQ message queues and the RChilli Resume Parsing API for automated candidate processing and real-time notifications; Elasticsearch-backed search reduced recruiter search time by 60%.",stack:["ERP","ActiveMQ","RChilli","Elasticsearch"],viz:"hub2"}
+    ]},
+  { name:"Cloud & DevOps", short:"Cloud", color:"#f59e0b", tag:"AWS · Hostinger · Linux · Jenkins CI/CD · Observability",
+    points:["AWS S3, Secrets Manager, Parameter Store, CloudWatch","Hostinger VPS provisioning and deployments","Linux (Ubuntu) server administration","Jenkins CI/CD with Git and Bitbucket","Centralised logging and production monitoring"],
+    intro:"Deployment, configuration management and observability for production workloads on AWS, Hostinger and Linux — with release pipelines and runbooks that keep incidents short.",
+    skills:["AWS","AWS S3","Secrets Manager","Parameter Store","CloudWatch","Hostinger","Ubuntu","Nginx","Jenkins","Git","Bitbucket","FileZilla"],
+    items:[
+      {title:"AWS Configuration & Observability",sub:"Storage, secrets, configuration, monitoring",text:"Configured S3 for document storage, Secrets Manager and Parameter Store for environment configuration, and CloudWatch with a centralised logging strategy that improved debuggability and system reliability.",stack:["AWS","AWS S3","CloudWatch","Parameter Store"],viz:"term2"},
+      {title:"Release Engineering",sub:"Jenkins · Linux · Hostinger",text:"Jenkins CI/CD pipelines, Git/Bitbucket workflows and deployments of Node.js, Next.js and Laravel services to Linux and Hostinger environments, with post-release monitoring.",stack:["Jenkins","Linux","Hostinger","Git"],viz:"dash"}
+    ]},
+  { name:"AI Agents", short:"AI Agents", color:"#a855f7", tag:"Claude · ChatGPT · Tool use · MCP · Agent SDK",
+    points:["LLM agents with tool use on Claude and OpenAI","Claude Code with Skills, hooks and sub-agents","Model Context Protocol (MCP) integrations","Prompt engineering and structured outputs","LLM features embedded in Node.js, Next.js and Laravel services"],
+    intro:"Applied LLM engineering — agentic workflows with tool calling, guardrails and structured outputs, and AI-assisted development with Claude Code and ChatGPT across the SDLC.",
+    skills:["Claude API","Claude Code","Claude Agent SDK","Skills","MCP","Sub-agents","ChatGPT","OpenAI API","Tool Use","Structured Outputs","RAG","Prompt Engineering"],
+    items:[
+      {title:"Agentic Workflows on Claude",sub:"Tool use · planning · guardrails",text:"Agents that plan and execute multi-step tasks through tool calls — querying APIs, reading files and producing reports — with scoped permissions, system prompts and structured outputs.",stack:["Claude API","Tool Use","Agent SDK","MCP"],viz:"chat"},
+      {title:"Claude Code, Skills & Sub-agents",sub:"Repeatable, codified engineering workflows",text:"Project instructions (CLAUDE.md), Skills and hooks that encode team conventions, and sub-agents for parallel codebase research, code review and refactoring.",stack:["Claude Code","Skills","Hooks","Sub-agents"],viz:"skill"},
+      {title:"OpenAI & In-product LLM Features",sub:"Summarisation · extraction · semantic search",text:"OpenAI API and ChatGPT-based features — summarisation, entity extraction and smarter search — integrated into existing Node.js and Laravel back-ends.",stack:["OpenAI API","ChatGPT","Node.js","Laravel"],viz:"term3"}
+    ]}
+];
+
+const STRENGTHS = [
+  {ill:"prod",title:"Production Engineering & Support",text:"Operating live systems as Production Support Engineer — incident response, log analysis, hotfixes and safe deployments without regressions to working flows.",proof:"Live travel, payment & oil-and-gas systems"},
+  {ill:"stack",title:"End-to-End Full Stack Delivery",text:"Single-owner delivery from data model and API contract to UI, CI/CD and production — Node.js, Next.js, React, Laravel, Angular.",proof:"Designed, built and deployed"},
+  {ill:"db",title:"Database Design & Optimisation",text:"Normalised relational schemas, MongoDB document modelling, indexing strategy, migrations and query optimisation for transactional workloads.",proof:"MySQL · MongoDB · Elasticsearch"},
+  {ill:"integ",title:"Third-Party Integrations",text:"Flight, hotel, rail and cab suppliers, Google APIs, SerpAPI, ERP and RChilli — authentication, rate limits, retries and reconciliation.",proof:"Worldwide travel supply"},
+  {ill:"pay",title:"Payment Gateway Engineering",text:"PayGlocal integration — order lifecycle, callbacks, webhook signature verification, idempotent state transitions and refunds.",proof:"PayGlocal in production"},
+  {ill:"debug",title:"Debugging & Root-Cause Analysis",text:"Systematic RCA across services, queues, logs and databases — reproducing, isolating and permanently fixing defects rather than masking symptoms.",proof:"Production incidents resolved"},
+  {ill:"queue",title:"Asynchronous & Event-Driven Processing",text:"Queues, Jobs, Cron and ActiveMQ for background processing and bi-directional data synchronisation across multiple data stores.",proof:"Sync every 4–5 minutes"},
+  {ill:"search",title:"Search Engineering",text:"Elasticsearch indexing and query design, plus SerpAPI and search-API integrations for in-product discovery.",proof:"−60% recruiter search time"},
+  {ill:"micro",title:"System Design & Microservices",text:"Service decomposition, API design, integration layers and failure isolation for multi-module, multi-tenant platforms.",proof:"9-module platform"},
+  {ill:"observ",title:"Observability & Monitoring",text:"Centralised logging, CloudWatch metrics and alarms, and traceability that make production behaviour explainable.",proof:"CloudWatch · centralised logs"},
+  {ill:"cicd",title:"CI/CD & Cloud Deployment",text:"Jenkins pipelines, Git/Bitbucket workflows, AWS and Hostinger environments, Linux administration and environment configuration.",proof:"AWS · Hostinger · Jenkins"},
+  {ill:"ai",title:"AI-Augmented Engineering",text:"Claude and ChatGPT agents with tool use, Claude Code Skills, sub-agents and MCP — applied to delivery speed, code review and automation.",proof:"Claude · ChatGPT · MCP"}
+];
+
+const PROJECTS = [
+  {label:"Built & deployed",title:"Travel Booking Platform",sub:"Flights worldwide · hotels · rail · cabs",text:"End-to-end booking platform for travel agencies covering search, fare and availability, booking, payment and confirmation across flight, hotel, rail and cab suppliers — integrated with PayGlocal, Google APIs and SerpAPI, and deployed to production.",chips:["Node.js","Next.js","React","MongoDB","MySQL","PayGlocal","Google APIs","SerpAPI"],viz:"travel",tint:"mint"},
+  {label:"Live · 500+ crew",title:"GET Global Group — Crew Deployment Platform",sub:"9 modules · oil & gas · Saudi Arabia, Oman, Aramco",text:"Recruitment and crew-deployment platform with Recruiter Panel, Tracker, Deployer, QHMS, Crew Order Form, Technical Interview, Crew Admin, CUMS Dashboard and a mobile-app back-end. Bi-directional data sync, ERP and ActiveMQ integrations, RChilli resume parsing.",chips:["Laravel","Angular","Elasticsearch","MySQL","ActiveMQ","AWS"],viz:"phone",tint:"sky"},
+  {label:"Payments",title:"PayGlocal Payment Integration",sub:"Order lifecycle · webhooks · reconciliation",text:"Order creation, redirect and callback handling, webhook signature verification, idempotent status transitions and refunds — with an admin console that traces every transaction end-to-end.",chips:["Node.js","Next.js","Laravel","Webhooks","MySQL"],viz:"pay",tint:"sand"},
+  {label:"Search",title:"Elasticsearch Candidate Search",sub:"RChilli parsing · indexing · relevance",text:"Resume ingestion through the RChilli Resume Parsing API, Elasticsearch indexing and query design across large candidate datasets — reducing recruiter search time by 60%.",chips:["Elasticsearch","RChilli","Laravel","Queues"],viz:"search",tint:"lilac"},
+  {label:"Analytics",title:"Microservice Admin Dashboard",sub:"Real-time analytics & KPI reporting",text:"Co-architected microservice admin dashboard on Laravel and Angular — AG-Grid data views, custom KPI widgets and CloudWatch integration for operational decision-making.",chips:["Laravel","Angular","AG-Grid","CloudWatch","Microservices"],viz:"dash",tint:"surface"},
+  {label:"Applied AI",title:"AI Agents — Claude & ChatGPT",sub:"Tool use · Skills · MCP",text:"Agentic workflows with tool calling, Claude Code Skills, sub-agents and MCP integrations, and LLM features embedded into Node.js, Next.js and Laravel services.",chips:["Claude API","Claude Code","Agent SDK","MCP","OpenAI API"],viz:"chat",tint:"mint"}
+];
+
+const JOURNEY = [
+  {year:2026,note:"// current scope",when:"2025 — Present",title:"Full Stack Engineer — Travel, Payments & AI",org:"K Square Tech Consulting, Gurugram",items:["Designed, built and deployed an end-to-end travel booking platform — worldwide flights, hotels, rail and cabs","Integrated the PayGlocal payment gateway, multiple Google APIs and SerpAPI","Primary stack: Node.js, Next.js and React alongside Laravel; deployments on AWS and Hostinger","Applied AI engineering with Claude and ChatGPT — tool use, Skills, sub-agents and MCP"]},
+  {year:2023,note:"// jan 2023 — present",when:"Jan 2023 — Present",title:"Full Stack Developer & Production Support Engineer",org:"K Square Tech Consulting, Gurugram",items:["Scalable Laravel REST APIs for a 9-module recruitment and crew-deployment platform serving oil & gas clients across Saudi Arabia, Oman and Aramco","Queues, Jobs and Cron for bi-directional sync across multiple databases and Elasticsearch, every 4–5 minutes","RChilli Resume Parsing API and Elasticsearch search — 60% reduction in recruiter search time","Six Angular frontends — Recruiter Panel, Tracker, QHMS, Client Rota, Crew Order — with AG-Grid","AWS S3, CloudWatch, Secrets Manager and Parameter Store; centralised logging and monitoring","Production support: incident resolution, log monitoring and Jenkins CI/CD deployments"]},
+  {year:2020,note:"// postgraduate",when:"2018 — 2020",title:"Master of Computer Applications (MCA)",org:"Kurukshetra University, Haryana",items:["Postgraduate degree in computer applications"]},
+  {year:2018,note:"// undergraduate",when:"2015 — 2018",title:"Bachelor of Computer Applications (BCA)",org:"Govt. College Chhachhrauli, Yamuna Nagar",items:["Undergraduate degree in computer applications"]}
+];
+
+const SKILLS = [
+  {name:"Node.js, Next.js & React",badge:"Primary",p:88,icons:["nodedotjs","nextdotjs","react","typescript"],text:"Node.js, Express, Next.js App Router, Server Components & Server Actions, React, JavaScript, TypeScript."},
+  {name:"API & Third-Party Integrations",badge:"Core",p:90,icons:["google","googlemaps","postman"],text:"Flight, hotel, rail & cab supplier APIs, PayGlocal, Google APIs, SerpAPI, ERP, RChilli; webhooks, OAuth, idempotency."},
+  {name:"PHP & Laravel",p:90,icons:["php","laravel"],text:"MVC, Eloquent ORM, Artisan, Queues & Jobs, Cron, middleware, API resources."},
+  {name:"Database Design",badge:"Strong",p:88,icons:["mysql","mongodb"],text:"MySQL and MongoDB schema design, indexing, migrations and query optimisation."},
+  {name:"Debugging & Production Support",badge:"Strong",p:88,icons:["linux","amazoncloudwatch"],text:"Root-cause analysis, log analysis, incident response and hotfix deployment."},
+  {name:"REST APIs & Microservices",p:88,icons:["express","postman"],text:"API design, service decomposition, versioning, authentication and failure isolation."},
+  {name:"Async & Event-Driven Processing",p:85,icons:["laravel","redis"],text:"Laravel Queues, Jobs, Cron, ActiveMQ, bi-directional data synchronisation."},
+  {name:"Search — Elasticsearch",p:85,icons:["elasticsearch"],text:"Index design, relevance tuning and query optimisation over large datasets."},
+  {name:"AI Agents — Claude & ChatGPT",badge:"Applied AI",p:82,icons:["claude","anthropic","openai"],text:"Claude API & Agent SDK, Claude Code, Skills, sub-agents, MCP, tool use, OpenAI API, structured outputs."},
+  {name:"Angular & TypeScript",p:80,icons:["angular","typescript","reactivex","bootstrap"],text:"Angular, TypeScript, AG-Grid, RxJS, AJAX, Bootstrap."},
+  {name:"Cloud & Hosting",p:80,icons:["amazonwebservices","amazons3","hostinger","ubuntu"],text:"AWS S3, Secrets Manager, Parameter Store, CloudWatch; Hostinger VPS; Linux (Ubuntu)."},
+  {name:"CI/CD & Tooling",p:78,icons:["jenkins","git","bitbucket","jira"],text:"Jenkins, Git, Bitbucket, FileZilla, Jira, Agile/Scrum, sprint planning, code reviews."}
+];
+
+const LOGOS1=[["nodedotjs","Node.js"],["nextdotjs","Next.js"],["react","React"],["typescript","TypeScript"],["javascript","JavaScript"],["express","Express"],["php","PHP"],["laravel","Laravel"],["angular","Angular"],["tailwindcss","Tailwind"],["bootstrap","Bootstrap"],["reactivex","RxJS"]];
+const LOGOS2=[["mysql","MySQL"],["mongodb","MongoDB"],["elasticsearch","Elasticsearch"],["amazonwebservices","AWS"],["amazons3","S3"],["amazoncloudwatch","CloudWatch"],["hostinger","Hostinger"],["jenkins","Jenkins"],["git","Git"],["bitbucket","Bitbucket"],["ubuntu","Ubuntu"],["nginx","Nginx"],["google","Google APIs"],["claude","Claude"],["openai","OpenAI"],["jira","Jira"],["",  "PayGlocal"],["","SerpAPI"],["","ActiveMQ"]];
+// tech name → icon slug for chips
+const ICON={"Node.js":"nodedotjs","Express":"express","PHP":"php","Laravel":"laravel","MySQL":"mysql","MongoDB":"mongodb","Elasticsearch":"elasticsearch","React":"react","Next.js":"nextdotjs","TypeScript":"typescript","JavaScript":"javascript","Angular":"angular","RxJS":"reactivex","Bootstrap":"bootstrap","Tailwind":"tailwindcss","HTML5":"html5","CSS3":"css3","Google APIs":"google","AWS":"amazonwebservices","AWS S3":"amazons3","CloudWatch":"amazoncloudwatch","Hostinger":"hostinger","Ubuntu":"ubuntu","Linux":"linux","Nginx":"nginx","Jenkins":"jenkins","Git":"git","Bitbucket":"bitbucket","FileZilla":"filezilla","Claude API":"claude","Claude Code":"claude","Claude Agent SDK":"anthropic","Agent SDK":"anthropic","ChatGPT":"openai","OpenAI API":"openai"};
+const ICDN="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/";
+
+/* ================= HELPERS ================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const pad=n=>String(n).padStart(2,"0");
+const ic=slug=>slug?`<i class="ic" style="--ic:url(${ICDN}${slug}.svg)"></i>`:"";
+// brand colours (null = monochrome brand, follows the theme)
+const BRAND={nodedotjs:"#5FA04E",nextdotjs:null,react:"#149ECA",typescript:"#3178C6",javascript:"#E3B800",express:null,php:"#777BB4",laravel:"#FF2D20",angular:"#DD0031",tailwindcss:"#06B6D4",bootstrap:"#7952B3",reactivex:"#B7178C",mysql:"#4479A1",mongodb:"#47A248",elasticsearch:"#00A9A5",amazonwebservices:"#FF9900",amazons3:"#569A31",amazoncloudwatch:"#FF4F8B",hostinger:"#673DE6",jenkins:"#D24939",git:"#F05032",bitbucket:"#0052CC",ubuntu:"#E95420",nginx:"#009639",google:"#4285F4",googlemaps:"#34A853",claude:"#D97757",anthropic:null,openai:"#10A37F",jira:"#0052CC",postman:"#FF6C37",redis:"#FF4438",linux:"#E0A800",filezilla:"#BF0000",html5:"#E34F26",css3:"#1572B6"};
+const MARK={PayGlocal:"#0EA5E9",SerpAPI:"#16A34A",ActiveMQ:"#C2410C"};
+const bstyle=slug=>BRAND[slug]?`--b:${BRAND[slug]}`:"";
+const chip=name=>{const s=ICON[name];return `<span style="${s?bstyle(s):MARK[name]?`--b:${MARK[name]}`:""}">${ic(s)}${esc(name)}</span>`;};
+// one hue per concept card
+const PALETTE=[["#10b981","#06b6d4"],["#6366f1","#a855f7"],["#0ea5e9","#22c55e"],["#f59e0b","#ef4444"],["#14b8a6","#6366f1"],["#ef4444","#f59e0b"],["#ec4899","#8b5cf6"],["#3b82f6","#06b6d4"],["#8b5cf6","#ec4899"],["#22c55e","#0ea5e9"],["#f97316","#eab308"],["#a855f7","#6366f1"]];
+const cssVar=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hasGsap=!!(window.gsap&&window.ScrollTrigger)&&!reduce;
+if(hasGsap){document.documentElement.classList.add("has-gsap");gsap.registerPlugin(ScrollTrigger);}
+
+/* ================= CONCEPT ILLUSTRATIONS ================= */
+const ILL={
+  prod:`<svg viewBox="0 0 240 110"><path class="il-l" d="M14 30H226M14 55H226M14 80H226"/><path class="il-a a-pulse" d="M14 62H70L82 30L96 90L110 42L120 62H226"/><circle class="il-af a-node" cx="200" cy="22" r="4"/><text class="il-t" x="152" y="25">LIVE</text></svg>`,
+  stack:`<svg viewBox="0 0 240 110"><g class="a-float"><rect class="il-f" x="45" y="12" width="150" height="24" rx="6"/><text class="il-t" x="58" y="28">UI · NEXT.JS</text></g><g class="a-float" style="animation-delay:-.6s"><rect class="il-f" x="45" y="43" width="150" height="24" rx="6" style="stroke:var(--accent)"/><text class="il-t" x="58" y="59">API · NODE · LARAVEL</text></g><g class="a-float" style="animation-delay:-1.2s"><rect class="il-f" x="45" y="74" width="150" height="24" rx="6"/><text class="il-t" x="58" y="90">DB · MYSQL · MONGO</text></g></svg>`,
+  db:`<svg viewBox="0 0 240 110"><rect class="il-f" x="18" y="14" width="86" height="82" rx="8"/><rect class="il-sf" x="18" y="14" width="86" height="18" rx="8"/><text class="il-t" x="28" y="27">bookings</text><path class="il-l" d="M28 48H94M28 64H94M28 80H94"/><rect class="il-f" x="136" y="28" width="86" height="66" rx="8"/><rect class="il-sf" x="136" y="28" width="86" height="18" rx="8"/><text class="il-t" x="146" y="41">payments</text><path class="il-l" d="M146 62H212M146 78H212"/><path id="dbRel" class="il-a" d="M104 64C120 64 120 37 136 37"/><circle class="il-af" r="3.5"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#dbRel"/></animateMotion></circle></svg>`,
+  integ:`<svg viewBox="0 0 240 110"><path class="il-a a-flow" d="M120 55L48 24M120 55L48 86M120 55L192 24M120 55L192 86"/><circle class="il-f" cx="48" cy="24" r="12"/><circle class="il-f" cx="48" cy="86" r="12"/><circle class="il-f" cx="192" cy="24" r="12"/><circle class="il-f" cx="192" cy="86" r="12"/><text class="il-t" x="40" y="27">FL</text><text class="il-t" x="40" y="89">HT</text><text class="il-t" x="184" y="27">RL</text><text class="il-t" x="184" y="89">CB</text><circle class="il-af a-node" cx="120" cy="55" r="16"/><text x="120" y="58.5" text-anchor="middle" style="fill:var(--on-accent);font:600 9px var(--mono)">API</text></svg>`,
+  pay:`<svg viewBox="0 0 240 110"><rect class="il-f" x="18" y="28" width="82" height="54" rx="8"/><rect class="il-g" x="18" y="40" width="82" height="9"/><rect class="il-sf" x="28" y="60" width="26" height="12" rx="2"/><path class="il-s a-flow" d="M108 55H156"/><path class="il-s" d="M150 49L157 55L150 61"/><circle class="il-f" cx="194" cy="55" r="24" style="stroke:var(--accent)"/><path class="il-a a-check" d="M183 55L191 63L206 47"/></svg>`,
+  debug:`<svg viewBox="0 0 240 110"><rect class="il-g" x="22" y="16" width="120" height="7" rx="3"/><rect class="il-g" x="22" y="31" width="160" height="7" rx="3"/><rect class="a-bug" x="16" y="44" width="190" height="16" rx="4"/><rect class="il-g" x="22" y="48" width="140" height="7" rx="3"/><rect class="il-g" x="22" y="68" width="100" height="7" rx="3"/><rect class="il-g" x="22" y="83" width="150" height="7" rx="3"/><g class="a-scan"><circle class="il-a" cx="196" cy="52" r="11"/><path class="il-a" d="M204 60L214 70"/></g></svg>`,
+  queue:`<svg viewBox="0 0 240 110"><rect class="il-l" x="14" y="38" width="170" height="34" rx="8"/><g><rect class="il-af a-move" x="22" y="47" width="16" height="16" rx="3"/><rect class="il-af a-move" x="22" y="47" width="16" height="16" rx="3" style="animation-delay:-.7s;opacity:.7"/><rect class="il-af a-move" x="22" y="47" width="16" height="16" rx="3" style="animation-delay:-1.4s;opacity:.5"/><rect class="il-af a-move" x="22" y="47" width="16" height="16" rx="3" style="animation-delay:-2.1s;opacity:.35"/></g><circle class="il-f" cx="210" cy="55" r="18"/><path class="il-a a-spin" d="M210 43A12 12 0 0 1 222 55"/><text class="il-t" x="18" y="92">QUEUE → WORKER</text></svg>`,
+  search:`<svg viewBox="0 0 240 110"><rect class="il-f" x="18" y="12" width="204" height="24" rx="12" style="stroke:var(--accent)"/><circle class="il-a" cx="34" cy="24" r="5"/><path class="il-a" d="M38 28L42 32"/><text class="il-t" x="50" y="27">laravel AND aws</text><rect class="il-af a-grow" x="18" y="50" width="190" height="8" rx="4"/><rect class="il-af a-grow" x="18" y="68" width="150" height="8" rx="4" style="opacity:.6;animation-delay:.15s"/><rect class="il-af a-grow" x="18" y="86" width="110" height="8" rx="4" style="opacity:.35;animation-delay:.3s"/></svg>`,
+  micro:`<svg viewBox="0 0 240 110"><path id="m1" class="il-l" d="M40 55L100 24"/><path id="m2" class="il-l" d="M40 55L100 86"/><path id="m3" class="il-l" d="M100 24L160 55"/><path id="m4" class="il-l" d="M100 86L160 55"/><path id="m5" class="il-l" d="M160 55L208 24"/><path id="m6" class="il-l" d="M160 55L208 86"/>${[1,2,3,4,5,6].map(i=>`<circle class="il-af" r="3"><animateMotion dur="${1.4+i*.2}s" begin="${i*.25}s" repeatCount="indefinite"><mpath href="#m${i}"/></animateMotion></circle>`).join("")}<circle class="il-f" cx="40" cy="55" r="12"/><circle class="il-f" cx="100" cy="24" r="11"/><circle class="il-f" cx="100" cy="86" r="11"/><circle class="il-f" cx="160" cy="55" r="13" style="stroke:var(--accent)"/><circle class="il-f" cx="208" cy="24" r="10"/><circle class="il-f" cx="208" cy="86" r="10"/></svg>`,
+  observ:`<svg viewBox="0 0 240 110"><path class="il-l" d="M18 20H222M18 50H222M18 80H222"/><path class="il-sf" d="M18 82L48 64L78 72L108 40L138 52L168 30L198 44L222 26V96H18Z" style="opacity:.8"/><path class="il-a a-draw" d="M18 82L48 64L78 72L108 40L138 52L168 30L198 44L222 26"/><circle class="il-af a-node" cx="168" cy="30" r="4"/></svg>`,
+  cicd:`<svg viewBox="0 0 240 110"><path class="il-l" d="M36 50H204"/><path class="il-a a-draw" d="M36 50H204" style="stroke-dasharray:170;animation-duration:4s"/>${[["36","BUILD",0],["92","TEST",1],["148","DEPLOY",2],["204","MONITOR",3]].map(([x,l,i])=>`<circle cx="${x}" cy="50" r="11" class="il-f"/><circle cx="${x}" cy="50" r="5" class="il-af a-fade" style="animation-delay:${i*.5}s"/><text class="il-t" x="${x}" y="82" text-anchor="middle">${l}</text>`).join("")}</svg>`,
+  ai:`<svg viewBox="0 0 240 110">${(()=>{const L=[[50,[30,55,80]],[120,[20,45,65,90]],[190,[40,70]]];let s="";for(let a=0;a<2;a++)for(const y1 of L[a][1])for(const y2 of L[a+1][1])s+=`<path class="il-b a-fade" style="animation-delay:${((y1+y2)%7)*.25}s" d="M${L[a][0]} ${y1}L${L[a+1][0]} ${y2}"/>`;L.forEach(([x,ys],i)=>ys.forEach((y,k)=>{s+=`<circle class="${i===2?"il-af a-node":"il-f"}" style="animation-delay:${k*.4}s" cx="${x}" cy="${y}" r="${i===2?7:6}"/>`;}));return s;})()}</svg>`
+};
+
+function viz(t){
+  switch(t){
+    case "phone": return `<div class="v-phone"><i class="a"></i><i style="width:80%"></i><div class="blk">${[40,70,55,85,62,95].map(h=>`<b style="height:${h}%"></b>`).join("")}</div><i></i><i style="width:55%"></i></div>`;
+    case "dash": return `<div class="v-dash"><div class="k"><b>2,847</b><small>USERS</small></div><div class="k"><b>341</b><small>DEPLOYS</small></div><div class="k"><b>99.9%</b><small>UPTIME</small></div><div class="ch">${[40,62,48,78,56,90,68,84,60,96].map((h,i)=>`<b class="${i===9?"a":""}" style="height:${h}%"></b>`).join("")}</div></div>`;
+    case "term": return `<div class="v-term"><span class="c">$</span> php artisan interview:schedule<br><span class="ok">✓</span> slots matched<br><span class="ok">✓</span> interviewers assigned<br><span class="ok">✓</span> evaluation forms queued<br><span class="c">→ scoring pipeline ready</span></div>`;
+    case "term2": return `<div class="v-term"><span class="c">$</span> aws ssm get-parameter --name /prod/db<br><span class="ok">✓</span> parameter resolved<br><span class="c">$</span> aws cloudwatch describe-alarms<br><span class="ok">✓</span> 0 in ALARM</div>`;
+    case "term3": return `<div class="v-term"><span class="c">// LLM inside the service layer</span><br>summary = await llm.summarize(profile)<br>tags = await llm.extract(cv, ['skills'])<br><span class="ok">✓</span> structured output validated</div>`;
+    case "skill": return `<div class="v-term"><span class="c">.claude/skills/deploy/SKILL.md</span><br>---<br>name: deploy<br>description: Ship to staging safely<br>---<br>1. run tests &nbsp;2. build &nbsp;3. deploy</div>`;
+    case "pay": return `<div class="v-pay"><div class="top"><b>PayGlocal</b><span class="mono" style="font-size:10px;color:var(--fg-3)">#A-1042</span></div><div class="amt">₹4,999.00</div><span class="mono" style="font-size:10px;color:var(--accent)">STATUS · PAID</span><ol><li>order created</li><li>webhook signature verified</li><li>status updated (idempotent)</li><li>receipt sent</li></ol></div>`;
+    case "flow": return `<div class="v-flow"><div class="nd">Travel agency app</div><i></i><div class="nd a">Integration layer</div><i></i><div class="nd">Google APIs · SerpAPI</div></div>`;
+    case "hub2": return `<div class="v-hub"><b>Laravel</b>${["ERP","ActiveMQ","RChilli","Elastic","AWS S3","MySQL"].map((s,k)=>`<span style="--a:${k*60}deg">${s}</span>`).join("")}</div>`;
+    case "search": return `<div class="v-search"><div class="q"><span class="mono">GET /candidates/_search</span><b>laravel AND aws</b></div>${[["Senior PHP Developer · Riyadh",.94],["Backend Engineer · Muscat",.88],["Full Stack Developer · Dammam",.81],["DevOps Engineer · Jubail",.72]].map(([t,s])=>`<div class="r"><span>${t}</span><i style="--s:${s}"></i><em>${s.toFixed(2)}</em></div>`).join("")}</div>`;
+    case "travel": return `<div class="v-travel"><div class="tabs"><span class="on">Flights</span><span>Hotels</span><span>Rail</span><span>Cabs</span></div><div class="route"><b>DEL<small>NEW DELHI</small></b><i></i><b style="text-align:right">LHR<small>LONDON</small></b></div><div class="rows"><div><span>Fare &amp; availability</span><b>✓</b></div><div><span>Hotel · 3 nights</span><b>held</b></div><div><span>Airport transfer</span><b>booked</b></div><div class="ok"><span>PayGlocal</span><b>PAID</b></div></div></div>`;
+    case "chat": return `<div class="v-chat"><div class="m u">Find candidates with Next.js + AWS and schedule interviews.</div><div class="t">⚙ search_candidates()</div><div class="t">⚙ book_slot()</div><div class="m a">8 matches found. 5 interviews scheduled for Thursday; invites sent.</div></div>`;
+  }
+  return "";
+}
+
+/* ================= RENDER ================= */
+(()=>{const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t))f.append(t);else{const s=document.createElement("span");s.className="w";s.textContent=t;f.append(s)}});c.replaceWith(f)}else walk(c)})};walk($("#statement"))})();
+
+$("#bestGrid").innerHTML=STRENGTHS.map((b,i)=>`<div class="bcard" style="--k:${PALETTE[i][0]};--k2:${PALETTE[i][1]}"><div class="art">${ILL[b.ill]}</div><div class="n mono"><span>${pad(i+1)}</span><span>↗</span></div><h3>${esc(b.title)}</h3><p>${esc(b.text)}</p><div class="proof">${esc(b.proof)}</div></div>`).join("");
+
+$("#pips").innerHTML=DOORS.map(()=>"<i></i>").join("");
+$("#row5").innerHTML=DOORS.map((d,i)=>`<button class="door" data-i="${i}" data-cursor="Open" style="--c:${d.color}" aria-label="Open ${esc(d.name)}">
+  <div class="frame"></div><div class="inside"></div>
+  <div class="leaf"><span class="plate">${pad(i+1)}</span><span class="knob"></span></div><div class="spill"></div>
+  <span class="cap"><b>${esc(d.short)}</b>${pad(i+1)}</span></button>`).join("");
+
+const logoHTML=list=>list.map(([s,n])=>`<span class="logo" style="${s?bstyle(s):`--b:${MARK[n]}`}">${s?ic(s):`<span class="mk">${esc(n[0])}</span>`}${esc(n)}</span>`).join("");
+$("#logos1").innerHTML=logoHTML(LOGOS1)+logoHTML(LOGOS1);
+$("#logos2").innerHTML=logoHTML(LOGOS2)+logoHTML(LOGOS2);
+
+$("#stack").innerHTML=PROJECTS.map((p,i)=>`
+  <article class="scard" style="--i:${i};--cbg:var(--c-${p.tint})">
+    <div class="left">
+      <div class="meta mono"><span>${pad(i+1)} / ${pad(PROJECTS.length)}</span><span class="lbl">${esc(p.label)}</span></div>
+      <h3>${esc(p.title)}</h3><div class="sub">${esc(p.sub)}</div><p>${esc(p.text)}</p>
+      <div class="chips">${p.chips.map(chip).join("")}</div>
+    </div>
+    <div class="shot">${viz(p.viz)}</div>
+  </article>`).join("");
+
+$("#timeline").innerHTML=JOURNEY.map(j=>`<div class="tl"><div class="when mono">${esc(j.when)}</div><h3>${esc(j.title)}</h3><div class="org">${esc(j.org)}</div><ul>${j.items.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`).join("");
+
+$("#skillList").innerHTML=SKILLS.map((s,i)=>`<div class="srow" style="--p:${s.p}%"><span class="n mono">${pad(i+1)}</span><h4>${esc(s.name)}${s.badge?`<small>${esc(s.badge)}</small>`:""}</h4><p>${esc(s.text)}</p><div class="icons">${s.icons.map(x=>`<span title="${x}" style="${bstyle(x)}">${ic(x)}</span>`).join("")}</div><span class="pct">${s.p}%</span><div class="bar"><i></i></div></div>`).join("");
+
+/* ================= THEME ================= */
+let currentTint="paper";
+function themeMode(){try{return localStorage.getItem("theme")||"system";}catch(e){return "system";}}
+function applyTheme(mode){
+  if(mode==="system")delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=mode;
+  try{localStorage.setItem("theme",mode);}catch(e){}
+  $$(".theme-switch button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode)));
+  requestAnimationFrame(()=>{document.body.style.backgroundColor=cssVar("--t-"+currentTint);window.recolorGlobe?.();});
+}
+$$(".theme-switch button").forEach(b=>b.addEventListener("click",()=>applyTheme(b.dataset.mode)));
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(themeMode()==="system")applyTheme("system");});
+applyTheme(themeMode());
+
+/* ================= ROLE STICKER ================= */
+(()=>{const el=$("#role");let i=0;
+  setInterval(()=>{
+    if(!hasGsap){i=(i+1)%ROLES.length;el.textContent=ROLES[i];return;}
+    gsap.to(el,{yPercent:-110,duration:.35,ease:"power2.in",onComplete:()=>{
+      i=(i+1)%ROLES.length;el.textContent=ROLES[i];
+      gsap.fromTo(el,{yPercent:110},{yPercent:0,duration:.55,ease:"power3.out"});
+      gsap.fromTo("#sticker",{rotate:-5},{rotate:-3,duration:.9,ease:"elastic.out(1,.45)"});
+    }});
+  },2600);
+})();
+
+/* ================= SMOOTH SCROLL ================= */
+let lenis=null;
+if(window.Lenis&&!reduce){
+  lenis=new Lenis({lerp:.09});
+  if(hasGsap){lenis.on("scroll",ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);}
+  else{const raf=t=>{lenis.raf(t);requestAnimationFrame(raf)};requestAnimationFrame(raf);}
+}
+const scrollToEl=t=>{if(lenis)lenis.scrollTo(t,{duration:1.4,offset:-20});else t.scrollIntoView({behavior:"smooth"});};
+document.addEventListener("click",e=>{
+  const a=e.target.closest('a[href^="#"]');if(!a)return;
+  const t=document.querySelector(a.getAttribute("href"));if(!t)return;
+  e.preventDefault();$("#sheet").classList.remove("open");scrollToEl(t);
 });
+$("#menuBtn").onclick=()=>$("#sheet").classList.add("open");
+$("#menuClose").onclick=()=>$("#sheet").classList.remove("open");
 
-/* SCROLL REVEAL */
-const ro=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('vis');if(el.target.classList.contains('sk-card'))setTimeout(()=>el.target.classList.add('revealed'),250)}})},{threshold:.1});
-document.querySelectorAll('.rev').forEach(r=>ro.observe(r));
+/* ================= INTRO ================= */
+function intro(){
+  if(!hasGsap){$("#loader")?.remove();return;}
+  lenis?.stop();
+  gsap.set(".hero .ln > span",{yPercent:110});
+  gsap.set("#sticker",{scale:.4,opacity:0,rotate:-20});
+  gsap.set(".photo",{clipPath:"inset(100% 0% 0% 0% round 22px)"});
+  gsap.set(".hero-foot > *",{y:30,opacity:0});
+  const c={v:0};
+  gsap.timeline()
+    .to(c,{v:100,duration:1.4,ease:"power2.inOut",onUpdate:()=>{$("#count").textContent=Math.round(c.v);$("#loadbar").style.width=c.v+"%";}})
+    .to("#loader",{yPercent:-100,duration:1,ease:"power4.inOut"},"+=.1")
+    .to(".hero .ln > span",{yPercent:0,duration:1.1,stagger:.1,ease:"power4.out"},"-=.45")
+    .to(".photo",{clipPath:"inset(0% 0% 0% 0% round 22px)",duration:1.2,ease:"power4.inOut"},"<")
+    .to("#sticker",{scale:1,opacity:1,rotate:-3,duration:1,ease:"elastic.out(1,.55)"},"-=.7")
+    .to(".hero-foot > *",{y:0,opacity:1,duration:.8,stagger:.08,ease:"power3.out"},"-=.8")
+    .add(()=>{$("#loader").remove();lenis?.start();});
+}
 
-/* COUNTERS */
-function animC(el,t,d=1800){let s=0;const f=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/d,1);el.textContent=Math.floor(p*t)+'+';if(p<1)requestAnimationFrame(f);else el.textContent=t+'+'};requestAnimationFrame(f)}
-const co=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){const n=el.target.querySelector('[data-count]');if(n&&!n.dataset.a){n.dataset.a=1;animC(n,+n.dataset.count)}}})},{threshold:.5});
-document.querySelectorAll('.stat-c').forEach(c=>co.observe(c));
+/* ================= SCROLL ANIMATIONS ================= */
+function scrollFx(){
+  if(!hasGsap){$$(".srow").forEach(r=>r.classList.add("in"));return;}
+  gsap.to("#heroImg",{yPercent:8,ease:"none",scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:true}});
+  gsap.to("#statement .w",{opacity:1,stagger:.08,ease:"none",scrollTrigger:{trigger:"#statement",start:"top 80%",end:"bottom 50%",scrub:true}});
+  $$("section:not(.hero) .ln > span").forEach(s=>gsap.from(s,{yPercent:110,duration:1.1,ease:"power4.out",scrollTrigger:{trigger:s.parentElement,start:"top 90%"}}));
+  $$("[data-reveal]").forEach(el=>gsap.from(el,{y:40,opacity:0,duration:1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%"}}));
+  gsap.from(".bcard",{y:60,opacity:0,duration:1,stagger:.06,ease:"power3.out",scrollTrigger:{trigger:"#bestGrid",start:"top 85%"}});
+  $$(".srow").forEach(r=>ScrollTrigger.create({trigger:r,start:"top 90%",once:true,onEnter:()=>r.classList.add("in")}));
+  gsap.from(".srow",{y:30,opacity:0,duration:.8,stagger:.05,ease:"power3.out",scrollTrigger:{trigger:"#skillList",start:"top 85%"}});
+  gsap.from(".big-btn",{scale:0,duration:1,ease:"back.out(1.6)",scrollTrigger:{trigger:".contact-line",start:"top 90%"}});
+  // hero blobs follow the pointer a little
+  addEventListener("pointermove",e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;gsap.to(".blob.b1",{x:x*60,y:y*40,duration:1.6,ease:"power2.out"});gsap.to(".blob.b2",{x:-x*50,y:-y*30,duration:1.8,ease:"power2.out"});});
+}
 
-/* FORM */
-function handleSub(e){e.preventDefault();const b=document.getElementById('fsub');b.textContent='Sending…';b.style.opacity='.7';setTimeout(()=>{b.textContent='✓ Message Sent!';b.style.background='var(--accent2)';setTimeout(()=>{b.textContent='Send Message ↗';b.style.background='var(--cyan)';b.style.opacity='1';e.target.reset()},3000)},1500)}
+/* ================= BACKGROUND MORPH ================= */
+function bgMorph(){
+  document.body.style.backgroundColor=cssVar("--t-paper");
+  if(!hasGsap)return;
+  $$("[data-bg]").forEach(sec=>ScrollTrigger.create({trigger:sec,start:"top 50%",end:"bottom 50%",
+    onToggle:s=>{if(!s.isActive)return;currentTint=sec.dataset.bg;gsap.to(document.body,{backgroundColor:cssVar("--t-"+currentTint),duration:1,ease:"power2.out",overwrite:"auto"});}}));
+}
 
-/* SMOOTH SCROLL */
-document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'})}));
+/* ================= TEXT SCRAMBLE ================= */
+const GLYPHS="!<>-_\\/[]{}=+*^?#01";
+function scramble(el){
+  const final=el.dataset.text||el.textContent;el.dataset.text=final;let f=0;const total=22;
+  clearInterval(el._sc);
+  el._sc=setInterval(()=>{
+    el.textContent=final.split("").map((c,i)=>c===" "||i<(f/total)*final.length?c:GLYPHS[Math.random()*GLYPHS.length|0]).join("");
+    if(++f>total){clearInterval(el._sc);el.textContent=final;}
+  },32);
+}
+function scrambleFx(){
+  if(hasGsap)$$("[data-scramble]").forEach(el=>ScrollTrigger.create({trigger:el,start:"top 90%",once:true,onEnter:()=>scramble(el)}));
+  $$(".nav ul a").forEach(a=>a.addEventListener("mouseenter",()=>scramble(a)));
+}
 
-/* PARALLAX */
-window.addEventListener('scroll',()=>{const g=document.querySelector('.hero-glow');if(g)g.style.transform=`translate(-50%,calc(-50% + ${window.scrollY*.12}px))`});
+/* ================= DOORS ================= */
+const feature=$("#feature"),fDoor=$("#featureDoor"),infoIn=$("#infoIn"),row=$("#row5"),pips=$$("#pips i");
+let shown=-1;
+function setFeature(i){
+  if(i===shown)return;shown=i;const d=DOORS[i];
+  fDoor.dataset.i=i;fDoor.style.setProperty("--c",d.color);$("#featurePlate").textContent=pad(i+1)+" · "+d.short;
+  infoIn.classList.add("swap");
+  setTimeout(()=>{
+    infoIn.innerHTML=`<div class="num mono">${pad(i+1)} — ${pad(DOORS.length)}</div><h3>${esc(d.name)}</h3><div class="tag">${esc(d.tag)}</div>
+      <ul>${d.points.map((p,k)=>`<li><span>${pad(k+1)}</span>${esc(p)}</li>`).join("")}</ul>
+      <div class="open-hint mono">Open the door for detailed scope ↗</div>`;
+    infoIn.classList.remove("swap");
+  },260);
+}
+setFeature(0);
+function updateDoors(){
+  const s=$("#doors"),r=s.getBoundingClientRect(),vh=innerHeight;
+  const p=clamp(-r.top/(r.height-vh)),n=DOORS.length,end=.8;
+  const ph=p<end?Math.min(n-1,Math.floor(p/(end/n))):n;
+  pips.forEach((pp,k)=>pp.classList.toggle("on",ph<n?k===ph:true));
+  if(ph<n){
+    setFeature(ph);feature.style.opacity=1;feature.style.transform="none";feature.style.pointerEvents="auto";row.classList.remove("on");
+    $("#doorsSub").textContent=`${pad(ph+1)} / ${pad(n)} — scroll`;
+  }else{
+    feature.style.opacity=0;feature.style.transform="translateY(-30px) scale(.94)";feature.style.pointerEvents="none";row.classList.add("on");
+    $("#doorsSub").textContent="Select a domain";
+  }
+}
+
+/* ================= ROOM ================= */
+const room=$("#room"),back=$("#back"),portal=$("#portal");let lastDoor=null;
+function roomHTML(i){
+  const d=DOORS[i],w=d.name.split(" "),nx=(i+1)%DOORS.length;
+  const title=w.length>1?esc(w.slice(0,-1).join(" "))+" <em>"+esc(w[w.length-1])+"</em>":"<em>"+esc(d.name)+"</em>";
+  return `<div class="room-inner"><div class="wrap">
+    <div class="crumb mono">Domain ${pad(i+1)} / ${pad(DOORS.length)}</div>
+    <h2>${title}</h2>
+    <div class="room-top"><p class="intro">${esc(d.intro)}</p><div class="chips">${d.skills.map(chip).join("")}</div></div>
+    <div class="room-list">${d.items.map((it,k)=>`
+      <div class="ritem"><div class="n mono">${pad(k+1)}</div>
+        <div><h3>${esc(it.title)}</h3><div class="sub">${esc(it.sub)}</div><p>${esc(it.text)}</p><div class="chips">${it.stack.map(chip).join("")}</div></div>
+        <div class="viz">${viz(it.viz)}</div></div>`).join("")}</div>
+    <div class="next"><span class="mono" style="color:var(--fg-3)">Next domain</span><button data-next="${nx}">${esc(DOORS[nx].name)} <em>→</em></button></div>
+  </div></div>`;
+}
+function showRoom(i){
+  room.innerHTML=roomHTML(i);room.scrollTop=0;room.classList.add("open");back.classList.add("on");
+  lenis?.stop();document.body.style.overflow="hidden";
+  if(hasGsap)gsap.from(room.querySelectorAll(".crumb,h2,.room-top > *,.ritem"),{y:50,opacity:0,duration:1,stagger:.07,ease:"power3.out",delay:.1});
+}
+function openRoom(i,doorEl){
+  if(!doorEl||!hasGsap){showRoom(i);return;}
+  doorEl.classList.add("open");lastDoor=doorEl;
+  const b=doorEl.querySelector(".inside").getBoundingClientRect(),c=DOORS[i].color;
+  gsap.set(portal,{display:"block",left:b.left,top:b.top,width:b.width,height:b.height,borderRadius:"999px 999px 4px 4px",opacity:1,
+    background:`radial-gradient(ellipse at 50% 80%, #fffaf0, ${c} 45%, ${cssVar("--bg")} 90%)`});
+  gsap.timeline()
+    .to(portal,{left:0,top:0,width:innerWidth,height:innerHeight,borderRadius:0,duration:1,ease:"expo.inOut",delay:.45})
+    .add(()=>showRoom(i))
+    .to(portal,{opacity:0,duration:.6,onComplete:()=>gsap.set(portal,{display:"none"})});
+}
+function closeRoom(){
+  room.classList.remove("open");back.classList.remove("on");lenis?.start();document.body.style.overflow="";
+  setTimeout(()=>lastDoor?.classList.remove("open"),300);
+}
+document.addEventListener("click",e=>{
+  const d=e.target.closest(".door");if(d){openRoom(+d.dataset.i,d);return;}
+  const nx=e.target.closest("[data-next]");if(nx)showRoom(+nx.dataset.next);
+});
+back.onclick=closeRoom;
+addEventListener("keydown",e=>{if(e.key==="Escape"&&room.classList.contains("open"))closeRoom();});
+
+/* ================= STACK + JOURNEY ================= */
+const cards=$$(".scard");
+function updateStack(){
+  cards.forEach((c,i)=>{const n=cards[i+1];if(!n){c.style.transform="";c.style.opacity="";return;}
+    const o=clamp((c.getBoundingClientRect().bottom-n.getBoundingClientRect().top)/c.offsetHeight);
+    c.style.transform=`scale(${1-o*.06})`;c.style.opacity=String(1-o*.5);});
+}
+let curYear=2026;
+function animateYear(to){
+  if(to===curYear)return;const from=curYear;curYear=to;
+  if(hasGsap){const o={v:from};gsap.to(o,{v:to,duration:.8,ease:"power3.out",onUpdate:()=>$("#year").textContent=Math.round(o.v)});}
+  else $("#year").textContent=to;
+}
+function updateJourney(){
+  const tls=$$(".tl");let a=0;tls.forEach((el,i)=>{if(el.getBoundingClientRect().top<innerHeight*.6)a=i;});
+  tls.forEach((el,i)=>el.classList.toggle("active",i===a));animateYear(JOURNEY[a].year);$("#yearNote").textContent=JOURNEY[a].note;
+}
+function onScroll(){updateDoors();updateStack();updateJourney();}
+addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",onScroll);onScroll();
+
+/* ================= WEBGL GLOBE ================= */
+function globe(){
+  const el=$("#globe");if(!el||!window.THREE)return;
+  const T=THREE;
+  const renderer=new T.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(renderer.domElement);
+  const scene=new T.Scene(),camera=new T.PerspectiveCamera(38,1,.1,100);camera.position.z=3.5;
+  const g=new T.Group();g.rotation.x=.38;g.rotation.y=3.37;scene.add(g);
+  const ll=(lat,lon,r=1)=>{const p=(90-lat)*Math.PI/180,t=(lon+180)*Math.PI/180;return new T.Vector3(-r*Math.sin(p)*Math.cos(t),r*Math.cos(p),r*Math.sin(p)*Math.sin(t));};
+  const coreMat=new T.MeshBasicMaterial({color:0xffffff});
+  g.add(new T.Mesh(new T.SphereGeometry(.985,48,48),coreMat));
+  const N=2800,pos=new Float32Array(N*3);
+  for(let i=0;i<N;i++){const y=1-(i/(N-1))*2,r=Math.sqrt(1-y*y),th=i*2.399963;pos[i*3]=Math.cos(th)*r;pos[i*3+1]=y;pos[i*3+2]=Math.sin(th)*r;}
+  const pg=new T.BufferGeometry();pg.setAttribute("position",new T.BufferAttribute(pos,3));
+  const dotMat=new T.PointsMaterial({color:0x8d9399,size:.013,transparent:true,opacity:.8});
+  g.add(new T.Points(pg,dotMat));
+  const ringMat=new T.LineBasicMaterial({color:0xcccccc,transparent:true,opacity:.6});
+  [0,23.4,-23.4].forEach(lat=>{const pts=[];for(let k=0;k<=128;k++)pts.push(ll(lat,k/128*360-180,1.002));g.add(new T.Line(new T.BufferGeometry().setFromPoints(pts),ringMat));});
+  const C={DEL:[28.6,77.2],BOM:[19.1,72.9],DXB:[25.2,55.3],RUH:[24.7,46.7],MCT:[23.6,58.3],LHR:[51.5,-.45],CDG:[49,2.5],FRA:[50,8.6],JFK:[40.6,-73.8],YYZ:[43.7,-79.6],SIN:[1.36,104],BKK:[13.7,100.7],NRT:[35.8,140.4],SYD:[-33.9,151.2]};
+  const cityMat=new T.MeshBasicMaterial({color:0x2f7a72}),cityGeo=new T.SphereGeometry(.014,10,10);
+  Object.values(C).forEach(([a,b])=>{const m=new T.Mesh(cityGeo,cityMat);m.position.copy(ll(a,b,1.004));g.add(m);});
+  const ROUTES=[["DEL","LHR"],["DEL","DXB"],["BOM","SIN"],["DEL","JFK"],["BOM","RUH"],["DEL","NRT"],["BOM","MCT"],["DEL","SYD"],["DEL","CDG"],["BOM","BKK"],["DEL","FRA"],["BOM","YYZ"]];
+  const SEG=90,ARC=["#0ea5e9","#a855f7","#10b981","#f59e0b","#ec4899","#6366f1","#14b8a6","#ef4444","#3b82f6","#22c55e","#f97316","#8b5cf6"],headGeo=new T.SphereGeometry(.022,10,10);
+  const arcs=ROUTES.map(([a,b],i)=>{
+    const v1=ll(...C[a],1.004),v2=ll(...C[b],1.004),d=v1.distanceTo(v2);
+    const mid=v1.clone().add(v2).multiplyScalar(.5).normalize().multiplyScalar(1+d*.42);
+    const curve=new T.QuadraticBezierCurve3(v1,mid,v2);
+    const geo=new T.BufferGeometry().setFromPoints(curve.getPoints(SEG));
+    const col=ARC[i%ARC.length],head=new T.Mesh(headGeo,new T.MeshBasicMaterial({color:col}));g.add(new T.Line(geo,new T.LineBasicMaterial({color:col,transparent:true,opacity:.95})),head);
+    return {curve,geo,head,p:-i*.35};
+  });
+  window.recolorGlobe=()=>{
+    coreMat.color.set(cssVar("--surface"));dotMat.color.set(cssVar("--fg-3"));ringMat.color.set(cssVar("--fg-3"));ringMat.opacity=.35;
+    cityMat.color.set(cssVar("--accent"));
+  };
+  recolorGlobe();
+  let drag=false,lx=0,vy=0;const box=el.parentElement;
+  box.addEventListener("pointerdown",e=>{drag=true;lx=e.clientX;});
+  addEventListener("pointerup",()=>drag=false);
+  box.addEventListener("pointermove",e=>{if(!drag)return;vy=(e.clientX-lx)*.006;lx=e.clientX;g.rotation.y+=vy;});
+  function size(){const s=el.clientWidth;renderer.setSize(s,s,false);camera.aspect=1;camera.updateProjectionMatrix();}
+  size();addEventListener("resize",size);
+  let running=false,last=performance.now();
+  new IntersectionObserver(([en])=>{running=en.isIntersecting;if(running){last=performance.now();requestAnimationFrame(loop);}}).observe(el);
+  function loop(now){
+    if(!running)return;const dt=Math.min((now-last)/1000,.05);last=now;
+    if(!drag){g.rotation.y+=.12*dt+vy;vy*=.92;}
+    arcs.forEach(a=>{
+      a.p+=dt*.55;if(a.p>2.3)a.p=-Math.random()*.8;const p=a.p;
+      if(p<=0){a.geo.setDrawRange(0,0);a.head.visible=false;return;}
+      if(p<1){a.geo.setDrawRange(0,Math.floor(p*SEG)+1);a.head.visible=true;a.head.position.copy(a.curve.getPoint(p));}
+      else if(p<1.5){a.geo.setDrawRange(0,SEG+1);a.head.visible=false;}
+      else{const s=Math.floor(((p-1.5)/.8)*SEG);a.geo.setDrawRange(s,SEG+1-s);}
+    });
+    renderer.render(scene,camera);requestAnimationFrame(loop);
+  }
+}
+
+/* ================= ARCHITECTURE DIAGRAM ================= */
+function arch(){
+  const svg=$("#arch");if(!svg)return;
+  const W=180,H=58;
+  const N={
+    client:[20,200,"Client","NEXT.JS · REACT","",1,"#3b82f6"],
+    api:[250,200,"API Gateway","NODE.JS · REST · AUTH","",1,"#6366f1"],
+    db:[250,380,"Data Layer","MONGODB · MYSQL","",0,"#10b981"],
+    orch:[495,110,"Booking Orchestrator","SEARCH · FARE · BOOK","",1,"#a855f7"],
+    pay:[495,280,"Payment Service","IDEMPOTENT STATE MACHINE","",1,"#f59e0b"],
+    queue:[495,400,"Queue Workers","RETRIES · WEBHOOKS · SYNC","",0,"#ec4899"],
+    fl:[760,6,"Flights","SUPPLIER API","EXT",0,"#0ea5e9"],
+    ho:[760,82,"Hotels","SUPPLIER API","EXT",0,"#14b8a6"],
+    ra:[760,158,"Rail","SUPPLIER API","EXT",0,"#22c55e"],
+    cb:[760,234,"Cabs","SUPPLIER API","EXT",0,"#eab308"],
+    pg:[760,322,"PayGlocal","PAYMENT GATEWAY","EXT",0,"#0ea5e9"],
+    gs:[760,410,"Google · SerpAPI","SEARCH & PLACES","EXT",0,"#4285f4"]
+  };
+  const E=[["client","api"],["api","orch"],["api","pay"],["api","db","v"],["orch","fl"],["orch","ho"],["orch","ra"],["orch","cb"],["pay","pg"],["orch","gs"],["pay","queue","v"],["pg","queue","wh"]];
+  const path=([a,b,k])=>{
+    const A=N[a],B=N[b];
+    if(k==="v"){const x1=A[0]+W/2,y1=A[1]+H,x2=B[0]+W/2,y2=B[1];return `M${x1} ${y1} C${x1} ${y1+40},${x2} ${y2-40},${x2} ${y2}`;}
+    if(k==="wh"){const x1=B[0]+W,y1=B[1]+H/2,x2=A[0],y2=A[1]+H/2;return `M${x2} ${y2} C${x2-60} ${y2},${x1+60} ${y1},${x1} ${y1}`;}
+    const x1=A[0]+W,y1=A[1]+H/2,x2=B[0],y2=B[1]+H/2;return `M${x1} ${y1} C${x1+50} ${y1},${x2-50} ${y2},${x2} ${y2}`;
+  };
+  let html=E.map((e,i)=>`<path id="e${i}" class="edge${e[2]==="wh"?" wh":""}" d="${path(e)}"/>`).join("");
+  html+=E.map((e,i)=>`<circle class="pk" r="3.6" style="--pc:${N[e[0]][6]}"><animateMotion dur="${(1.8+(i%4)*.35).toFixed(2)}s" begin="${(i*.27).toFixed(2)}s" repeatCount="indefinite"><mpath href="#e${i}"/></animateMotion></circle>`).join("");
+  html+=Object.values(N).map(([x,y,t1,t2,tag,hl,nc])=>`<g class="node${hl?" hl":""}" style="--nc:${nc}"><rect x="${x}" y="${y}" width="${W}" height="${H}" rx="10"/><circle class="dot" cx="${x+W-16}" cy="${y+H-14}" r="4"/>
+    <text class="t1" x="${x+16}" y="${y+25}">${t1}</text><text class="t2" x="${x+16}" y="${y+43}">${t2}</text>${tag?`<text class="tag" x="${x+W-14}" y="${y+18}" text-anchor="end">${tag}</text>`:""}</g>`).join("");
+  svg.innerHTML=html;
+  if(!hasGsap){svg.classList.add("live");return;}
+  const edges=$$("#arch .edge");
+  edges.forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;});
+  gsap.from("#arch .node",{opacity:0,y:14,duration:.6,stagger:.05,ease:"power2.out",scrollTrigger:{trigger:svg,start:"top 80%"}});
+  gsap.to(edges,{strokeDashoffset:0,stagger:.06,ease:"none",scrollTrigger:{trigger:svg,start:"top 78%",end:"top 30%",scrub:true,
+    onLeave:()=>{svg.classList.add("live");edges.forEach(p=>{if(p.classList.contains("wh"))p.style.strokeDasharray="4 5";});},
+    onEnterBack:()=>svg.classList.remove("live")}});
+}
+
+/* ================= TERMINAL ================= */
+function terminal(){
+  const body=$("#termBody"),inp=$("#termIn");if(!body)return;
+  const line=h=>{body.insertAdjacentHTML("beforeend",h+"\n");body.scrollTop=body.scrollHeight;};
+  const list=arr=>arr.map((t,i)=>`  <span class="m">${pad(i+1)}</span>  ${t}`).join("\n");
+  const CMDS={
+    help:()=>`<span class="k">Available commands</span>\n${[["whoami","profile summary"],["strengths","core engineering strengths"],["stack","technical stack by layer"],["projects","selected production work"],["experience","roles and scope"],["education","degrees"],["contact","email, phone, location"],["clear","clear the screen"]].map(([c,d])=>`  <span class="p">${c.padEnd(12)}</span><span class="m">${d}</span>`).join("\n")}`,
+    whoami:()=>`<span class="k">Ashish Saini</span> — Full Stack Engineer · Production Support Engineer\n<span class="m">Gurugram, India · 3+ years · open to full-time roles (30-day notice)</span>`,
+    strengths:()=>list(STRENGTHS.map(s=>s.title)),
+    stack:()=>[["backend","Node.js, Express, PHP, Laravel, REST, Microservices, Queues/Jobs, Cron, ActiveMQ"],["frontend","Next.js, React, TypeScript, Angular, AG-Grid, RxJS, Bootstrap"],["data","MySQL, MongoDB, Elasticsearch"],["integrations","Flight/hotel/rail/cab APIs, PayGlocal, Google APIs, SerpAPI, ERP, RChilli"],["cloud","AWS (S3, Secrets Manager, Parameter Store, CloudWatch), Hostinger, Linux"],["delivery","Jenkins CI/CD, Git, Bitbucket, Jira, Agile/Scrum"],["ai","Claude API, Claude Code, Agent SDK, MCP, ChatGPT, OpenAI API"]].map(([k,v])=>`  <span class="p">${k.padEnd(13)}</span>${v}`).join("\n"),
+    projects:()=>list(PROJECTS.map(p=>`${p.title} <span class="m">— ${p.sub}</span>`)),
+    experience:()=>JOURNEY.filter(j=>j.year>=2023).map(j=>`<span class="k">${j.title}</span>\n<span class="m">${j.org} · ${j.when}</span>\n${j.items.map(t=>"  • "+t).join("\n")}`).join("\n\n"),
+    education:()=>JOURNEY.filter(j=>j.year<2023).map(j=>`<span class="k">${j.title}</span>  <span class="m">${j.org} · ${j.when}</span>`).join("\n"),
+    contact:()=>`  <span class="p">email</span>     saini.ar96@gmail.com\n  <span class="p">phone</span>     +91 88160 00496\n  <span class="p">location</span>  Gurugram, Haryana · hybrid / on-site (Delhi NCR)`
+  };
+  function run(raw){
+    const cmd=raw.trim().toLowerCase();
+    line(`<span class="p">ashish@portfolio ~ %</span> ${esc(raw)}`);
+    if(!cmd)return;
+    if(cmd==="clear"){body.innerHTML="";return;}
+    if(cmd==="sudo hire ashish"){line(`<span class="ok">✓ permission granted</span> — opening mail client…`);setTimeout(()=>location.href="mailto:saini.ar96@gmail.com?subject=Interview%20request",700);return;}
+    line(CMDS[cmd]?CMDS[cmd]():`<span class="m">zsh: command not found: ${esc(cmd)} — try</span> <span class="p">help</span>`);
+  }
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter"){run(inp.value);inp.value="";}});
+  $("#termChips").innerHTML=["whoami","strengths","stack","projects","experience","education","contact","clear"].map(c=>`<button data-cmd="${c}">${c}</button>`).join("");
+  $("#termChips").addEventListener("click",e=>{const b=e.target.closest("[data-cmd]");if(b)run(b.dataset.cmd);});
+  body.addEventListener("click",()=>inp.focus({preventScroll:true}));
+  line(`<span class="m">Last login: ${new Date().toDateString()} on ttys001</span>`);
+  let booted=false;
+  const boot=()=>{if(booted)return;booted=true;let i=0;const c="whoami";
+    const t=setInterval(()=>{inp.value=c.slice(0,++i);if(i===c.length){clearInterval(t);setTimeout(()=>{run(c);inp.value="";run("help");},250);}},90);};
+  new IntersectionObserver(([en],o)=>{if(en.isIntersecting){boot();o.disconnect();}},{threshold:.4}).observe(body);
+}
+
+/* ================= CURSOR + MAGNETIC ================= */
+(()=>{
+  if(matchMedia("(hover:none)").matches)return;
+  const c=$(".cursor"),lab=c.querySelector("span");let x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
+  addEventListener("mousemove",e=>{x=e.clientX;y=e.clientY;});
+  (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;c.style.transform=`translate3d(${cx}px,${cy}px,0)`;requestAnimationFrame(loop);})();
+  document.addEventListener("mouseover",e=>{
+    const t=e.target.closest("[data-cursor]");
+    if(t){lab.textContent=t.dataset.cursor;c.classList.add("label");c.classList.remove("hover");return;}
+    c.classList.remove("label");c.classList.toggle("hover",!!e.target.closest("a,button,input"));
+  });
+  $$(".magnetic").forEach(el=>{
+    const base=el.classList.contains("big-btn")?" translateY(-50%)":"";
+    el.addEventListener("mousemove",e=>{const r=el.getBoundingClientRect();el.style.transition="transform .2s";
+      el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.3}px)${base}`;});
+    el.addEventListener("mouseleave",()=>{el.style.transition="transform .7s cubic-bezier(.2,1.6,.4,1)";el.style.transform=base.trim();});
+  });
+})();
+
+/* ================= 3D TILT ================= */
+if(!matchMedia("(hover:none)").matches&&!reduce){
+  $$(".bcard,.scard .shot,.viz").forEach(el=>{
+    el.addEventListener("mousemove",e=>{
+      const r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+      el.style.setProperty("--mx",px*100+"%");el.style.setProperty("--my",py*100+"%");
+      el.style.transition="transform .15s";
+      el.style.transform=`perspective(900px) rotateX(${(.5-py)*8}deg) rotateY(${(px-.5)*10}deg) translateY(-6px)`;
+    });
+    el.addEventListener("mouseleave",()=>{el.style.transition="transform .7s cubic-bezier(.2,1,.3,1)";el.style.transform="";});
+  });
+}
+
+/* ================= CLOCK ================= */
+const tick=()=>{$("#clock").textContent=new Date().toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:true,timeZone:"Asia/Kolkata"}).toUpperCase()+" IST";};
+tick();setInterval(tick,30000);
+
+/* ================= GO ================= */
+arch();terminal();
+const start=()=>{intro();scrollFx();bgMorph();scrambleFx();globe();if(hasGsap)ScrollTrigger.refresh();};
+if(document.readyState==="complete")start();else addEventListener("load",start);
 </script>
 </body>
 </html>
